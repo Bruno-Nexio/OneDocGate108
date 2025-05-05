@@ -549,7 +549,6 @@ window :
          			// --------------------------------------------------------------- INSERT DU RDV
          
          			Prat is int	= 18
-         
          			HChangeDir("RDV", "Prat" + Prat)
          
          			UNIC	is string	= NumToString(Val(fic_cleunik),"010d")+Left(Replace(eventWithPatient.startDateTime,["-","T",":"],""),12)
