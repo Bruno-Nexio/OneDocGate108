@@ -1,0 +1,16 @@
+// CHANGES WITH PATIENT MERGE
+
+{
+  "changeId": 123,
+  "action": "merge",
+  "patient": {
+    "id": "dsadasdasd",
+    "firstName": "Alex",
+    "lastName": "Test",
+    "gender": "male",
+    "birthDate": "2020-01-07",
+    "email": "alex.test@onedoc.ch",
+    "mobilePhoneNumber": "+41764157550"
+  },
+  deletedPatientId: "asdasdasd"
+}

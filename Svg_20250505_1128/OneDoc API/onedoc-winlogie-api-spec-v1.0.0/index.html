@@ -1,0 +1,2021 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Winlogie API Spec - OneDoc sync v1.0.0</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;http&quot;,&quot;javascript&quot;,&quot;javascript--nodejs&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;java&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">Shell</a>
+              <a href="#" data-language-name="http">HTTP</a>
+              <a href="#" data-language-name="javascript">JavaScript</a>
+              <a href="#" data-language-name="javascript--nodejs">Node.JS</a>
+              <a href="#" data-language-name="ruby">Ruby</a>
+              <a href="#" data-language-name="python">Python</a>
+              <a href="#" data-language-name="java">Java</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc" class="toc-list-h1">
+          <li>
+            <a href="#Winlogie-API-Spec---OneDoc-sync" class="toc-h1 toc-link" data-title="winlogie-api-spec-onedoc-sync-v1-0-0">Winlogie API Spec - OneDoc sync v1.0.0</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#formats" class="toc-h2 toc-link" data-title="formats">Formats</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
+          </li>
+          <li>
+            <a href="#Winlogie-API-Spec---OneDoc-sync-Services" class="toc-h1 toc-link" data-title="services">Services</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getevents" class="toc-h2 toc-link" data-title="getevents">GetEvents</a>
+                  </li>
+                  <li>
+                    <a href="#getchanges" class="toc-h2 toc-link" data-title="getchanges">GetChanges</a>
+                  </li>
+                  <li>
+                    <a href="#deletechanges" class="toc-h2 toc-link" data-title="deletechanges">DeleteChanges</a>
+                  </li>
+                  <li>
+                    <a href="#pushchange" class="toc-h2 toc-link" data-title="pushchange">PushChange</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#schemas" class="toc-h1 toc-link" data-title="schemas">Schemas</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#tocSerror" class="toc-h2 toc-link" data-title="error">Error</a>
+                  </li>
+                  <li>
+                    <a href="#tocSeventcontainer" class="toc-h2 toc-link" data-title="eventcontainer">EventContainer</a>
+                  </li>
+                  <li>
+                    <a href="#tocSchange" class="toc-h2 toc-link" data-title="change">Change</a>
+                  </li>
+                  <li>
+                    <a href="#tocSevent" class="toc-h2 toc-link" data-title="event">Event</a>
+                  </li>
+                  <li>
+                    <a href="#tocSpatient" class="toc-h2 toc-link" data-title="patient">Patient</a>
+                  </li>
+                  <li>
+                    <a href="#tocSaddress" class="toc-h2 toc-link" data-title="address">Address</a>
+                  </li>
+                  <li>
+                    <a href="#tocSaction" class="toc-h2 toc-link" data-title="action">Action</a>
+                  </li>
+                  <li>
+                    <a href="#tocSgender" class="toc-h2 toc-link" data-title="gender">Gender</a>
+                  </li>
+              </ul>
+          </li>
+      </div>
+        <ul class="toc-footer">
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="Winlogie-API-Spec---OneDoc-sync">Winlogie API Spec - OneDoc sync v1.0.0</h1>
+
+<blockquote>
+<p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
+</blockquote>
+
+<p>This document specifies a few API endpoints that can be provided by the Winlogie software solution to enable a full or partial synchronization with the OneDoc online booking platform.</p>
+<h2 id='formats'>Formats</h2>
+<p>All dates and datetimes are formatted according to the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO8601</a> standard:  </p>
+
+<ul>
+<li>A <strong>date</strong> is formatted as <code>yyyy-MM-dd</code>, e.g. <code>2018-03-19</code><br></li>
+<li>A <strong>date with local time</strong> is formatted as <code>yyyy-MM-dd[T]HH:mm:ss</code>, e.g. <code>2018-03-19T10:30:00</code><br></li>
+<li>A <strong>timestamp</strong> is formatted as <code>yyyy-MM-dd[T]HH:mm:ss.SSS[Z]</code>, e.g. <code>2018-03-19T15:36:27.817Z</code> where <code>Z</code> denotes UTC time<br></li>
+</ul>
+<h1 id='authentication'>Authentication</h1>
+<ul>
+<li>HTTP Authentication, scheme: basic </li>
+</ul>
+
+<h1 id="Winlogie-API-Spec---OneDoc-sync-Services">Services</h1>
+
+<p>The <code>calendarId</code> path parameter is used to target a specific Winlogie calendar, e.g. doctor X, assistant Y, room Z, etc.</p>
+<h2 id='getevents'>GetEvents</h2>
+<p><a id="opIdGetEvents"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl -X GET ///calendars/<span class="o">{</span>calendarId<span class="o">}</span>/events?fromDateTime<span class="o">=</span>2019-01-01T00%3A00%3A00&amp;untilDateTime<span class="o">=</span>2019-02-01T00%3A00%3A00 <span class="se">\</span>
+  -H <span class="s1">'Accept: application/json'</span>
+
+
+</code></pre><pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">///calendars/{calendarId}/events?fromDateTime=2019-01-01T00%3A00%3A00&amp;untilDateTime=2019-02-01T00%3A00%3A00</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">null</span>
+
+
+Accept: application/json
+
+
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+
+
+<span class="p">};</span>
+
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'///calendars/{calendarId}/events'</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'get'</span><span class="p">,</span>
+  <span class="na">data</span><span class="p">:</span> <span class="s1">'?fromDateTime=2019-01-01T00%3A00%3A00&amp;untilDateTime=2019-02-01T00%3A00%3A00'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+
+</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
+
+
+<span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+
+
+<span class="p">};</span>
+
+
+<span class="nx">fetch</span><span class="p">(</span><span class="s1">'///calendars/{calendarId}/events?fromDateTime=2019-01-01T00%3A00%3A00&amp;untilDateTime=2019-02-01T00%3A00%3A00'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
+
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'rest-client'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span>
+<span class="p">}</span>
+
+
+<span class="n">result</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'///calendars/{calendarId}/events'</span><span class="p">,</span>
+  <span class="ss">params: </span><span class="p">{</span>
+  <span class="s1">'fromDateTime'</span> <span class="o">=&gt;</span> <span class="s1">'string'</span><span class="p">,</span>
+<span class="s1">'untilDateTime'</span> <span class="o">=&gt;</span> <span class="s1">'string'</span>
+<span class="p">},</span> <span class="ss">headers: </span><span class="n">headers</span>
+
+
+<span class="nb">p</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+<span class="p">}</span>
+
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'///calendars/{calendarId}/events'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+  <span class="s">'fromDateTime'</span><span class="p">:</span> <span class="s">'2019-01-01T00:00:00'</span><span class="p">,</span>  <span class="s">'untilDateTime'</span><span class="p">:</span> <span class="s">'2019-02-01T00:00:00'</span>
+<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+
+<span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+
+</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"///calendars/{calendarId}/events?fromDateTime=2019-01-01T00%3A00%3A00&amp;untilDateTime=2019-02-01T00%3A00%3A00"</span><span class="o">);</span>
+<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"GET"</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
+<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+
+</code></pre>
+<p><code>GET /calendars/{calendarId}/events</code></p>
+
+<p><em>Get calendar events</em></p>
+
+<p>Retrieve the events (along with patient data when available) of a given calendar within the provided date time interval.</p>
+
+<p><code>startDateTime &gt;= fromDateTime AND endDateTime &lt; untilDateTime</code></p>
+
+<aside class="notice">This endpoint will be used to perform the initial import of events.</aside>
+
+<h3 id="GetEvents-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>calendarId</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>Winlogie ID of the calendar (doctor X, assistant Y, room Z, etc.)</td>
+</tr>
+<tr>
+<td>fromDateTime</td>
+<td>query</td>
+<td>string</td>
+<td>true</td>
+<td>Inclusive lower bound filter for <code>startDateTime</code> of event (local date time in the Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>untilDateTime</td>
+<td>query</td>
+<td>string</td>
+<td>true</td>
+<td>Exclusive upper bound filter for <code>endDateTime</code> of event (local date time in the Europe/Zurich timezone)</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876312"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"calendarId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"76"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"startDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T11:30:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"endDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T12:00:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pause"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mal au dos depuis 2 jours..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"patient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7168231"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Barack"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Obama"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"birthDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1961-11-25"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"barack.obama@gov.us"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"homePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41221234567"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"mobilePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41791234567"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Avenue de Sécheron"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Genève"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1202"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CH"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2035</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid date"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2035</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid date"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2035</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid date"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="GetEvents-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Operation successful</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Invalid request (query parameter, body, etc.)</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>No authorization provided or invalid authorization</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Resource not found</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+
+<h3 id="GetEvents-responseschema">Response Schema</h3>
+
+<p>Status Code <strong>200</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>[<a href="#schemaeventcontainer">EventContainer</a>]</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» event</td>
+<td><a href="#schemaevent">Event</a></td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» id</td>
+<td>string</td>
+<td>false</td>
+<td>Winlogie event ID (omitted when OneDoc pushes an event creation)</td>
+</tr>
+<tr>
+<td>»» calendarId</td>
+<td>string</td>
+<td>true</td>
+<td>Winlogie calendar ID</td>
+</tr>
+<tr>
+<td>»» startDateTime</td>
+<td>string</td>
+<td>true</td>
+<td>Event start date time (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>»» endDateTime</td>
+<td>string</td>
+<td>true</td>
+<td>Event end date time (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>»» summary</td>
+<td>string</td>
+<td>false</td>
+<td>Event summary</td>
+</tr>
+<tr>
+<td>»» description</td>
+<td>string</td>
+<td>false</td>
+<td>Event description or comment</td>
+</tr>
+<tr>
+<td>» patient</td>
+<td><a href="#schemapatient">Patient</a></td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» id</td>
+<td>string</td>
+<td>false</td>
+<td>Winlogie patient ID (omitted when OneDoc pushes a patient creation)</td>
+</tr>
+<tr>
+<td>»» firstName</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» lastName</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» gender</td>
+<td><a href="#schemagender">Gender</a></td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» birthDate</td>
+<td>string(date)</td>
+<td>false</td>
+<td>ISO 8601 formatted date</td>
+</tr>
+<tr>
+<td>»» email</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» homePhoneNumber</td>
+<td>string</td>
+<td>false</td>
+<td>Home phone number of the patient (E.164 format)</td>
+</tr>
+<tr>
+<td>»» mobilePhoneNumber</td>
+<td>string</td>
+<td>false</td>
+<td>Mobile phone number of the patient (E.164 format)</td>
+</tr>
+<tr>
+<td>»» address</td>
+<td><a href="#schemaaddress">Address</a></td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» street</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» houseNumber</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» city</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» zipCode</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» state</td>
+<td>string</td>
+<td>false</td>
+<td>When <code>country</code> is <code>CH</code>, 2-letter canton code (<code>GE</code>, <code>VD</code>, etc.), else free text</td>
+</tr>
+<tr>
+<td>»»» country</td>
+<td>string</td>
+<td>false</td>
+<td>ISO-3166 country code</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>gender</td>
+<td>male</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>female</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+BasicAuth
+</aside>
+<h2 id='getchanges'>GetChanges</h2>
+<p><a id="opIdGetChanges"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl -X GET ///changes <span class="se">\</span>
+  -H <span class="s1">'Accept: application/json'</span>
+
+
+</code></pre><pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">///changes</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">null</span>
+
+
+Accept: application/json
+
+
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+
+
+<span class="p">};</span>
+
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'///changes'</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'get'</span><span class="p">,</span>
+
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+
+</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
+
+
+<span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+
+
+<span class="p">};</span>
+
+
+<span class="nx">fetch</span><span class="p">(</span><span class="s1">'///changes'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
+
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'rest-client'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span>
+<span class="p">}</span>
+
+
+<span class="n">result</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'///changes'</span><span class="p">,</span>
+  <span class="ss">params: </span><span class="p">{</span>
+  <span class="p">},</span> <span class="ss">headers: </span><span class="n">headers</span>
+
+
+<span class="nb">p</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+<span class="p">}</span>
+
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'///changes'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+
+
+<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+
+<span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+
+</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"///changes"</span><span class="o">);</span>
+<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"GET"</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
+<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+
+</code></pre>
+<p><code>GET /changes</code></p>
+
+<p><em>Get event and patient changes</em></p>
+
+<p>Return all the changes available in the folder as a list</p>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"updated"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-4T22:34:55.716Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876312"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"calendarId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"76"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"startDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T11:30:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"endDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T12:00:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pause"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mal au dos depuis 2 jours..."</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"patient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7168231"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Barack"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Obama"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"birthDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1961-11-25"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"barack.obama@gov.us"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"homePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41221234567"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"mobilePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41791234567"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Avenue de Sécheron"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Genève"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1202"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CH"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2035</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid date"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2035</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid date"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="GetChanges-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Operation successful</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Invalid request (query parameter, body, etc.)</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>No authorization provided or invalid authorization</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+
+<h3 id="GetChanges-responseschema">Response Schema</h3>
+
+<p>Status Code <strong>200</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>[<a href="#schemachange">Change</a>]</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» action</td>
+<td><a href="#schemaaction">Action</a></td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>» timestamp</td>
+<td>any</td>
+<td>true</td>
+<td>Timestamp at which this change occurred`</td>
+</tr>
+<tr>
+<td>» event</td>
+<td><a href="#schemaevent">Event</a></td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» id</td>
+<td>string</td>
+<td>false</td>
+<td>Winlogie event ID (omitted when OneDoc pushes an event creation)</td>
+</tr>
+<tr>
+<td>»» calendarId</td>
+<td>string</td>
+<td>true</td>
+<td>Winlogie calendar ID</td>
+</tr>
+<tr>
+<td>»» startDateTime</td>
+<td>string</td>
+<td>true</td>
+<td>Event start date time (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>»» endDateTime</td>
+<td>string</td>
+<td>true</td>
+<td>Event end date time (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>»» summary</td>
+<td>string</td>
+<td>false</td>
+<td>Event summary</td>
+</tr>
+<tr>
+<td>»» description</td>
+<td>string</td>
+<td>false</td>
+<td>Event description or comment</td>
+</tr>
+<tr>
+<td>» patient</td>
+<td><a href="#schemapatient">Patient</a></td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» id</td>
+<td>string</td>
+<td>false</td>
+<td>Winlogie patient ID (omitted when OneDoc pushes a patient creation)</td>
+</tr>
+<tr>
+<td>»» firstName</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» lastName</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» gender</td>
+<td><a href="#schemagender">Gender</a></td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» birthDate</td>
+<td>string(date)</td>
+<td>false</td>
+<td>ISO 8601 formatted date</td>
+</tr>
+<tr>
+<td>»» email</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»» homePhoneNumber</td>
+<td>string</td>
+<td>false</td>
+<td>Home phone number of the patient (E.164 format)</td>
+</tr>
+<tr>
+<td>»» mobilePhoneNumber</td>
+<td>string</td>
+<td>false</td>
+<td>Mobile phone number of the patient (E.164 format)</td>
+</tr>
+<tr>
+<td>»» address</td>
+<td><a href="#schemaaddress">Address</a></td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» street</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» houseNumber</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» city</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» zipCode</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>»»» state</td>
+<td>string</td>
+<td>false</td>
+<td>When <code>country</code> is <code>CH</code>, 2-letter canton code (<code>GE</code>, <code>VD</code>, etc.), else free text</td>
+</tr>
+<tr>
+<td>»»» country</td>
+<td>string</td>
+<td>false</td>
+<td>ISO-3166 country code</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-2'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>action</td>
+<td>created</td>
+</tr>
+<tr>
+<td>action</td>
+<td>updated</td>
+</tr>
+<tr>
+<td>action</td>
+<td>deleted</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>male</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>female</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+BasicAuth
+</aside>
+<h2 id='deletechanges'>DeleteChanges</h2>
+<p><a id="opIdDeleteChanges"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl -X DELETE ///changes?timestamp<span class="o">=</span>2019-06-05T15%3A36%3A27.817Z <span class="se">\</span>
+  -H <span class="s1">'Accept: application/json'</span>
+
+
+</code></pre><pre class="highlight http tab-http"><code><span class="nf">DELETE</span> <span class="nn">///changes?timestamp=2019-06-05T15%3A36%3A27.817Z</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">null</span>
+
+
+Accept: application/json
+
+
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+
+
+<span class="p">};</span>
+
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'///changes'</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'delete'</span><span class="p">,</span>
+  <span class="na">data</span><span class="p">:</span> <span class="s1">'?timestamp=2019-06-05T15%3A36%3A27.817Z'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+
+</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
+
+
+<span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+
+
+<span class="p">};</span>
+
+
+<span class="nx">fetch</span><span class="p">(</span><span class="s1">'///changes?timestamp=2019-06-05T15%3A36%3A27.817Z'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'DELETE'</span><span class="p">,</span>
+
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'rest-client'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span>
+<span class="p">}</span>
+
+
+<span class="n">result</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">delete</span> <span class="s1">'///changes'</span><span class="p">,</span>
+  <span class="ss">params: </span><span class="p">{</span>
+  <span class="s1">'timestamp'</span> <span class="o">=&gt;</span> <span class="s1">'string'</span>
+<span class="p">},</span> <span class="ss">headers: </span><span class="n">headers</span>
+
+
+<span class="nb">p</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+<span class="p">}</span>
+
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s">'///changes'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+  <span class="s">'timestamp'</span><span class="p">:</span> <span class="s">'2019-06-05T15:36:27.817Z'</span>
+<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+
+<span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+
+</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"///changes?timestamp=2019-06-05T15%3A36%3A27.817Z"</span><span class="o">);</span>
+<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"DELETE"</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
+<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+
+</code></pre>
+<p><code>DELETE /changes</code></p>
+
+<p><em>Delete the changes that were processed by OneDoc</em></p>
+
+<p>Delete the changes present in the folder up to the given timestamp (inclusive)</p>
+
+<h3 id="DeleteChanges-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>timestamp</td>
+<td>query</td>
+<td>string</td>
+<td>true</td>
+<td>Timestamp up to which changes should be deleted inclusively (<code>change timestamp</code> &lt;= <code>timestamp parameter</code>)</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2035</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid date"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2035</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid date"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="DeleteChanges-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>204</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">No Content</a></td>
+<td>Operation successful, no content in response</td>
+<td>None</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Invalid request (query parameter, body, etc.)</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>No authorization provided or invalid authorization</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+BasicAuth
+</aside>
+<h2 id='pushchange'>PushChange</h2>
+<p><a id="opIdPushChange"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl -X POST ///changes <span class="se">\</span>
+  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -H <span class="s1">'Accept: application/json'</span>
+
+
+</code></pre><pre class="highlight http tab-http"><code><span class="nf">POST</span> <span class="nn">///changes</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">null</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+
+<span class="w">
+</span></code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+
+
+<span class="p">};</span>
+
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'///changes'</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
+
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+
+</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="s1">'{
+  "action": "updated",
+  "timestamp": "2019-05-4T22:34:55.716Z",
+  "event": {
+    "id": "9876312",
+    "calendarId": "76",
+    "startDateTime": "2019-05-27T11:30:00",
+    "endDateTime": "2019-05-27T12:00:00",
+    "summary": "Pause",
+    "description": "Mal au dos depuis 2 jours..."
+  },
+  "patient": {
+    "id": "7168231",
+    "firstName": "Barack",
+    "lastName": "Obama",
+    "gender": "male",
+    "birthDate": "1961-11-25",
+    "email": "barack.obama@gov.us",
+    "homePhoneNumber": "+41221234567",
+    "mobilePhoneNumber": "+41791234567",
+    "address": {
+      "street": "Avenue de Sécheron",
+      "houseNumber": "15",
+      "city": "Genève",
+      "zipCode": "1202",
+      "state": "GE",
+      "country": "CH"
+    }
+  }
+}'</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Content-Type'</span><span class="p">:</span><span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Accept'</span><span class="p">:</span><span class="s1">'application/json'</span>
+
+
+<span class="p">};</span>
+
+
+<span class="nx">fetch</span><span class="p">(</span><span class="s1">'///changes'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">inputBody</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'rest-client'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Content-Type'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span>
+<span class="p">}</span>
+
+
+<span class="n">result</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">post</span> <span class="s1">'///changes'</span><span class="p">,</span>
+  <span class="ss">params: </span><span class="p">{</span>
+  <span class="p">},</span> <span class="ss">headers: </span><span class="n">headers</span>
+
+
+<span class="nb">p</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+<span class="p">}</span>
+
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'///changes'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+
+
+<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+
+<span class="k">print</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+
+</code></pre><pre class="highlight java tab-java"><code><span class="n">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">"///changes"</span><span class="o">);</span>
+<span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"POST"</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+<span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+<span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
+<span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+
+</code></pre>
+<p><code>POST /changes</code></p>
+
+<p><em>Push event and/or patient change</em></p>
+
+<p>Receive a change from OneDoc (creation, update or deletion of an event / patient)</p>
+
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"updated"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-4T22:34:55.716Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876312"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"calendarId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"76"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"startDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T11:30:00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"endDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T12:00:00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pause"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mal au dos depuis 2 jours..."</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"patient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7168231"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Barack"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Obama"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"birthDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1961-11-25"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"barack.obama@gov.us"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"homePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41221234567"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mobilePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41791234567"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Avenue de Sécheron"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Genève"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1202"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CH"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="PushChange-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemachange">Change</a></td>
+<td>true</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"updated"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-4T22:34:55.716Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876312"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"calendarId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"76"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"startDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T11:30:00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"endDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T12:00:00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pause"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mal au dos depuis 2 jours..."</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"patient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7168231"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Barack"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Obama"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"birthDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1961-11-25"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"barack.obama@gov.us"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"homePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41221234567"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mobilePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41791234567"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Avenue de Sécheron"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Genève"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1202"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CH"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2035</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid date"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2035</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid date"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="PushChange-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Operation successful</td>
+<td><a href="#schemachange">Change</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Invalid request (query parameter, body, etc.)</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>No authorization provided or invalid authorization</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+BasicAuth
+</aside>
+<h1 id='schemas'>Schemas</h1>
+<h2 id="tocSerror">Error</h2>
+
+<p><a id="schemaerror"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2035</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid date"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='properties'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>code</td>
+<td>integer(int32)</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSeventcontainer">EventContainer</h2>
+
+<p><a id="schemaeventcontainer"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876312"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"calendarId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"76"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"startDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T11:30:00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"endDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T12:00:00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pause"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mal au dos depuis 2 jours..."</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"patient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7168231"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Barack"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Obama"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"birthDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1961-11-25"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"barack.obama@gov.us"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"homePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41221234567"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mobilePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41791234567"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Avenue de Sécheron"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Genève"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1202"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CH"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='properties-2'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>event</td>
+<td><a href="#schemaevent">Event</a></td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>patient</td>
+<td><a href="#schemapatient">Patient</a></td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSchange">Change</h2>
+
+<p><a id="schemachange"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"updated"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-4T22:34:55.716Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876312"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"calendarId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"76"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"startDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T11:30:00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"endDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T12:00:00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pause"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mal au dos depuis 2 jours..."</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"patient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7168231"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Barack"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Obama"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"birthDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1961-11-25"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"barack.obama@gov.us"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"homePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41221234567"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mobilePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41791234567"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Avenue de Sécheron"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Genève"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1202"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CH"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='properties-3'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>action</td>
+<td><a href="#schemaaction">Action</a></td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>any</td>
+<td>true</td>
+<td>Timestamp at which this change occurred`</td>
+</tr>
+<tr>
+<td>event</td>
+<td><a href="#schemaevent">Event</a></td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>patient</td>
+<td><a href="#schemapatient">Patient</a></td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSevent">Event</h2>
+
+<p><a id="schemaevent"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876312"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"calendarId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"76"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"startDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T11:30:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"endDateTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-27T12:00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pause"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mal au dos depuis 2 jours..."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='properties-4'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>false</td>
+<td>Winlogie event ID (omitted when OneDoc pushes an event creation)</td>
+</tr>
+<tr>
+<td>calendarId</td>
+<td>string</td>
+<td>true</td>
+<td>Winlogie calendar ID</td>
+</tr>
+<tr>
+<td>startDateTime</td>
+<td>string</td>
+<td>true</td>
+<td>Event start date time (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>endDateTime</td>
+<td>string</td>
+<td>true</td>
+<td>Event end date time (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>summary</td>
+<td>string</td>
+<td>false</td>
+<td>Event summary</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>false</td>
+<td>Event description or comment</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSpatient">Patient</h2>
+
+<p><a id="schemapatient"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7168231"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Barack"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Obama"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"birthDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1961-11-25"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"barack.obama@gov.us"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"homePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41221234567"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"mobilePhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+41791234567"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Avenue de Sécheron"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Genève"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1202"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GE"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CH"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='properties-5'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>false</td>
+<td>Winlogie patient ID (omitted when OneDoc pushes a patient creation)</td>
+</tr>
+<tr>
+<td>firstName</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>string</td>
+<td>true</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>gender</td>
+<td><a href="#schemagender">Gender</a></td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>birthDate</td>
+<td>string(date)</td>
+<td>false</td>
+<td>ISO 8601 formatted date</td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>homePhoneNumber</td>
+<td>string</td>
+<td>false</td>
+<td>Home phone number of the patient (E.164 format)</td>
+</tr>
+<tr>
+<td>mobilePhoneNumber</td>
+<td>string</td>
+<td>false</td>
+<td>Mobile phone number of the patient (E.164 format)</td>
+</tr>
+<tr>
+<td>address</td>
+<td><a href="#schemaaddress">Address</a></td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSaddress">Address</h2>
+
+<p><a id="schemaaddress"></a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Avenue de Sécheron"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"houseNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Genève"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1202"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GE"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CH"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='properties-6'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>street</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>houseNumber</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>city</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>zipCode</td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>false</td>
+<td>When <code>country</code> is <code>CH</code>, 2-letter canton code (<code>GE</code>, <code>VD</code>, etc.), else free text</td>
+</tr>
+<tr>
+<td>country</td>
+<td>string</td>
+<td>false</td>
+<td>ISO-3166 country code</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSaction">Action</h2>
+
+<p><a id="schemaaction"></a></p>
+<pre class="highlight json tab-json"><code><span class="s2">"updated"</span><span class="w">
+</span></code></pre><h3 id='properties-7'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-3'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>created</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>updated</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>deleted</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocSgender">Gender</h2>
+
+<p><a id="schemagender"></a></p>
+<pre class="highlight json tab-json"><code><span class="s2">"male"</span><span class="w">
+</span></code></pre><h3 id='properties-8'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>string</td>
+<td>false</td>
+<td>No description</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-4'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>male</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>female</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">Shell</a>
+                <a href="#" data-language-name="http">HTTP</a>
+                <a href="#" data-language-name="javascript">JavaScript</a>
+                <a href="#" data-language-name="javascript--nodejs">Node.JS</a>
+                <a href="#" data-language-name="ruby">Ruby</a>
+                <a href="#" data-language-name="python">Python</a>
+                <a href="#" data-language-name="java">Java</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

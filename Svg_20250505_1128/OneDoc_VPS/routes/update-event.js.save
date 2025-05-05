@@ -1,0 +1,98 @@
+// update-event.js
+
+/**
+ * Encapsulates the routes
+ * @param {FastifyInstance} fastify  Encapsulated Fastify Instance
+ * @param {Object} options plugin options, refer to https://fastify.dev/docs/latest/Reference/Plugins/#plugin-options
+ */
+
+async function routes(fastify, options) {
+
+const eventSchema = {
+  body: {
+    type: "object",
+    properties: {
+      startDateTime: { 
+        type: "string", 
+        pattern: "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{3})?(?:Z)?$"
+      },
+      endDateTime: { 
+        type: "string", 
+        pattern: "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{3})?(?:Z)?$"
+      },
+      patient: {
+        type: "object",
+        properties: {
+          id: { type: "string" },
+          firstName: { type: "string" },
+          lastName: { type: "string" },
+          gender: { type: "string", enum: ["male", "female", "other"] },
+          birthDate: { type: "string", format: "date" },
+          email: { type: "string", format: "email" },
+          mobilePhoneNumber: { type: "string" },
+          insuranceCardNumber: { type: "string" },
+          address: {
+            type: "object",
+            properties: {
+              street: { type: "string" },
+              streetNumber: { type: "string" },
+              zipCode: { type: "string" },
+              city: { type: "string" },
+              state: { type: "string" },
+              country: { type: "string" }
+            },
+            required: ["street", "streetNumber", "zipCode", "city", "state", "country"]
+          }
+        },
+        required: ["id", "firstName", "lastName", "gender", "birthDate", "email", "mobilePhoneNumber", "insuranceCardNumber", "address"]
+      },
+      appointmentType: {
+        type: "object",
+        properties: {
+          id: { type: "integer" },
+          name: { type: "string" }
+        },
+        required: ["id", "name"]
+      },
+      comment: { type: "string" }
+    },
+    required: ["startDateTime", "endDateTime", "patient", "appointmentType"]
+  },
+  params: {
+    type: "object",
+    properties: {
+      calendarId: { type: "integer" }
+    },
+    required: ["calendarId"]
+  }
+};
+
+  fastify.put('/calendars/:calendarId/events/:eventId', {
+    schema: eventSchema
+  }, async (request, reply) => {
+    const { calendarId, eventId } = request.params;
+    const { startDateTime, endDateTime, patient, appointmentType, comment } = request.body;
+
+    const newEvent = {
+      calendarId,
+      startDateTime,
+      endDateTime,
+      patient,
+      appointmentType,
+      comment: comment || "",
+      createdAt: new Date().toISOString()
+    };
+
+    // Ici, on insère en base MongoDB (exemple)
+    // await fastify.mongo.db.collection('events').insertOne(newEvent)
+
+    return reply.code(201).send({
+      message: "Événement corrigé avec succès",
+      event: newEvent
+    });
+  });
+}
+
+
+// CommonJs
+module.exports = routes

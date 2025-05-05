@@ -1,0 +1,568 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : FEN_index
+ major_version : 30
+ minor_version : 0
+ type : 2
+ description : ""
+ subtype : 0
+window :
+ name : FEN_index
+ identifier : 0x280a00be0143b633
+ internal_properties : HgAAAB4AAAAm2XOTmBbE/ooz2CxLA8CRpXjZLA2J8Ss+i7XGzQHVdBioEhh2RKTpXyN5Y+3dFfVsUe13kDK74w9fEF5nSUGvPFopsYNXZkk1LOQIO9ZO2nGvRy3mLr8/T3Q/6R4+kjthfSBcwinMJRMx8Yp/qGOap730cZhJ7G2S+eAn5avZOgWqPqaXBUnmh0MtPOJv4+T9le5X7aub+WvZXndAHc3RyuYPQVYFO+LTkQMs96b27cWb2JZOxM4E0EZU1X/sasVxe6AXsYrTMoXz8AxR1zZseavd30sqWLRNidTxgIoydEiqxueCGPOzbtwLlcAPUIwtA2dXAzwwHbEvUSSqqn3tqbiXtkeqK/inD9VlI7gnubgH+YNf28PDXhc95J0t5CoQLzO0gepzIlnP5I3kfbCPF3cDOi5p7lsGoqEaEZdXRKvVMG2gYGcYk0u/N4ypD+WQpTxX7fMnW4YZoPmcSiIl8SMfI10y7uUsxthJIl9WQtJjCBglrCWn8AtOvCBS4hyZrfKQa6tq70Hh4KHF0pJjkH4NS45zR5CZ4cBjbiKUMwhMB+M57KJjFb8xM8k5oTluRgP5/orjPS7CVIU6+er9XXwYeCh/hocqDay3PPEzyuLuIhpXnAlOlfbceQzPiDP5keR8C7Z+e9ydMc57g01yjnDV/cPmqkrQmgcgKzFP
+ properties :
+  width : 1024
+  height : 768
+  widthClient : 1022
+  heightClient : 736
+ style : {}
+ controls :
+  -
+    name : BTN_getLastChangeID
+    identifier : 0x280a01b901978897
+    internal_properties : HgAAAB4AAADzpVMLXcmcFTqzUgUxzK4dwoRjyRh26Qbs2RamMrcEbo6skk2jM5iXgcQI9EEgZjLSmGAMzDL7Q+nhgKv0gEMxqIt7cHfhw/PNu7hZjFiVnMwXq5w7xBaW1mqgGRM437MSZVC+TDPi67emHsxxHdo7NoqIuHobEKP5N5kiKE4P9SEU7YeQ3EaWXWnz4xUJLZs9f+UaoELbKMGGp+YtI8Szr5kngimR6+AonhTMh6WwSBdueBQgxPItXXcCzgTAq0g5sXYm/T3sNgxmMlU5vPwsj6a9u7VnuJjEOz94/rWLH/A62UvbNfaK4SovYSK55/6e/KiuwRbHxX6tuC5SmUxdc7tPqo8g55e/S6BCdE4rxaBx6lxkOa87rTQHNfqZLOruB3iOOkcpC5b4cZ1NmDxSiMWN0MQda2PB54SnPI6/L36HAYudVaZsm8XzcWgq5TNyO9e76RBrs74MGaoM0qUJDMKLYMgSolTkC9iBWtLmVY1Q3PJSnsZqjpUIpp1ac3f29kTwSvE1cQTcyVR7BXXungfQsjeC47O3pZS8rVbZ9DBcETj7KXCMjJq4Y2zgw69w5K323shDa+EHjQoZF/thzB6dhWj+qs+PrbrtMrMNr0aI+1ZFKzwA1rZ27ua0g9AGdM8vQKFF01CMsYBfttOwj1Erzp8eHm+k8jCKeVr9og08nkP5ItNzTTmIlElLwgbwwj/RU7Cb2ejw+YLdQaWIxsALXTGJxnyIQr4zHKTiA2ChFdLdjHB4pfT+LbBbcRM4YDecVVve5srM5JHemDYPH+1nyqWcK7vPsKEqJzkGke4nejqAmFY+QA3jFk3FZ1k4ML1aOIkrdnmVivEuHLsRkizwzXtKHTPTJM+pG1IHaneeyPGu5qpdjsoGZHS9FH8Mz4wt9f5tnQHCNPc33W2aufFbbG4whalT
+    properties :
+     x : 22
+     y : 37
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 0
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         cMaRequête est un httpRequête
+         cMaRequête.URL						= "https://onedoc.nexapi.ch/events/last-change-id" ///15264615
+         cMaRequête.Entête["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" //winlogie
+         cMaRéponse est un httpRéponse = HTTPEnvoie(cMaRequête)
+         SI ErreurDétectée ALORS
+         	Erreur(ErreurInfo(errComplet))
+         SINON
+         
+         	Trace(cMaRéponse.Contenu)
+         
+         FIN
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_changes
+    identifier : 0x280a040201f775cf
+    internal_properties : HgAAAB4AAACqiVCLIN4yV6bVggk9btF5hnpjLvh7Bq92maCNPtacz5wlseBp9cJphiINuAEgCI2mO4ktXp+YYtmesc1m/dhK125VSrpZg6qt2pRBtOItLna7EwlumgdOVii1bKq1PQbQ5XeRIZ0g6vxYh23sqbuNHJhSVQJOumK0OqsF/BZ6EjLyMtJlKLW0+EsW4TtjagG/wD/tX0DCIqLD36Km90vJaP168MSKLCNSd9fhQj+b5MpG5n/TEu1DvLRPzGGamFgv4pxeQ2IoS/OwDpxCwRO67VFHs1js7blOywOH/+OX5uSPD//3kD3gF0me6Wz7C0LwOScjyYC8y5yCxnjR3zHNcIPs2yEpM57SolXxkKLCvdpCdewDToM1IFqyQlJ1zulrnGZtngUIl0IsA2IanyfsK3neTqa2+ALyafLzmi51Vtd1ExY3w5uXs0gAVAa372Tp7PgM9YpMbnmrsQSA+E0EWjwjxQjdLJgzcvVV0EYw0l9fnpLewDndicnBw6O2hx2yB4zl8MXdMATsLFZDDF0a29JcnYMtxjDbUOyf0TvxHpnssGQcPxjDAzqloQHP406Dd3VT2k5yf2H9JdCfY1DyHnuLDMU3Jz9bmosDbEYiFtC6g+7RUldqZ0TcKOhPN5yFMzuFMXNSbKYnF4JdUmLfsJhvykjs5sRWcFr1m+ECH0g91xzRshQwbPuH/tysdIFYlrR7Zzd/4gwVJE/2yJddG/+OkUey9boqvrs53GsV0kGUaF69MKqbmcueNjlJjy7hTrsguq0tRvL8+zSgb1cdgMyo6PMLbw6c+Lh/8pzPTwhap9AAgAj5gFX+rFeR4Qmgp2dSGNZQh+CdEVcotIYa8UZz/QikIWxspvAbx8Hrwm1Pt7woKwshNPf0EZwk/Oj2pM0LHo/z/APrXFnOoFBwyry5Jvv/naA=
+    properties :
+     x : 22
+     y : 78
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 1
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         cMaRequête est un httpRequête
+         cMaRequête.URL						= "https://onedoc.nexapi.ch/events/changes?afterChangeId=" + SAI_afterChangeId
+         cMaRequête.Entête["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
+         cMaRéponse est un httpRéponse = HTTPEnvoie(cMaRequête)
+         SI ErreurDétectée ALORS
+         	Erreur(ErreurInfo(errComplet))
+         SINON
+         	SWITCH cMaRéponse.CodeEtat
+         		CASE 200
+         			Trace(200)
+         		OTHER CASE
+         			Trace(cMaRéponse.CodeEtat)
+         
+         	END
+         
+         	js est un json = cMaRéponse.Contenu
+         	Trace(JSONVersChaîne(js,psdMiseEnForme))
+         FIN
+         
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : SAI_afterChangeId
+    identifier : 0x280a043a020b534e
+    internal_properties : HgAAAB4AAADpbF3eFnaR2i0CPPfbMyAqlKeWZgafkmZr6FmqHMcnPOfnWE7Qw1s7VFCRPYfWy8KBfBYcGDzvKIedGo3JhxO0Rj/+1SFJAglU8gmj5T5ZKOuYODG3ftHrfDYn+ktbHTEYxpct65hsvOf7+/g8+gwssWxwwwMoihVU1wCezKTP2wQg4Y3hnRDEoZ3ZyR9lqnk7TjlobA/dD8VUS8I0vKRoKd4snz6RBSiPk/KeX+hMNaQJMxx4AkLmoT3HSZ0hTeEskBWCzQG+r3NJaPEKFlduOoBlSdE8sspm3cbXmH+G8IZiE7l4pqqrtGsnjCpgE6TGb/9al8GhNcpyk8qmXidguV5Rk/IH9IDK/kGYiYaobUIkRuppF3cCEaG1gvQD+r7jkGo7mP5cTtdV1ZMbNZvJYepx/2xxSw2DA24cHMdPZ+QD01nODyhODhQB3JBr/uiZ+cB2RDBYSfXKc/GbvE39IK98of2xHjJKorfE6FhUCs0qnPZvzIaTkhdibsJS/4qgYon92BeWE3I3pi20AHLsrgss46CVyM2oi8JEdP5RhNaCDGXqRiawYZgHuelopU/NZ/q/B7LqQfaAeqlJAwEZxtbcJiq0zPeNrcsrXbw9j80z9X6plMfOLWYF8Jop3t5l9kHwocuwzTcdluq9GROVw/RMQp/YGFMcWrTZW6csVJV5+dyTK7kc7l4q2ai+57ypy7fwjo/qZ2lfIlPc7qEk2SqyaU084hR0loM5QqKOUGmPFSSewJLwnv5g2pu/OpqEtvLMYloJdkn6MmSaa40xmcTVPKgf94PYDkubuKGpx/Z+jEfjJtjqVn51aOE1BIpDFO9GHEGGECueFVPiEK+heKqVTnEka2uSY83p/2ktIq/pDEVqJjbUZdS0GogK2f9Imz3fwA6A5DevXBbRNyWUlBz62z+yMOOzrBxnX78Z0PIpK9VonaojYJghEbDhcBtEBn4x7OF6rAVUlDwWMC3Cj17hUL9/lkTNvPZ7F7pkmEfPjo+PUojvFGobMtv9RbrNIcIOONBh3D3iDddB8zhNWSaI/JE8xWgzsWb+1jfI29xkNsVA7sD/M5nlCn/AsVxrcbrgR4rtPgwQ5TfEGVYo7S7R+GdR2wGlpOvSZVvyuwtjMVf4vl99fTDzAOSF0fuPfw4NVTK2aOtjGPsudDojvRPtp8y1s47OnlyMQOF4JncG05Ate7JwNMiWXspIlEJmjlGfqtGefs83tmPIY4/YeA4tXwkxkdWPeodiUdDyxZ2IdB7uVBnk35kPAEAsX0S8uvYpEyyOeat1dtEpVONqywQizjFvgYqfBtdwifjiBwL0kqr0SX5fJuf2ZhHIPQZChAu262MA0DjjbOlLWi65dnBewt2zrlg0/srAdpvKWQ==
+    properties :
+     x : 147
+     y : 78
+     width : 204
+     height : 23
+     accelerator_key : 65535
+     tab_order : 2
+    style : {}
+    type : 2
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        type : 276
+        enabled : false
+      -
+        type : 277
+        enabled : false
+      -
+        type : 278
+        enabled : false
+      -
+        type : 338
+        enabled : false
+      -
+        type : 339
+        enabled : false
+  -
+    name : BTN_events
+    identifier : 0x280a0874051cd68a
+    internal_properties : HgAAAB4AAABJ6PZJ97qm3tHbZezOjwLmklCOTVN975+D+bJ8g1yleO5qc4zWUaWc2QmRvS5vTiAQZxHF2M6QDwmHvjlmi7oeZh+VLtXbFn4VXepmkZWP8LcyhFzGJKLWlI0q1N8jb72bJiZUpino+08akQDlBq92Snv04HUJw6yWBAZwJODwuR4ZqE5Gw3krTjhTU1dQ3WenOh2du5WGkWAseXQn0aaFBnqSiuBSX926M3BmqHfdi4KX/vyEM7NzIvza+QyOs4hnVb571KAxrVDdjK9jeYAuPfJUhYgihwDXktsbuD6aW+Z2jsShh0S/+4qE3D0nyB95ytURbfIw9fg2ihtPczBsLuv3YGbQXOO1u25VIW2Vt/5oVdhjuOWnyLt7L6nQvCbeWlazv3ZL0H+1VqhfSD0geagGIE7gS24tPz2JvtbBZ6HAuaPv4PSD7hQ4pvfJJF7/OhEZfsEHgHQvoA8FMDZtL2E+1ap2/ALXrC4ylq/PYs5sp0huTroWyzJRuyaI29ObZGNTiDEYAnZ86IPYDSm4529gW5IZI3DZhUTl+OiIzYXE208EkPUrnKQghculZ7ENN4bC5Hmjmg/7EPCPtzPRsAL5OmdKv+E/mljPLixXDET5EPBFh4SNTUwBW+Zz9TYkqu6jnIXeJXfQJ215sJq3dyvx9euv6ZTVngVhcWCVsJZnvp6Scf9svs/jfs7eAsOSXzttjoFhEvY1+bpeFK9HimJYepWdgIP8bVfepYId6Qmktsl69Vnj0cglJVfKcF5VtsadHikAGDMevxkHbQmt33sbz3a79yNk9buXdFp7JnNZiDsa8YqZi60Fh+WMrr0fLaqwqaovHMUcJ+BVjN7jI0PfzOqbchZgPWCyfUDpXiOUNIGOjbRWyNduB6OIkCxHwLb+SEmEs3SDRA1+qFWX+8GTAevP1WifBX/wWiSe
+    properties :
+     x : 22
+     y : 119
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 5
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         cMaRequête est un httpRequête
+         cMaRequête.URL = "https://onedoc.nexapi.ch/calendars/" + SAI_calendarId + "/events?fromDateTime=2020-06-01T00:00:00&untilDateTime=2020-06-30T23:59:00.00" + SAI_afterChangeId
+         cMaRequête.URL = "https://onedoc.nexapi.ch/calendars/" + SAI_calendarId + "/events?fromDateTime=" + SAI_fromDateTime + "&untilDateTime=" + SAI_untilDateTime
+         cMaRequête.Méthode = httpGet
+         cMaRequête.Entête["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
+         cMaRequête.ContentType = "application/json"
+         cMaRequête.Entête["Accept-Encoding"] = "gzip"
+         //cMaRequête.ProcédureTrace = ProcTrace
+         cMaRéponse est un httpRéponse = HTTPEnvoie(cMaRequête)
+         
+         si ErreurDétectée alors
+         	Erreur(ErreurInfo(errComplet))
+         sinon
+         	selon cMaRéponse.CodeEtat
+         		cas 200
+         			i, j			est entier
+         			jsevents		est un JSON	= cMaRéponse.Contenu
+         			j = jsevents..Occurrence
+         
+         			pour i = 1 à j
+         				Trace(jsevents[i].description)
+         			fin
+         		autre cas
+         			Trace(cMaRéponse.CodeEtat)
+         
+         	fin
+         
+         //	i, j	est un entier
+         //	jsevents		est un JSON	= cMaRéponse.Contenu
+         //	j = jsevents..Occurrence
+         //
+         //	POUR i = 1 A j
+         //		Trace(jsevents[i])
+         //	FIN
+         	//Trace(JSONVersChaîne(js,psdMiseEnForme))
+         
+         //	Trace(cMaRéponse.CodeEtat)
+         //	Trace(cMaRéponse.DescriptionCodeEtat)
+         //	Trace(cMaRéponse.ContentType)
+         //	Trace(cMaRéponse.EntêteBrut)
+         fin
+         
+         
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : SAI_calendarId
+    identifier : 0x280a0894052453a9
+    internal_properties : HgAAAB4AAABqoRCqvzjK1sihIcAdynAyJILbL5FrXi1M9CiyfevEObVNf4VC0fd1U/GFXx99ERl/uPprkVwJmNsbJmS7qNdpd7Zn+tcuBBy95f+o1WTj2zSX61xsUJbvCUMZwv0a4r0jpCClq3EzpmRppk75D8wG94wRJi1XGyUJyC1dEJ97xwu7ns6CZR0rGd5+XGHHinPl+dyUH3nKXOBSUAHbQLIQK/nkT26+wpmaphreTtcomkbd6fH4S+6ro0ezteb9FhToQcxgN8oz3n8N+XzLg3rMGPzKaOw+LmA92i6QPXI6WnLK1NgmfBr4yn7gJKsQ22JNjoC9b7GV6gylBo8ZoI1YFm93WM6gYY05v45iU853E5OT1ru0q77rXUWwvO1AmLgrX5WL2gCpeRoiThTxE/RtVgdDrsATZFiw17lCw9Cg2Mm8dtWBL+4IPuhNcE3Q5yXSyInncupxZOKPJ6H5zgoibYQaiqcUwYbVzAJgsguonEhMQh4vYm1KidfJVR2lTtCdvVsgwGjUuxDWiAiSH3K/Q0FDGzqc8dLrJOvwZEjpnwyPa/rqYxCEjv9kKsjjlP2lwxwOxXzG+K/iZmb2Ca0eZtrdD7rngRC7uzjkO8E5VrVRD7ED3CWQpNLPyBYnZR7LZ0NvjfJLdLCi1t/YPxJkBSe9zUUaunIMZCCi3GEvpQnaB/cflQVsEJwgv4KYwUxXWYgGIAlHTgUyla++5VpVijLdptZGzQkLfnl55K+inFbE6BrJGF2WYWjm8DtFGXTyRNn92pD4A1kWOcxsHOBQ7KgmbsdKUTVm8H15FyLsbXhcWnmDFx6avzLgkA7UNjtt7LQ7g59boyEIyNsFnB6/PJPfjcVJNW4c9TVGQTYe8MMCXupdt02cyZ94jl++Q5KP1Ib1QnWxXTfUAGQUpY2ng8b1W5uoy/pcIJO7unw/KF4+r2OZsMyn/3YIp9HXDrSBr9yWXmH6EqyETYmESR2M7eqMqSSggoo8ar2ftdgV1dVVt5S9POm0xazQZqJnlRXaiXc6ccvLjTV4Ufhw1hVsutlZHKfY8GsXWc6vklOFwRmLT6R8EzNWn+pvjr3cGCyq0Z6K3o/hgANW1a73jyziVivJfNcWH3VIGMlMGXO3B+44NVheZ4SakpIhQcW+58yBcuCjk7cSEzm5xaflla/g5DGOiNSgG88oTXmYmUzcNA1ZoR+PAG13pnk27dUltCSZC87swKxpb2v4BGP3hdj87QZ945IvqNol8sKXRGf+B71WhfoToC55S//aWTNg8px+vuGZazSEIOBGGv0gv3DKfA31KJ/L6Msw0DEDd8kJRepZ4GO2WrAjiVcSGlCi/0yds+OEg9gXu6KgfV1dZMuwIwe4GWJStO++fd6r+HzrH84=
+    properties :
+     x : 147
+     y : 119
+     width : 204
+     height : 23
+     accelerator_key : 65535
+     tab_order : 6
+    style : {}
+    type : 2
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        type : 276
+        enabled : false
+      -
+        type : 277
+        enabled : false
+      -
+        type : 278
+        enabled : false
+      -
+        type : 338
+        enabled : false
+      -
+        type : 339
+        enabled : false
+  -
+    name : SAI_fromDateTime
+    identifier : 0x280a08ca052d230f
+    internal_properties : HgAAAB4AAAAladhxiaWUAIcGhneXHof7AXxdMsenrrUBPerYfnYTRIT6APzERXSbSgehoCVtVCQYuvNpKaN4F4KnuhJHBv/iv4yey47B4f7GDLtGAgPemegknvvV9v/cgB/gBvIh12lN4zkeaLPe25CwLDdCzGj0f5mSndSzKx6iTFx05axrnAdgEamsyixBPcf0GBr4EaPXJu6neDNa26OGDcFXGQJ9bCqLioy//sIgRuypWelKjGWD6oFAk2P84UZd4LS0tW64TskXP37rD4uOXlmmjGpy6mdo2JbnEpTXuTtdQKtuu5Lye6sT5UNfEQn9M6bRn9aZo9k3QwAfUnYwFMfweTCa3AkjFlaKnFCXdu593QzXsaox+SCG+EwFYRxefhI2X6Pdcmdey8uVjePCyz548STFWI1Su2eKgyJT85yq1KH5q+MtkL1TsvZOuZ2QR8yr9p79UkV4ZpvBOqtg8e8BOHePzvMMMqYy79DLl9e163QNiO2O8djchmJXKymEvPd9BNU+A0MwtfboNDEMv6UhjCvv+zeWbi9njy1VtH8GvT/+ZR3t3B5gxh9gFtYUCINgp/a4ZtUriwU/qcbkkGslUaXjrjv6lH9EJmO6y1tfYO2BMM/y/WshDR68Hh5peeL9woiebWqMpkHQyY+oYtZRCVFIsuKV9rXwnLgkfyUBBaqAlw/94HVe98v/AgIXasH6Aanvi+2DCQzYxGY7w6lc3abF+65CXECNpO3SqFtiV1P9iP9piLYepU00lpELWjlqEzh0CUwjAVqgCmyS4hIsweHEtakmBIF3j9xWyiJP4mRZeiKv6rclwy9YLMuqLt+0ZKsukaJg9V0h9J3QnYSqWn6CiIyA+1pkXFi3jfOum8vFUKjDRzNIW+pknAJMaX6lBjwEIZv+FuWRgprzSMuj+CTZUXuZg/eQQeNIWuv1fnE1AZQt1SjLZykHJ4DdEhDQvSYQrKTVPKZMFyBUw77xXYAzS/wm5mUAZdtdK0Ftp/c7CSn+bdlRx73Hi+LX2kg3/SBIJzhlhhRAqm94ev2UVsUwzWKkNxpVzMESFXyR+XwqkQK5Tmrv4UdMXzDAonWk9LNRenZ8u3HILjDGKaSZZxbfPJmQbJMcsjwojO4D5sh7iDnt6ukrs6iiZ4CVDQAeTvTxb/bZumpF7hV25f/+0FP9HIU8B0/yF8aVLm0hbiHsKhQG/1ViMyXOE7DBxpK7uZH6w/iC+Ft1zHlFPhAGsTDE8uTxFygc9M3p9+xIWFlrH8SXwXqP+PyyUZXlWsAx4qUw4b21GAcaFHuc5QtukBgvM0ZLuCtcq+/uTIAjmXcmq1eRHxw5T5nulBbU3L5NHpGKD532UIyotvkiFZMHFH5X5vz3FI1dd5tKlDewHiQ3K0fYDSRCW2SKg5MxbH32tqJ/+hY=
+    properties :
+     x : 369
+     y : 118
+     width : 230
+     height : 23
+     accelerator_key : 65535
+     tab_order : 4
+    style : {}
+    type : 2
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        type : 276
+        enabled : false
+      -
+        type : 277
+        enabled : false
+      -
+        type : 278
+        enabled : false
+      -
+        type : 338
+        enabled : false
+      -
+        type : 339
+        enabled : false
+  -
+    name : SAI_untilDateTime
+    identifier : 0x280a08ce0531362a
+    internal_properties : HgAAAB4AAAAH/pKGVmLjjiTo07CiWAJ3W9fENAlN19eVQsGKc9J7avws2/I4Srulekgtv4tPSmGBPKT5m5ZBXPW0ov1FXMme8VieJO5yUIeiPvU1ttU4QrI3BbNOjsHKOkqx7Cuzy5KKIlBpVXdiIfxJPyDmzMJU764umAgDe5BU12nG+14mTzvAO3HUOE0vV6Au2zkQ4oZ7JE/joV7M4Z5H4O+k2WmMPDHR9oFhKl223BSnW18UX21423R3ghP3+JSBtqRCNChqYMCE8CtDamGebvg6zQ0oHitjL6kRgRdQYvaBkI0nB1cgS3hRUB9ZrWNONgUlxy8IXiVpazMJ8SrL0TDQbZclbo5lVe1sf0fNDgjpoZ2zmkrFO0ukWZs9QhBLXHBh4T+algXbFcykglMUFBdozyggG7VztXbg2BbOXTC0FkirJ/oLo3B9+gbWgc3DZrnX74HaEYb+F4oGOLpjdZiGR2EkeNurWZgepHQlTxURVnIBJJLFhWhWGC/8pu/gX2Tx8qUspA2jClOWO0J3rA1ktFG3lO7Zm84IZjISclbjkKifbNZSJvzZe+sQ8CoyU8z7sZeQl8HPUnYzRx9BHSAjK3yeE/8FLS9pGMu0j4q19fQTMsun3aBsizNboWfR4D5ReSbYHhm5k/hnroU0Oh37cOREjQicjMOFOJsHB1mSt7Em/DjJNAglKgVmjs+aaq1xU5nNG40oJeLk1yiW6kXq/0NaX9zHUbIz4/ZCzmJ7PIePFTNKVtffJ3s/ShYN9ot/NLPngk9gVmsgAhhiVMaY0E9jzQaEt8Gto7ap4hhtrfR1njvOVC53ckJ5AnaDxCTmcxRUAOBU4ySheJryAQvLfuluV8X5MKnoC//VwzpQFcib3c6swBsFDsvL7Ac54gFmAIdQrJ78MAxtyJzOEQSmQXg69iR7OG8HNx9nzqIbeNJMHbNmxxK/E3hIjm6fZwdhredILdKZ4t4iZQ2Q8mnWiVR7muDKmjxDXhcTNqLhocRiBohXARmTYbtXxFYRlG4FONBZM7l7YfzbqmbwsDAOKm75OcmZpxkVOIIWAY+VKiO2knb7T2/OCEHXSg5iNtMgOV0NIS5j4Pp9T7zwnrCjQZV3+ectkV2lNXjfprjgA80QtHmQHX2q6MaXTUrI7yGCpkPSchCWl2SWPCotKL8Xz5obTS/cMy7DaRRbl5KIZ6an53RJUTTV0RkSK4crr1HbEy/gY5arMEHNopYGOR0XYcmhTDST4oLKWD0OlAMFdL0bPKAiabnbX/aQnPMtMwvS9T+NAEH85V1wXxW+udQ9yhSf0Gw1H+2qiU6rNhtuWVLs+KuMo5tKUXLViHu9TvP+MTHQn0l+qrmr73/u68bHR5m/csOYXu7xDXmcxRHP3p1puHyjK7uWze5MpUeah+bLWbi1wfTIsKEEowywqv1kIw==
+    properties :
+     x : 603
+     y : 117
+     width : 230
+     height : 23
+     accelerator_key : 65535
+     tab_order : 3
+    style : {}
+    type : 2
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        type : 276
+        enabled : false
+      -
+        type : 277
+        enabled : false
+      -
+        type : 278
+        enabled : false
+      -
+        type : 338
+        enabled : false
+      -
+        type : 339
+        enabled : false
+  -
+    name : BTN_postEvents
+    identifier : 0x2812318a02a93931
+    internal_properties : HgAAAB4AAAAuIUyVqCLy+tJ9ZwPR1UhyUrq7hkaYkEAZNQ30JTTF2glCZCjQDbwVBi0aDAS3RAHfyV8QTxzEG+myW3nEK58Af3HTTmiizTv7DxRpYEcwXEyjlFIj9CdpLZiiCYTzVHrTXsBZZKb3BZqixFVJzD9F+U1ko6GRnBgyqeJMjt5BU/gymxqyVIPjaok67/9cLR0rxytSu1w+6vyFf4A9Fcmor0Qzagu5XUq+Pw+9WACSWoxsDEQv1MIEevY8DrYTcKGn18Etjo4sGmlinhdilWQyZFDoyxAUoS/cRiubHCuCDe0iT4pWh0JwDAtYIELoJTyJf1mt0y35R/Ul1i94qmYhqrsy3SSeGxUui2QOsVt6+GXmNfK80j9mRMlPme5T6Sm511/DcDTirhjPR2qIqw8S14ozeaRWcK+m2ssQi+OMnWdgVZKMlGtxI8bEG7NkEdIgOMtXybuBypv3l7YwSavR5/OsenmqA3XvnnTuDspPIUoqifkRwPf3Oe7xUxrZN5wVMFu4oxnbG5ZyEr9QoKn3STEG6IndPqNfAz4frknqvNHyVebtCqp+vKTsG8XK94r3c1aFqR80QTEr9E6BwhEqGMZZqTQwgKCltmh9GHXr3QjPmmOOqfXUCQqDSdCqf2kKShLizYHpUgno2y2FWXLQb21ncByzGq2jWIPjX4eHtTrZzJ8lU8aLYF8PuPSZPjYoj4/4Y39843ZB2PlBTIyPt1/pFq+OjMm9utDTPkb8o0QHxQ2UUPNfDD1enWtppXAk0R0ltPDGXjrxjvxOHeRJLCAUpyyCW0Qw1e4xdGn75w/JLHawJuhtqM8JDrQ2B54/UwRDSpoACSPCfyKjtCJCV2FscZL24gLgu5qEu6RK5KgvfJLtCp8eY9/DQ9w0obS6UmDV0ReMLYM+G8zd+LjAEpAD1VQ1U6KDtC8Z8UZjOyo=
+    properties :
+     x : 22
+     y : 160
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 7
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         
+         jedi est un chaine = [
+         	{
+             "startDateTime": "2020-06-28T11:30:00",
+             "endDateTime": "2020-06-28T12:00:00",
+             "patient": {
+                 "id": "c-7168231",
+                 "firstName": "%1",
+                 "lastName": "Obama",
+                 "gender": "female",
+                 "birthDate": "1961-11-25",
+                 "email": "barack.obama@gov.us",
+                 "mobilePhoneNumber": "+41791234567",
+                 "insuranceCardNumber": "80756015424001443900",
+                 "address": {
+                     "street": "Avenue de Sécheron",
+                     "streetNumber": "15",
+                     "zipCode": "1202",
+                     "city": "Genève",
+                     "state": "GE",
+                     "country": "CH"
+                 }
+             },
+             "appointmentType": {
+                 "id": 7168231,
+                 "name": "Première consultation"
+             },
+             "comment": "Contrôle vision et le reste"
+         }
+         ]
+         
+         demos est un tableau de 1 chaînes
+         demos[1] = "Michèlle"
+         
+         jedi = ChaîneConstruit(jedi, demos)
+         
+         cMaRequête est un httpRequête
+         cMaRequête.URL						= "https://onedoc.nexapi.ch/calendars/18/events"
+         cMaRequête.Méthode						= httpPost
+         cMaRequête.Entête["Authorization"]		= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
+         cMaRequête.ContentType					= "application/json"
+         cMaRequête.Contenu						= chaineVersUTF8(jedi)
+         
+         cMaReponse est une httpRéponse
+         
+         cMaReponse = HTTPEnvoie(cMaRequête)
+         Trace(cMaReponse.CodeEtat)
+         SI ErreurDétectée ALORS
+         	Erreur(ErreurInfo(errComplet))
+         	SINON
+         		SELON cMaReponse.CodeEtat
+         			CAS 201
+         				idEvent is json = cMaReponse.Contenu
+         				// On met à jour la table Int_doctolib
+         				Trace(idEvent.id)
+         			AUTRE CAS
+         				Trace(cMaReponse.Contenu)
+         	FIN
+         FIN
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_SansNom1
+    identifier : 0x2812ffdf287d854d
+    internal_properties : HgAAAB4AAAC6v+Eo4seHGmojcJWZXlhhX6NDxhK5hBQ8h4kl44vl8Cm1pf8Ra//OwYwZLU0VFiuTZPRmHqC8Xo7YZ3QvNQR16UE4+YrlETlkZe7VnKRihZwoIUS1h3ugplyVTva0LBXdOwmAyTLwDqkhlG/vexPRzYnaap+BDTbmif+TXBQuS7Hh8Db43ca7VLCoCVhdOFsFj+Q82GiwP10Q/Lrd7ihj1iXhgaiAg3QCIvhJe7znKOHUC20gQQzmzK3MWypD92WOcgma0TmiEedaVPVSlbH1ljksBUH8OEq27DRq3HMsCmu5B1rvCRuwLek9VegJ+jU3fZAMcLfTNj+fi/3twgUKOHGx4VNvePSdA73Ct9j/xWl52/m1XOC/BOAQpEx/cNdgeQpaGL/ECXBmKKUXyGjRIK9h/4mbsV9h61oMDRQQTG9p4Yezy0y6zTKtjWolBuBDS2SDM/trfQqxM1rVOT2EwbrW8EIXgI3D2I+NaTbge2LM2qnZyWlg9Z/UOQsYk/5RPX9en4rRo0Kukw9Z+b6E9wWk9VX3PpSbLLCz/OgyuiDpVUhUo5IN8P1Gkw+FrbKxY+b/ua37X9yTmjaC2vUzJI39O64vmAL7jWFk42ENkQe6et7o1CV1h4GpcJ55Kra/HjctkrIG51HuKrfrYgpUnInQXdJ6bANVZeAdoWVJEctT4qi9kh4HngM0h/okI60WdDW5Mdkw5qtmU6+F80hiLhqmaMa3DaEWBMMp1zBqPiQ68U+W0byQF6ub0p7u8u7M3nhQtz2gagzJoitwQX4EkZ04+95Mkc1m4K052FWOj0iRdB60E+A6xar70q5oLam+1SBOzIJj1SjCk/ay7SwT6KRhc5qu4neKYXVwuat+IgC7fYHJJkhyaSrZmfQDH2DGDZAPSvhFbLNmWAsVjOReBiI/OA==
+    properties :
+     x : 22
+     y : 201
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 8
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1-
+         MaChaîne1 est une chaîne
+         MaChaîne1 = "Le fichier %1 ne peut pas être ouvert par " + ...
+         "l'utilisateur %2. Le fichier %1 n'est pas accessible. Tu peux téléphoner au %3"
+         MonTableau est un tableau de 3 chaîne
+         MonTableau[1]	= "Exemple"
+         MonTableau[2]	= "Tintin"
+         MonTableau[3]	= ""
+         
+         MonRésultat	est une chaîne	= ChaîneConstruit(MaChaîne1, MonTableau)
+         // MonRésultat contient : "Le fichier Exemple ne peut pas être
+         // ouvert par l'utilisateur Tintin. Le fichier Exemple n'est pas accessible."
+         
+         // La notation suivante est également disponible :
+         //MonRésultat2	est une chaîne	= ChaîneConstruit(MaChaîne1, ["Exemple","Tintin"])
+         Trace(MonRésultat)
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_SansNom2
+    identifier : 0x2813a60d00d9a795
+    internal_properties : HgAAAB4AAACT2FxguYmVgEsJD0w+Dcc/KgObglrRUL4CVbZG/UREcaT9JhMul2zGZaInhyrXBENYrGe4IXFbUXWe/rtMP2K7xmnwdsiZGlopsb1b6ec2zVnBj71UuUQFQ+Jhv85wLpjPAeSsRUHKQ4rSATgeFedTomAp9vGMen/lfSbJqhtOCjne1wrweCDqAY6vVhtF3Iylkesgm0ErQMnadcSyZuBEpsWLeu7f2J75HLuQYpjE2nzuAYP19BiotXB/96jCKYXv2ixZZgq1o197xyemOA4WG10r+6uznwILXseSuiGBtri1h9XoGoAUsOI2Kccm4vAa5VdX97e8z/GnDLzpm0ncaNIXNC0OVhVr+pVCCRyEmp2AGnpPBAErjydp1Il+HyD3jZtLez+a9ERgtxq94z4MfUZ/XOToB9zWW9XdBtK6J+LMyvu9a4f7NabIKDnex/i4UAjOU4bjggSu6wiaf1bHYVj8bGd1QsyjZrqhyR3uEtlVPxnkFLcmgV85SXcuCO4c+BowThzFF0FyApbMMUUN1pyM+alzc4wG2nAP5jQD04younbkI1XZTlhv82zqWyW4UafluMzjQTQNxxKK+vTXCT3DqEc5qAMi0o2pT6EiHTWI4SStTUSyFHLgkHUAoH4DFA5m7NSKKRzgdAF9qLPRa3bXXp76kU4F4HCrdoZYm8AJPUJjRPhhdRfTch6IyP9ciEb+VNZqIBAtykXml30TbkSqMQ4eZHWsibawFQ6bUOULdu+WKFP4fbsoleASTQ3IQZuuFTE2UQ6MmSGgTznpI1Lacnq8RKyrBmQr90VDOXhUkO/dtFDOKlyC+Bg2WfV0oICsM11+Rs6QGHx6tbjvJB5Tt1DoUP6bICRTWNpmYGOrSi8mLhni1lbHao8wWeTXSbe1LG5xJ6pjoOhI2Zeam2K0Ie1NBSIx2Q==
+    properties :
+     x : 22
+     y : 242
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 9
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         
+         jedi est un chaîne = [
+         	{
+         	"startDateTime": "2020-06-28T11:30:00",
+         	"endDateTime": "2020-06-28T12:00:00",
+         	"patient": {
+         	"id": "c-7168231",
+         	"firstName": "%1",
+         	"lastName": "Obama",
+         	"gender": "female",
+         	"birthDate": "1961-11-25",
+         	"email": "barack.obama@gov.us",
+         	"mobilePhoneNumber": "+41791234567",
+         	"insuranceCardNumber": "80756015424001443900",
+         	"address": {
+         	"street": "Avenue de Sécheron",
+         	"streetNumber": "15",
+         	"zipCode": "1202",
+         	"city": "Genève",
+         	"state": "GE",
+         	"country": "CH"
+         	}
+         	},
+         	"appointmentType": {
+         	"id": 7168231,
+         	"name": "Première consultation"
+         	},
+         	"comment": "Contrôle vision et le reste"
+         	}
+         ]
+         
+         demos est un tableau de 1 chaînes
+         demos[1]	= "Michèlle"
+         
+         jedi		= ChaîneConstruit(jedi, demos)
+         
+         cMaRequête est un httpRequête
+         cMaRequête.URL							= "https://onedoc.nexapi.ch/calendars/18/events/"
+         cMaRequête.Méthode						= httpPut
+         cMaRequête.Entête["Authorization"]		= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
+         cMaRequête.ContentType					= "application/json"
+         cMaRequête.Contenu						= ChaîneVersUTF8(jedi)
+         
+         cMaReponse est une httpRéponse
+         
+         cMaReponse = HTTPEnvoie(cMaRequête)
+         Trace(cMaReponse.CodeEtat)
+         SI ErreurDétectée ALORS
+         	Erreur(ErreurInfo(errComplet))
+         SINON
+         	SELON cMaReponse.CodeEtat
+         		CAS 201
+         			idEvent is JSON = cMaReponse.Contenu
+         			// On met à jour la table Int_doctolib
+         			Trace(idEvent.id)
+         		AUTRE CAS
+         			Trace(cMaReponse.Contenu)
+         	FIN
+         FIN
+        type : 18
+      -
+        type : 161
+        enabled : false
+ menu :
+  name : _Menu
+  identifier : 0x292573e513b5f221
+  internal_properties : HgAAAB4AAACMuVl/B9yNsBT7gB12Q5cW52ruGkd0XkDXwSvmNKsS4txGO9bvn7lPzxv9eEczeV0RL5jK6s/OynUJF4nDNzoht7UWeSwqPX/HoxzJRW9KXun3asFOJqgrEqD5PADt73+nhSzRYVXMTU/zm3r/HfVetfhJBgUU4XoOs/P/OGM3soEhyuSL/sBJNYQvHyCYDS2HZ4mIOBPF8Ehg2cD6qxNzxgTsdGNnUNZPWfGkHvgtAcv/0/yyRRCx7ZepeyUkhsK67wR2PJlNNx4opr+4UrdtE7lPFXnBkQNjG18++6w=
+  properties : {}
+  style : {}
+  options : []
+ languages :
+  - fr-FR
+ popup_menus : []
+ message_bar :
+  internal_properties : HgAAAB4AAAAjFWXItEk/EPvcbGR+hALkgRfdOpVtIn+yZNxHnmSRFJegE/AnD2HbGAaMfhGCqfzkryHG9FVhjtF+iQYkZ59QBQ88Okhh0vjCoVhOagox2hvIqrJnU30QK15/ZA==
+ actionbar : {}
+ code_elements :
+  type_code : 1
+  p_codes :
+   -
+     code : |1+
+      PROCEDURE MaFenêtre()
+   -
+     code : |1+
+      
+      
+     type : 34
+   -
+     code : |1+
+      
+      
+     type : 234
+   -
+     code : |1+
+      
+      
+     type : 165
+   -
+     code : |1+
+      
+      
+     type : 177
+   -
+     type : 180
+     enabled : false
+   -
+     type : 230
+     enabled : false
+   -
+     code : |1+
+      
+      
+     type : 2
+  procedures :
+   -
+     name : ProcTrace
+     procedure_id : 1732229588321079788
+     type_code : 14
+     code : |1+
+      procédure ProcTrace(nTypeInfo est entier, ...
+      bufByData est un Buffer)
+      SELON nTypeInfo
+      	CAS httpTraceEntêteEnvoyé:
+      		Trace("Entete : ", ...
+      		UTF8VersChaîne(bufByData))
+      	CAS httpTraceDonnéeEnvoyée:
+      		Trace("Donnees : ", ...
+      		bufByData)
+      	CAS httpTraceEntêteRecu:
+      		Trace("Entête reçu : ", ...
+      		UTF8VersChaîne(bufByData))
+      	CAS httpTraceDonnéeRecue:
+      		Trace("Données reçues : " + Taille(bufByData))
+      FIN
+      
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : HgAAAB4AAACEeedg5dLJphC9DHQRgJ0gwS0ZJSrtQCmlS6JGOuTjLkALfFcXzI9jV+AM+8JkFyzqtpQ0zgsHoWqhgXstNKne9Trtwbls8+6IlWtvg6eD+FHV
+  original_name : Modele1
+resources :
+ string_res :
+  identifier : 0x180a00b20003889b
+  internal_properties : HgAAAB4AAACmmCBE6pK3aBIm7vNkoGz9dsYQFTmVvb3ue+HorlsuKCCauicTtQW6CVSeGnhPb22ttQ==
+custom_note :
+ internal_properties : HgAAAB4AAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
+rad :
+ internal_properties : HgAAAB4AAABoAN7PLpwJW3EiA7WVZdCA5EwrCA1rvutcDHooMWKe

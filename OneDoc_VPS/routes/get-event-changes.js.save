@@ -1,0 +1,42 @@
+/**
+ * Encapsulates the routes
+ * @param {FastifyInstance} fastify  Encapsulated Fastify Instance
+ * @param {Object} options plugin options
+ */
+
+const querySchema = {
+  type: 'object',
+  properties: {
+    afterChangeId: { type: 'integer' }
+  },
+  required: ['afterChangeId']
+};
+
+async function routes(fastify, options) {
+  fastify.get('/events/changes', {
+    schema: {
+      querystring: querySchema
+    }
+  }, async (request, reply) => {
+    const db = fastify.mongo.db;
+    const { afterChangeId } = request.query;
+
+    try {
+      const changes = await db.collection('changes')
+        .find({ changeId: { $gt: afterChangeId } }, { projection: { _id: 0, timestamp: 0 } })
+        .sort({ changeId: 1 })
+        .toArray();
+
+      return reply.code(200).send(changes);
+    } catch (err) {
+      request.log.error(err);
+      return reply.code(500).send({
+        code: 5002,
+        message: "Erreur lors de la récupération des changements"
+      });
+    }
+  });
+}
+
+module.exports = routes;
+
