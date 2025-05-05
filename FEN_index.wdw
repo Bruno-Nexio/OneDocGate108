@@ -498,8 +498,10 @@ window :
      p_codes :
       -
         code : |1-
+         eventId is string = "6809e080ea212be4be400ca6"
+         
          cMaRequête is httpRequest
-         cMaRequête.URL							= "https://onedoc.nexapi.ch/calendars/18/events/6809e080ea212be4be400ca6"
+         cMaRequête.URL							= "https://onedoc.nexapi.ch/calendars/18/events/" + eventId
          cMaRequête.Method						= httpGet
          cMaRequête.Header["Authorization"]		= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
          cMaRequête.ContentType					= "application/json"
