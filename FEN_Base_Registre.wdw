@@ -1,0 +1,496 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : FEN_Base_Registre
+ major_version : 30
+ minor_version : 0
+ type : 2
+ description : Utilisation de la base de registres
+ subtype : 0
+window :
+ name : FEN_Base_Registre
+ identifier : 0x2818ee022e1cbe3c
+ internal_properties : HgAAAB4AAABnYfSrl8l4f+D4jprQGkCdq1FUdi/BeLDY9ID+QXQbVDRYHRUsZ+BrqpWvnrTodQRMuV9aCDB4erYcTGimCjiqh1YhdbIQ2bhgJbPn6uiLml3iZvrL//MFfNh/kqLGRzwcCsuW6cqK1keKTEBZpdsdAjl0XdBfw7Ud/s43sMVGLRsFtUXT4M6zk7peHk/URXIdkCnsOP25pECf2LMLjJJQthZrhl1jaJSw+5EdzfOAuOT9cl69E7HJA2Dt9iDeSTIKDulznQkcMG3Wfx6zNyEDuoWTgh8eU8sg+kmkvrHW3ZyEJ6Rw8sV8VasfymORwi6XNaCyhKpGTnUIjV3iIbnxj475JsrG4choE3QWO2BBHaT9PYRfhix/jmanHIwx1WT03BE/aXmIJ3a3+G3xDjLU1kzo1SIBb0WUHnhFxSHIraUX8jocJ+oEAxrPmsxb7DWoo+tMv+upEKKYjXSO473scbAIRdGxEYlYPTSSjcZIN1Oyau7PJeAckBuQ/PHprNAlyl/OrR6Ee2AJhma+9IazU6rG5w2J15/glzgXwGo+VnhP7/GtYikSgKyDZjUOE9ZcGWPWqFewCzaQGvS6m3HKtcZV19unFMpaIQ9+BZ71BsT8fDyt98koyeMRZGlbQ+vedlxxmR150QvZm4ThidtBKmf2fdLw8l9BJHSt90vhk/W9+vbwE/yCHePokU2/8Qdo6gQzrAuViwBZShJNOesBHU2PDuv3TKdVKWjPbyahgsyJtUFne/omCsTruKQeYa+zBR5lNM8IyZbtN9Ps8yYqPrM/oSZEwj4RL4jGb3aLioz6ftrb+puaDo79FdQtQmR5RF67XftC+INmThgN5JlQBnWs2QtM0GwFL86kUX9cuxYqm34wF35YtFQDP95E1r//a3hNlBJxuVEVfBfAeOBC/BZNrUvQlvfh3nbV6M2nsEOuHaj4uh5zCFf1DHo8jAz3VqacRjdP2bbZ9AH/qIZ/LsiMBFNYh/ATwz+gdP3QzFiV2x4klz3811kVu1k/KmbKVVf6ZT9w7euTXBwO0qdz65hzv1fOW0DcZrkRhf0kXxUHqarPs+X8unSCmnrWJcx9DdxM9cDgSERJoCEAYFX/CdbqaDM+LWOIMLyOjZAS7UhyEqChURxCgNTa2Vmvpsq32HMvrbmIRleYJW8SoMsIGRWzRAVKK3uqaGtSmnmCrE9lBe7RWO9SBiIx3pkofWoKOI8CnhEWnvOcrZ0pDriqTEkZk164ihtKHhYvbYqmahVgR/gw3+6onSDt/Ma02Rx/qyYl2yfyDZ+wLm9Y5g0wa7M7hv9UVoYg1ygMuQ9MKE30/03Lz38V7anhjsWATBAoA1vpnMTJ1JIIgN0T6TlupYWSd1upsEW/UM/LxdNquZ+upRyd0Jwu1EwWSJ8BoIotjGrE6U+Fh0oTLXhs/LfSppgKwHItOR9knSRExF6LQ72FZK/sC53t4QJkMgT++o2yckBG0LAtXdU4KucVasJ4ZiZn3ustJdWgttnkjmFU0nG9USdjLwgEWNrGYPMmU3BtOE8cW8MwFKSOWbh0JFUUx0Tbk0AMvCUlwcCbVL7jp9WojUMiZX1R6GF8WUQdCgUNE/NDbCZIKNFid0fVeXB1j1ZN/o7Np314gI7dmf+VjWjOaABV5uskFgtxNi6XqHOukgUA4DofYkMvSsb5E9I3HaN6nnbWbDgapFl18TdJGfIU0iEzFwMjzQ==
+ properties :
+  width : 558
+  height : 328
+  widthClient : 556
+  heightClient : 296
+ style : {}
+ controls :
+  -
+    name : Libellé12
+    identifier : 0x2818ee022e1dbe3c
+    internal_properties : HgAAAB4AAACFT8wb+B7kYSRxHnDPeGfBKiYRfoYfKwvM/5kO1Gos+h0/F5/sD23Xf3NDIBOMqLO/Os15Zq3Y7sUwtzLpJUego5e+jYzPgIP2z5d2e48Zgv4xciGpToPfcID3GJaSwrOK00M/YGK1N2eM3KjuWsgADVGYaG0lrubkz0dV4aeaOjqRY0qO/mu9wf/NqKHNqAYUwhxiixzHjv/kV8/2Pzwkt6n7A9uE11fQ3ps3jBNDkdUyj4vRVKHPQK1ymHFd/b6sspFKzX2rju4iu0ok2kc+Dv9Ea5vP+wG04F4JsG4SHj6aE7lRVVHtlXNZ8kP/nBJTZ9kn2CEmNX9u2iCuc+xFQkzwcrTNTk8KatRR39t3efTBwSsMMJASmWDeRiwiNPbW9AQNNRcovBi3XujyPXFazDXSeG6W7ByHYix3NYveJg1RJlL5WiFFZKKAuiYxLZMgWjkhc/kbuAgwHegp0/02T/fTJVyyMFFf+sxta+1HHepO+8hB+bvFYTM4qPDjK99V6hs8+vJm2e0IhZ+m9kLoLMFDnZVGQc9KAGZq2j14tLB0
+    properties :
+     x : 6
+     y : 62
+     width : 453
+     height : 20
+     tab_stop : 0
+     take_focus : 0
+    style : {}
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes : []
+  -
+    name : Libellé13
+    identifier : 0x2818ee022e1ebe3c
+    internal_properties : HgAAAB4AAACKKmYW6Q8MRAlOhGIQOByrlFMOd+6gFCsC7oaL0z7q5nuJIB2xrzPR3FjGUb5iXJkgbGVL94LWv4VAwZTORxkZhGtXkO5dItesfLPAaykSDlfHHld0vL61hESQEPXIchXXjcBUhtSJa9LU6r551I92OgZmooWxrOuVtN8JqruGjs+Kue3hoGjv9uQ5UvUxP9F4iZoq2TQ8QWMLla7I3KjZLPeYSV2v2LQsY6R0y4qdtV5p49MKEemOBUSCOw2jZnv30VPnpxJ+/Bn7Wv5D0XhmV1KXQMlNoTHH2FXENpK+SEssmwVIDb6mtds+vqo6hl0eC7Ub8w5SDz9PN35jnZ3ifKpTUK21iNjaqs012ZQPRAz+3S2+NIkK8USQIHYVD4JEsolUfIUk/KBNwaUwtSfPYQd8Sn7Ao6n3lM/IPZJJgJghtMdieE3dCERnbTQljWyuHlNuk+wk5K7S9tJg1p/iEaKHAZmZPYyaVxqFalH3sy9pHIzH9lk3kePFwUKyIdwgOdi5jn4peww5NhZY2n/NzVb9ay7ofZ0QV0dApKCUxKscTM1Q4TPjTdtbnrXsU0jICcJHRfBz6ozbUkJr4h4o7IyTjezWEQ==
+    properties :
+     x : 6
+     y : 134
+     width : 453
+     height : 20
+     tab_stop : 0
+     take_focus : 0
+    style : {}
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes : []
+  -
+    name : Libellé14
+    identifier : 0x2818ee022e1fbe3c
+    internal_properties : HgAAAB4AAAAkPXFHpUZ+fIp7j/X8wCcHOwAeX2QjEb2rnYcXv/mb+iW3puuAZV8HSG60M4o7dovACeiC1lUlK4DYj6pQERAe9h5mEYj4ZzZR1a7afP4VkjZmXh9Z4+PgapVGl6NRUyos+BrjYVKw3U4HQrUr0t7VOS/OROH6ytaTUDY9jQ4JGpl5fyJEn2BB85rooUBXOdULT9n0amLRXFiko1neNCTxAGviXAgajXZ/CM/QAuwrkcB6Le6l+mAuBDFEnu2sSh7jJS2ebLePWC8rKcBkX5IHpy/fghTziMqtmHCHXUCYjKP0UhDas/RMApEXVADP+lgEASRO9XNpeIoCKkjlmUjV1WazQaVhwYJDuDBtLA235WX/6lgzGgULbBrsgAUaQPb5YLWe4i9rl5m3lsBHS7FGPQlhi3MYgWXmsGQf9N4Vddt0DhvtH0Xzo+RMTvEUNLFBHKT0vEUijtTHYJw/cAscQQgpzeiKvRdJde3jWjlYwiJ3SojU83TujxDBeRJ+3JCT3+PXBsnCDJQZjj6X8A==
+    properties :
+     x : 6
+     y : 98
+     width : 453
+     height : 20
+     tab_stop : 0
+     take_focus : 0
+    style : {}
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes : []
+  -
+    name : Libellé15
+    identifier : 0x2818ee022e20be3c
+    internal_properties : HgAAAB4AAABVUEoKuH93ckZIVlXIo+R4R7QY9rOHrSiq7TXza6ygG3SPxbpHsct5sKzAyR9prg+MJp36ICcZFyxGNcxZ9meGi4ToILhsHCxSycQOEeUEep+qkFSpnP54Jp4PhrCUYX5PmoLIc/qBUoes86SACwozAMrm/UT9KYgHse8BVPdM0ajtQB7iMm9jVzYysx9o0Qqv7iUfTbtdHC9cz4MPe4yiJp/OMrHQUNnSMYTS0jQq2S+1DRR8oBfLizxL/qv+I7UtaDaLt8Lp82cPcJGSW34NypohaBJDgvxUfORvHjzTHwogszUf65Cwq1e1gh8/M52/C7Xv4suf/mmyljjmF+/8tjroHloL2+wcXmQ1iQ1+SLLF3euQoDsRRaSoCL60UYsoqF73iddDF9znCBrMP6AdNvNIxjY6O8cxusg/PsaWrBS+XyvBphwgYZtHjSz9yh95mJmF4X6PpvnNfprIIvSjQq0X9eUjKurtiuyXFe8J1UL95Bn9da65VwE2CESU1y/HZ5YTi4/AQyLhIzmhWKVpA3CdiaEjPLeR28Nmnrc2qGL2zDGpW8yckb0=
+    properties :
+     x : 6
+     y : 170
+     width : 453
+     height : 20
+     tab_stop : 0
+     take_focus : 0
+    style : {}
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes : []
+  -
+    name : Libellé16
+    identifier : 0x2818ee022e21be3c
+    internal_properties : HgAAAB4AAACy2mRN0JyicpmTDkEa/fbdRH3l+OWtCyUrepushx4w3Y1b7b5E5lLpKbFvts2okjpIZuqzir6dgmXp7ZHlyC89QOKxSWQpPZ6vrMpsEH7pKf68wb5Im+eGbB8cchurZVwDhE/lFqC7G2QgxXzA4pxpcg8q11lMM1CYurjUnfo5Z8CC9abi56abMVLRM++kpiz0JtZGUFMb8srAeirm8FK/AEoXf7q7RfUpdzcymPmZzuVRBC+DkQSeDV06xrICb802D4lyGvQ3YrdMxysNo5+l00Sw0rFIllL7sYR4vIKH4BEhw/abIlj6rAYZS4lpI3zIfJN6FMTftArb5q+CL9nRyQ2+B7AwvzYBuya2v5sGoYl0m9Dex4XBek8cU16w33RrYSpEjZbFv2M8liVijYwoYbLGZwLRLRd2t5BWrhL+nT0nRa6D3+pUWDj/NiswydYW0PALjF6E47FIlNBtN+07aLG2W1tCiy1/JGIbl7kceIZ25evUDYFHOoC/KNSDemjX4WCz1FyUUHo=
+    properties :
+     x : 6
+     y : 206
+     width : 453
+     height : 20
+     tab_stop : 0
+     take_focus : 0
+    style : {}
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes : []
+  -
+    name : BTN_Chemin
+    identifier : 0x2818ee022e22be3c
+    internal_properties : HgAAAB4AAAA+dnygQannws9LHmAL93vUwF3JX70eF8aEY3RFP5+cjiYfo66y2aPaWd+/h4Jl69RRalmJSCTEKH3NzwdnOrRYdxgXjfbxIlf1XuyRWudBQZ6mTHqLaIMWwr3r13OvwI0REwUlTlYaFp4vHBJkJ7AFGnedbDtVrTDapNP+Wm7T9ocFzdSCdU6A/pLk8lg7BasGnIIB0AYwWCt2jP4hgGIuQ9hGeDMLIp8C5Df411TDXOTHfgR2bNwj7v+V4qbFv/oEIA+phji4hNw9UA98uUi7SPWXnvNfHGFVruD8RNOFF8sHdvIY4BfrgE1t2YO6rzVLKX9zcpcZX8lxDuDPecp4SDR2v7OImdJ37dtct5pSU8pxLSAbl1mov22YFamtkvM/lSL0iB1S9gwtUs2HHIcaj3Xt5a7+lykaw67jWYTGfX88z1UVYo/14fQzQrlitNUw8qdQXNJ/THqvdZfZxvp+yY3AfwdAy1gpe7ghVO3wO3fdXr2+c7g9Aq2p5ba382TIEkbw5rnDq27VFcOZw3ZogNCK/D+r/kvTnfCdOdNNiDnlir1k7J30zWvrTs8aBrTQF6CT4Ogoxa6/GlwHPnGa2WO+aIpz8MmTFqVj/xS45HQ4XxTwoVGw7Bk7lO1p7v1EMyTtsNpu4SJw/+iDTuxJ2hr0vZrsgIToHiXXfxa3ybXCfUFmEPDR9+b1pRinESYpJRv5qNFK/SiOM4OmxLZaruZR84CvKgks6Y2s2O3MLqy3K2+31Y67VLhmjyfCKQXngMlCfDcoo6jTCROgiOGMgD5OMyb2FXnSugUjlClmwDWp8Gm8fhRojwuHXySb4EEOdtb5BENOaMhy0CwGL7sSbDf8O0TywAA50dchvyAlBiIvV7ZgAoU=
+    properties :
+     x : 465
+     y : 60
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 0
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1-
+         
+         sCheminRegistre est une chaîne			// chemin proposée dans la base de registres
+         
+         
+         // On récupère le chemin dans la base de registres proposé par WINDEV
+         sCheminRegistre = ProjetInfo(piRegistre)
+         
+         // On affiche l'information à l'utilisateur
+         Info(<§$0000§>+sCheminRegistre)
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_Créer
+    identifier : 0x2818ee022e23be3c
+    internal_properties : HgAAAB4AAACYkGaCJ4PBPGmliDLFvVWaiocr8cs4seDu5S4AbkJFBZ94JifP0asKJfunJ6b9cxS9ziV5HG2WnvCHTz8lRDbqgGcmAnVPygasZ9U4+BAfmUbWwtjG6ntzRmlnxaMJdLOZU0M44cW/UaEE2afT4H0C2/C2xwocdvfhJfzTFUd8L9yCKgu98KufRY8hdxfkogzbETeU4z3lT1oTecsE1WcjwH37L86uJ+JFeZQd+hlo6dXAT6+tB90CncjWQ4HiGFO9ObhoZWORk5seYdAvXrkAsS6oSTKudeS4x9kl13DmyKh0G5kzn8Q+G6qa1ob/ZIaEagBqeb6yAtTiTwEujqudgU33bmKqx863Bw3g7U40G8iPjQ6ZR9V06zeuyU8RPMPtM1pS5jUGwiDzlJ25zHX69ROZl9Se8+U+OYT/f2jwfUW664cvZm8VbUJdkeipycJfx6zFmZk6iyUI1uaQqaOP+AJNaGAjqrtcLOnwGxzNEKLmR0bHapvAEaqWYCmiiPl/n4s12/SqyvkmLrq8euN1TxlTo/bMDZgcRmlUIPya+4rG22ybpeS9iri4CZKHs8fF/O1G470zjnf4A5u2j0aNKswHn5Fk/9Z8P576pp0xw5VJeAs/AqBhzSrMq/Ry57SdpEXMJ7MVRsfVVHM2mzl0Jw+BIAU581k9o7oaWgtYyHJn+kRBfQNCZJMiEKMMiv1eMsjMu8Zl9tHnXE4REdvlwwNWZgvcjaqNihab51ZNhd3g3DYG6mPQqXvxlPgrelGNWpp505Q9pgmJnRT804mp9YFiPu6Pu98oqCvbgusrSayT6mdSrApCRXXJ3Z7xBm+U8GjhZP84kCAEotIsieE0DlGGoeIc9jZjixHvTbKL6AQJudRGZOM=
+    properties :
+     x : 465
+     y : 96
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 1
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1-
+         
+        type : 14
+      -
+        code : |1-
+         
+         sCheminRegistre est une chaîne			// chemin proposée dans la base de registres
+         
+         // On récupère le chemin dans la base de registres proposé par WINDEV
+         sCheminRegistre = ProjetInfo(piRegistre)
+         
+         // Création d'une clé "test"
+         RegistreCréeClé(sCheminRegistre+"\lastChangeID")
+         
+         // Vérification de l'opération
+         SI ErreurDétectée ALORS
+         	Erreur(<§$0001§>,ErreurInfo())
+         	RETOUR
+         FIN
+         
+         // On affiche l'information à l'utilisateur
+         Info(<§$0002§>+sCheminRegistre+<§$0003§>+<§$0004§>)
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_Ecrire
+    identifier : 0x2818ee022e24be3c
+    internal_properties : HgAAAB4AAABMODAxuOwO7QYvwzlZfosR+WfAHAp18ivVp98L/9QO/Xj7Kisgc3pVWTJSD0loSK0DjwVYg+nL+pSqkb1iDoVzrk2BZI/GcVjaNOnOqBSBHjMr9YsD5iY5lhBEEmXWX6V+p9Dx6ED9aj8GCTVVltO2f6JxHz6XK0+DAnX52PUbuoRSq0du0nR44+hCX4V+SDISr9GaUakUTF+gufB+qOzwN7E4t+yrb4OlgXKv/ULoHoxhd59I+EEISrA12Jmq6xTFqtOg+jTVhCIKkcMCTGQmbil8MNs8vUpTTqQe2rG8tWfgK0iPto3Oabno9VQyNMfeyHlsYfe/bnwvJdQxEwYyDYzqRrAOyrKxadZGCoCkiMPbYuVS61uKAmzW1c4hXMvYBt4d/T1TBeVwqS+aiE5H1UZAdceSjeHllywAQ20o5MSh4J/mHJDbQJB+xlFIIAS20IlcC7Q1Oy1IDnIWlrVZvrF+/SMZH4b02BhG/gaaEPfidFThGBjv28Req23kRaQXw0x0rxKwQGeYo6lXWseszO4UsMpyjVo+zT9IGxlKkjoFwxnryEPlhrKZrfWJwEQm+3EpJmDYpqCaLM7+erfmOk6CARNi3rIRSdjCHIcHIbOVbCAjO01tJRqgALBd0jAwoytFu/4Zyqlb3+kysSvQJA0BMmAsTVoWgdcm4GA1fFBjvcvVdjddb3/hfOaMUEqxi9xJRRQlISYyaAsx7F++ucYlEgni8QdejKy/Kp8ETuVIo+2ll1nSqo3Xed0rfJCZtY3B8GDYjbKT4F1EYCTSEvyYKoTPUP5qqJ44wnPzwwmCxUtR9VYZVveGgAwrrqL1beA+3igKlHByUhPhYZBSFs94isImvOpIj1Eau3OKooa4qlVwk+loYDKTRvTWoEk17CBovl1NCzsM41YDOr3zWd0=
+    properties :
+     x : 465
+     y : 132
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 2
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        internal_properties : HgAAAB4AAADrzfNZj3j81ybkJY7ilcRtj9EA0kBdrTEDbXR0f4z5UefKCDz95kUddoXj+gg26wTtGOjoBh7rD+taQXIDzalJgISdyKQFne9NV4MZcZdI08KZdUxJJE++td2y2Z7Kfm3sCMzFAwzf9Z0214w=
+        code : |1-
+         
+         sCheminRegistre est une chaîne			// chemin proposée dans la base de registres
+         
+         // On récupère le chemin dans la base de registres proposé par WINDEV
+         sCheminRegistre = ProjetInfo(piRegistre)+"\lastChangeID"
+         
+         // Ecriture dans la clé "Test" de la valeur "mon test" dans "variable chaîne"
+         RegistreEcrit(sCheminRegistre,"changeId",197,registreTypeEntier)
+         
+         // Vérification de l'opération
+         SI ErreurDétectée ALORS
+         	Erreur(<§$0005§>,ErreurInfo())
+         	RETOUR
+         FIN
+         
+         // On affiche l'information à l'utilisateur
+         Info(<§$0006§>+<§$0007§>+sCheminRegistre+<§$0008§>)
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_Lire
+    identifier : 0x2818ee022e25be3c
+    internal_properties : HgAAAB4AAAAaZwQXp5nDmBwip/6nIEN/gfAz5vfJfzJjgJsKb9wtdf29OU8j+pCOw0z5NH0YSo9m8MVuqQh0R3sOAsCnTjcgG1XTExazWh+gtPZ+jdO159S16K7F8469PHhxyltReoT1A2oR9t7S35WlYG3A9qVnSBH4Wr4PqKqxzp8WM+xeaguYKhMP148Jv90VNW85nGGf+dA/tY5aB7217wMZx91RZbilStBPfSqsX//BOIdtpBDuzPJ8pnhqv6QQwjjDnQ9YVE/uhYxM4f2C4pQtltAyWssbxcF4xc6HhQc063khJ5lUPqfhPT2VxDdlxOUEq1vYQuZtBINDL7ldl1aoBV3WgLJJXUFHDJ0bgJkmgPQpLVnGLV6k71kDzIOb+f/opWmordNBAtqa++/wPMx4bBpJ2AXJvzFY1lpNMUimKWnzeAC/HRGfPDZEnBAUP02lo6uJQJP4c2EyVFKoLYYJx0lwoA/o26p7NLg5Oih6hBQ1OaybOvMXRIdfoPqVOp52kGjvvDa8m5Zk/XxgOQIHfhNaywwklqxwiWfP1uhi5WicwG6zqrWP315+W/Cfp2UdwVbbTz7RaflNNa6WCLehYx5IHK/MNMGOF3vxbTsws1G/BL/saSoH4JLkQPA76w+Yz1ERxfRLZ9Uj/5z/v50bDXNLdazwyc3jvwzAX79Qq6lSh6rm32k9ayXZD8vzVvgwth5epz8trSqBaeS/u86aAVPA3yq7W/cKdb+2lpEHZKC53FvHURPwPs+HIK982PYkzfrFVYhvTDEwIIUDkJPBUPHDON17toYoMG7H+Gsdw1VQRMbZwvEuKEk9SAZrwXFeZgktcH7OcwKxiCkBiX41bcOjvAqBswFbnXGQ8Z8zIjAjlJNyF+A=
+    properties :
+     x : 465
+     y : 168
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 4
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        internal_properties : HgAAAB4AAAB7vWPJf8F5hwZUNR5afYwdBxFw8kAt3enLtYxs36xZaUfycITlHl0tNkWDikBuo0SlqAgIJn4X2y9WdVbPEe1FjPCZxMDp6Vtxc4ddfRvMny7lUQiFmLvKiRlmPRp+wikYZBgBn31PZQ2mRxw=
+        code : |1+
+         
+         sCheminRegistre est une chaîne			// chemin proposée dans la base de registres
+         sValeurLue est une chaîne				// valeur lue dans la base de registres
+         bTestLecture est un booléen				// Test de l'opération de lecture
+         
+         // On récupère le chemin dans la base de registres proposé par WINDEV
+         sCheminRegistre = ProjetInfo(piRegistre)+"\lastChangeID"
+         
+         // Ecriture dans la clé "Test" de la valeur "mon test" dans "variable chaîne"
+         sValeurLue = RegistreLit(sCheminRegistre,"changeId",bTestLecture)
+         
+         // Vérification de l'opération
+         SI ErreurDétectée ALORS
+         	Erreur(<§$0009§>,ErreurInfo())
+         	RETOUR
+         FIN
+         
+         SI bTestLecture ALORS
+         	// On affiche l'information à l'utilisateur
+         	Info(<§$000a§>+sValeurLue)
+         SINON
+         	// La lecture ne s'est pas faites
+         	Info(<§$000b§>,<§$000c§>)
+         FIN
+         
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_Supprimer
+    identifier : 0x2818ee022e26be3c
+    internal_properties : HgAAAB4AAABRVZau2cWi034ymFKnooiHrA38OI/6BQyqcdL4T4zMqbhKfl1QZk3Ji+jqWP3KpW2W0IqWQHzJcheSMLbT0BLurLaIzy92j5I+xf1d6+2Mz5OSqvt+IN//f+OhvZHR3cqkmK8MSsv3mQeYrJJsLGEPmSdo4CHXHzBCEmlsPBHVb0htasZTHUyxZfZ+10o3WJ2Ha6D+DnUAhzKzYu1qC+k2yiY4ckjWQn5l+icKyWyh8dKOvjxMMkMJjK6k5YFSbegtZFAWbY/SRHhkdxpHfRt/YHcJMsQ5mz6xfP+H5Dl1qQcikPjGzteO9ixhGRbymP40RPL77ohm5MBuHd1w3WElYpFhmoicMggY99vQ6fptUOCmegYXp6Sr4Ys67hY50RV2rY17yMxC6ckvNTGl6kvLqs23Tv3hesn1PlE0waZMsXcvDXGO21QUvhDhOIUhDKXbA2z/95A00DkCZHdH5Szwzsbtwn4i0AIkvp//mHws3ygUIQKv7103T7TE0z7C4fIpybETdXmOLQNYTCuHEnQGq1VrjWwrQVkgZGv5N8oLznBgSQyf+l7APuaCsuE1UHqnjCGeJwiHdTsC+Zg5FyeMttQjcR918dMcpWjx13mgTrPhnHMzuSDom4A2nG9khu37DjNutbz5p0thHEaXlcpnobHPanuyoeidCfQVB4nLYVQFDCLzqjth1PEsE8Akn2pEMgT+MaPNd4EPGIfUu0DusxdmdDVJ17M36lJ2DNT42GnQKP7CZwVzf6uFa9fPddx32le+RA44WrKZo6hbesQtUuLmn05l0U4gjIEbcIiAXsYaDQnUfOi1kn8M7cSuOpw2Kv7f5wlPHPkGJB8bsReixXLzSgOW77Nctl1H/iATulJhWvTsx20T+Q==
+    properties :
+     x : 465
+     y : 204
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 5
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1-
+         
+        type : 14
+      -
+        code : |1-
+         
+         sCheminRegistre est une chaîne			// chemin proposée dans la base de registres
+         
+         // On récupère le chemin dans la base de registres proposé par WINDEV
+         sCheminRegistre = ProjetInfo(piRegistre)
+         
+         // Suppression d'une clé "test"
+         RegistreSupprimeClé(sCheminRegistre+"\Test")
+         
+         // Vérification de l'opération
+         SI ErreurDétectée ALORS
+         	Erreur(<§$000d§>,ErreurInfo())
+         	RETOUR
+         FIN
+         
+         // On affiche l'information à l'utilisateur
+         Info(<§$0002§>+sCheminRegistre+<§$0003§>+<§$000e§>)
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_FERMER
+    identifier : 0x2818ee022e27be3c
+    internal_properties : HgAAAB4AAABB6o8dGuB6VJ9rL1zwV9mER3rID2oR/IgMfVXzQm9NPIPxtPXlxpqNYlbAD8hnWgV2EBJmvKYFgKdUjf3DWo/6H10vBxCsjGT0hBKERxLGw7JgKpzsBbZv5U68W/8Pq0MQY7i2VN30UmGtG2/2+UIjRNJq2KIajaVxuTm+kqxQuhy3sa/a8yc9ne4BveY3W4wKwsH3kbrg0GlyxP0glIaLd7QrvovcrjUK2yRxvxIq6H6FANGSgYiNcEfY/YCZbSw1TO4by8SwQXeq9pncW06Xce67vtmz3jI7tIFY2LzcI3vY3N8ffJfhYYXAMWelOgO9h/yVWP4HskwLPmvxHxgal+0tGTt/+8I2vflY6kmSRi04kKPbXwUtMMEaCZbGe91WzrEyC/Q9q99RzqaK4h5EQzH5e4fu1ADV2kf0vbIRh06TcXZCIeYfIn3GD+m/2B83DadibrTbfGeJr0oCTMUsxxWaXG5bzFPtWj1nR5DQOaBPQdCqiCLbYEa0xdxBf8eJhfmaHKpyy6G3/PneIidv+PWFpP9IyEvUzQBWZs+bWasmLFUr9Oe3qT6v4t89fTK2pkEUUCFdLWZi65N/Lcofa1gNdiybUL74wT0W1zRBlBcOmz2Ayk5wnN+yTzWglSk5nzcCWk15Ccvu2hEw8f1ZYvEhOmwUa5u4JnazNvdPVhVKWgFxM5EgtjtzPcD/PrAy9LITKb1n1odUV/i0OG72lVnZLM8A7n2WLNTyUIVoI4Lut4WxQ7jbd9d3+Bfbw9vZH9CtrJGegwIfdW9jfbJSIX1D3yvM3tjtyoUPQS8IDN7QNBWR9WhIpKYCCq45CZ/blnTWmqF8Td84TulKh0XXOp4jEe/lXzQlsYZ20NwdB+NCOqCws9D/V1jZJn2QCK825T7V6nh9KjvxfzwwdCNfoTCVLY+Q4KQeoiSSVEQllvwXLBs=
+    properties :
+     x : 468
+     y : 264
+     width : 80
+     height : 24
+     anchor : 5
+     take_focus : 0
+     accelerator_key : 65535
+     tab_order : 3
+    style : {}
+    type : 4
+    code_elements :
+     internal_properties : HgAAAB4AAAAU3FZlI/wCqCeiOqPFbk6ZpYQkSbzZPrkFjgzbO1MsWUbQ7jYGj7OrNPsNtNJjtTvK3ppJS3/1QksbTLLrnu6p6c9ayTxrtZJJ9eMck1+paix/wzUymmEzHFVQDNFcEdRzZQgwUJwOccEI3n0FgyvtKwBiLPOjJAQ58Qk=
+     type_code : 4
+     p_codes :
+      -
+        internal_properties : HgAAAB4AAACU3O7Eq74PyLk6iB+zg+KMkSvtSKMoEeTDEPwtnZfYQnLRszEV6VLHKfdegi6CFBzU/TAaTu04zsznvf+z/LJknBYEvDAsjIhWrHtqmYAfAEbhz+N+aalFUf24vjaf
+        code : |1-
+         
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : LIB_EXEMPLE_COMPLET
+    identifier : 0x2818ee022e28be3c
+    internal_properties : HgAAAB4AAAD4FFzI3VYxP5UKRK8YDXpTH5K1VTGL2s2ILMpv5oNOesMP8hlW4dHheyj4tN6Folks5WvGTeRKY5m5pkYHocul8Pg/KzbVlQqWPG5/pCWDHkio/zS6pigtQT/3MNRQ3m4dEDwWKfa86sJWUF2Xvm3F6sVuL3DT1sAX701yKNxXGM9wWB0UDR1ITI7vLW1BWai5NJq6MZbiB8YKsmFE6PCKpW1GBPbCSOi3uiiuqC5UF9KrnnmxYnN0z+h3MH2MLHYTo0S8F07IqdLguB09gXQsNG9qtAre+OH/UlOEGDlqz6nqQs7m9qZmnq7lPMtcKQTVl7wje2lEnJKUAT4FQ4XRynd0ieMhXTp8tSF9Z8eAakhd5hdpL922GLe6MNlB4dqnbrRh/r4MSEX/tWumMowmfPqyneERMvVAixXONM073bMvD3ajQV5VlPz9sI1w9dNciqq4RjvBE5cnJVtbM05alF7cv+oEioycGZNActcSp+1p
+    properties :
+     x : 6
+     y : 318
+     width : 542
+     height : 19
+     anchor : 9
+     tab_stop : 0
+     take_focus : 0
+    style : {}
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes :
+      -
+        code : |1-
+          
+          
+        type : 14
+  -
+    name : LIB_TITRE
+    identifier : 0x2818ee022e29be3c
+    internal_properties : HgAAAB4AAADMbnf6B1YsmKFtoDWQ4IoBWbrk8L0cstWnbV43ZqCgLpTg82uFiC8Uk4nlyJc9QXAHxhcJmt3YN/UgfZBEAyf/FmURJSWnEiVPFncaYd4wn1AoYfZzmZg1YDEteX0dH7QLmohFg/3V3qLwjQYcocizrtcbBeFRRiWqOV6UDUEdPA5C/hAaZW+u2MeN1ihjo9gWIYNzO4+UvjQ1yY58C/n8uTmViDu12yoiPESla7UhFuOi4gNwggPSoYoxr954NV1zx1emFd/nJPg7UwS4qxrFZNcsk2jBkJuooCsP4MUCtMhpxZmV27Is528GlZ+c2ikOYwWmjHVgUCSmnygf7hJi6nTVMx764qQWIHp+f8pYdaAoZtMZeLTscdAH5sYViWBX8D9/gApSWXio2156cQOXQ9IvksvGWD6gD59bqunicLnKNl1U/IAKDz9sJs2Lgi9OmqOaBe/6OAVmu2ozLifJWcFjhLuqsjL+R0UeDy8g7Z594ZlQ6UFU1k55zGAVUD1vkd+kS3jQ5i+kQm1cmeXIbuMv
+    properties :
+     x : 6
+     y : 6
+     width : 542
+     height : 24
+     anchor : 8
+     anchor_ratio_pos_x : 500
+     tab_stop : 0
+     take_focus : 0
+    style : {}
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes :
+      -
+        code : |1-
+          
+          
+        type : 14
+ menu :
+  name : _Menu
+  identifier : 0x3dfd90ae5753a9a0
+  internal_properties : HgAAAB4AAACMuVl/B9yNsBT7gB12Q5cW52ruGkd0XkDXwSvmNKsS4txGO9bvn7lPzxv9eEczeV0RL5jK6s/OynUJF4nDNzoht7UWeSwqPX/HoxzJRW9KXun3asFOJqgrEqD5PADt73+nhSzRYVXMTU/zm3r/HfVetfhJBgUU4XoOs/P/OGM3soEhyuSL/sBJNYQvHyCYDS2HZ4mIOBPF8Ehg2cD6qxNzxgTsdGNnUNZPWfGkHvgtAcv/0/yyRRCx7ZepeyUkhsK67wR2PJlNNx4opr+4UrdtE7lPFXnBkQNjG18++6w=
+  properties : {}
+  style : {}
+  options : []
+ languages :
+  - fr-FR
+ popup_menus : []
+ message_bar :
+  internal_properties : HgAAAB4AAADiBYqgmmj8EVPheWqF+oNeAZAdYk8iU38DphPS8A3r3std1eBIin5IB2fszLqf559HDATA0khMmI4kPNGvzm1e6A4y2gIuHh/oIIjw4v4kr6ZXYrCkdBN4uKZ/BiFW0WI=
+ actionbar : {}
+ code_elements :
+  type_code : 1
+  p_codes :
+   -
+     code : |1+
+      
+      
+     type : 234
+   -
+     code : |1+
+      
+      
+     type : 165
+   -
+     code : |1+
+      
+      
+     type : 177
+   -
+     type : 180
+     enabled : false
+   -
+     type : 230
+     enabled : false
+   -
+     type : 11
+   -
+     type : 12
+   -
+     type : 17
+   -
+     type : 13
+ code_parameters :
+  internal_properties : HgAAAB4AAACYoudJvyNJw+K8R/nmOZWj6bZJaU+XiEhW5MnOM79M1zacYHx80SGfVVD8K+L/xvwICdJ5gM5hVi4Awp8BMQ9YI3pk+VMNNio5KvopgStfYTGXFAkwVjbbt4FPRpkQLED1iGJgq/fh3/j1cGKnbdhp6X0=
+  original_name : Fenetre_Base_Registre
+resources :
+ string_res :
+  identifier : 0x3dfd90ae0646a9aa
+  internal_properties : HgAAAB4AAABu4MohRldDZzd31AvWugwNMgzAJZ9jR2eKUPRVAQgN6W9f0RAiXqypeVfcqnU6qZV1/Q==
+  strings :
+   -
+     text :
+      fr-FR : "Chemin proposé dans la base de registres : "
+     index : 0
+   -
+     text :
+      fr-FR : Une erreur est survenue pendant la création de la clé "Test"
+     index : 1
+   -
+     text :
+      fr-FR : "La clé  : "
+     index : 2
+   -
+     text :
+      fr-FR : \Test
+     index : 3
+   -
+     text :
+      fr-FR : " a bien été créée dans la base de registres"
+     index : 4
+   -
+     text :
+      fr-FR : Une erreur est survenue pendant l'écriture dans la valeur
+     index : 5
+   -
+     text :
+      fr-FR : La valeur "mon test"
+     index : 6
+   -
+     text :
+      fr-FR : " a bien été créée dans la valeur \"Test\" de la clé :\" "
+     index : 7
+   -
+     text :
+      fr-FR : "\" de la base de registres"
+     index : 8
+   -
+     text :
+      fr-FR : Une erreur est survenue pendant la lecture de la valeur
+     index : 9
+   -
+     text :
+      fr-FR : "La valeur lue est : "
+     index : 10
+   -
+     text :
+      fr-FR : La valeur n'a pas été lue
+     index : 11
+   -
+     text :
+      fr-FR : (vérifiez que la clé existe)
+     index : 12
+   -
+     text :
+      fr-FR : Une erreur est survenue pendant la suppression de la clé "Test"
+     index : 13
+   -
+     text :
+      fr-FR : " a bien été supprimée de la base de registres ou elle n'existe pas"
+     index : 14
+custom_note :
+ internal_properties : HgAAAB4AAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
+associated_test :
+ name : TEST_Base_Registre.wxt
+rad :
+ internal_properties : HgAAAB4AAABoAN7PLpwJW3EiA7WVZdCA5EwrCA1rvutcDHooMWKe

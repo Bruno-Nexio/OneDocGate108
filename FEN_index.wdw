@@ -25,7 +25,7 @@ window :
     properties :
      x : 22
      y : 37
-     width : 80
+     width : 102
      height : 24
      accelerator_key : 65535
      tab_order : 0
@@ -58,7 +58,7 @@ window :
     properties :
      x : 22
      y : 78
-     width : 80
+     width : 102
      height : 24
      accelerator_key : 65535
      tab_order : 1
@@ -130,7 +130,7 @@ window :
     properties :
      x : 22
      y : 119
-     width : 80
+     width : 102
      height : 24
      accelerator_key : 65535
      tab_order : 5
@@ -287,11 +287,11 @@ window :
     internal_properties : HgAAAB4AAAAuIUyVqCLy+tJ9ZwPR1UhyUrq7hkaYkEAZNQ30JTTF2glCZCjQDbwVBi0aDAS3RAHfyV8QTxzEG+myW3nEK58Af3HTTmiizTv7DxRpYEcwXEyjlFIj9CdpLZiiCYTzVHrTXsBZZKb3BZqixFVJzD9F+U1ko6GRnBgyqeJMjt5BU/gymxqyVIPjaok67/9cLR0rxytSu1w+6vyFf4A9Fcmor0Qzagu5XUq+Pw+9WACSWoxsDEQv1MIEevY8DrYTcKGn18Etjo4sGmlinhdilWQyZFDoyxAUoS/cRiubHCuCDe0iT4pWh0JwDAtYIELoJTyJf1mt0y35R/Ul1i94qmYhqrsy3SSeGxUui2QOsVt6+GXmNfK80j9mRMlPme5T6Sm511/DcDTirhjPR2qIqw8S14ozeaRWcK+m2ssQi+OMnWdgVZKMlGtxI8bEG7NkEdIgOMtXybuBypv3l7YwSavR5/OsenmqA3XvnnTuDspPIUoqifkRwPf3Oe7xUxrZN5wVMFu4oxnbG5ZyEr9QoKn3STEG6IndPqNfAz4frknqvNHyVebtCqp+vKTsG8XK94r3c1aFqR80QTEr9E6BwhEqGMZZqTQwgKCltmh9GHXr3QjPmmOOqfXUCQqDSdCqf2kKShLizYHpUgno2y2FWXLQb21ncByzGq2jWIPjX4eHtTrZzJ8lU8aLYF8PuPSZPjYoj4/4Y39843ZB2PlBTIyPt1/pFq+OjMm9utDTPkb8o0QHxQ2UUPNfDD1enWtppXAk0R0ltPDGXjrxjvxOHeRJLCAUpyyCW0Qw1e4xdGn75w/JLHawJuhtqM8JDrQ2B54/UwRDSpoACSPCfyKjtCJCV2FscZL24gLgu5qEu6RK5KgvfJLtCp8eY9/DQ9w0obS6UmDV0ReMLYM+G8zd+LjAEpAD1VQ1U6KDtC8Z8UZjOyo=
     properties :
      x : 22
-     y : 160
-     width : 80
+     y : 201
+     width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 7
+     tab_order : 8
     style : {}
     type : 4
     code_elements :
@@ -365,14 +365,14 @@ window :
   -
     name : BTN_SansNom1
     identifier : 0x2812ffdf287d854d
-    internal_properties : HgAAAB4AAAC6v+Eo4seHGmojcJWZXlhhX6NDxhK5hBQ8h4kl44vl8Cm1pf8Ra//OwYwZLU0VFiuTZPRmHqC8Xo7YZ3QvNQR16UE4+YrlETlkZe7VnKRihZwoIUS1h3ugplyVTva0LBXdOwmAyTLwDqkhlG/vexPRzYnaap+BDTbmif+TXBQuS7Hh8Db43ca7VLCoCVhdOFsFj+Q82GiwP10Q/Lrd7ihj1iXhgaiAg3QCIvhJe7znKOHUC20gQQzmzK3MWypD92WOcgma0TmiEedaVPVSlbH1ljksBUH8OEq27DRq3HMsCmu5B1rvCRuwLek9VegJ+jU3fZAMcLfTNj+fi/3twgUKOHGx4VNvePSdA73Ct9j/xWl52/m1XOC/BOAQpEx/cNdgeQpaGL/ECXBmKKUXyGjRIK9h/4mbsV9h61oMDRQQTG9p4Yezy0y6zTKtjWolBuBDS2SDM/trfQqxM1rVOT2EwbrW8EIXgI3D2I+NaTbge2LM2qnZyWlg9Z/UOQsYk/5RPX9en4rRo0Kukw9Z+b6E9wWk9VX3PpSbLLCz/OgyuiDpVUhUo5IN8P1Gkw+FrbKxY+b/ua37X9yTmjaC2vUzJI39O64vmAL7jWFk42ENkQe6et7o1CV1h4GpcJ55Kra/HjctkrIG51HuKrfrYgpUnInQXdJ6bANVZeAdoWVJEctT4qi9kh4HngM0h/okI60WdDW5Mdkw5qtmU6+F80hiLhqmaMa3DaEWBMMp1zBqPiQ68U+W0byQF6ub0p7u8u7M3nhQtz2gagzJoitwQX4EkZ04+95Mkc1m4K052FWOj0iRdB60E+A6xar70q5oLam+1SBOzIJj1SjCk/ay7SwT6KRhc5qu4neKYXVwuat+IgC7fYHJJkhyaSrZmfQDH2DGDZAPSvhFbLNmWAsVjOReBiI/OA==
+    internal_properties : HgAAAB4AAACspzozHAPNYyJuzhXPxumPyfMMWeBAHthfXUL1nlfmw/eNsdNXdGGP6MEeB0kHqIGJbhzZprseqaKUXYtk5b7QXxwzJc+vGcUzMH8bCiUqMkpZ22vputuKAg65HwuMpuaugNJ3AQuW/2ovFGp70RKvl+104/qt3MxrKgPIVxLymKc9GcQVvL7l08H9o2kS3MGmFx1AmCj7/FKb/cxmRQI7r72xgCnmL9QzhlgwHmU4snLndK6+3DMJOoXUWEmDp6omZP01S+/ckuHv9Kyx7lFfEg7XW51O1flDA2vEYZ2+2RShSV6HkeuckfMIgj6WXErp06VrKfbcFr6zBgzskdFO3GgPJK02AkNjZo5RZiD7tmUJa79fhl76aB0xtoWyR6zl+Q8EHFZFHdDppez01S+uXjrFLzjmseDOtuQ5m2W1k2t1LXIP4EEK6LH9/8BLTQaxoZkoneoXFCj50Z8HFZHNBN/ck5PRMQS+s1zm8WaT6bS0O+6yhjzqaHhXROVx68sDI4L7XvyeAQyZdnVy/NSKWcVKDvNpTtaTmcya5A28aqFlrue+qcKdB2XN3rZRRjaxjq0e1CiUY30mt4eGXW/wQtbZOw3TWy9vzcF+xzBZ7mpf6YfN/TmYF7ceV1+XnzvCAYRfyICNzftVllJtB25a1DVtawjQhtqybdTsMpvBBllCiWtJHtWnrIYx0QJTC9zba2ql/ixdclPGjjR0AM4iESX4ksQQsw0dCqITM8Ei/ZS8PsRW6IKWTVzcJPQNbMJn4Deh1QFlf1d3w25WkiCeqN/i/06aCtURKkmck1BCJBVFKByEUemK9TymrzVYNVDRjV7p0LweyYPGs0y1AKYG260Q0TAogMitFHP+7WcLBwso9iYZ5pPyDQk9/8LaE/6XVXk0cMAbHJD9Asvcwdnzc1VonFychuf/6PO1qxzluag=
     properties :
      x : 22
-     y : 201
-     width : 80
+     y : 242
+     width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 8
+     tab_order : 9
     style : {}
     type : 4
     code_elements :
@@ -405,11 +405,11 @@ window :
     internal_properties : HgAAAB4AAACT2FxguYmVgEsJD0w+Dcc/KgObglrRUL4CVbZG/UREcaT9JhMul2zGZaInhyrXBENYrGe4IXFbUXWe/rtMP2K7xmnwdsiZGlopsb1b6ec2zVnBj71UuUQFQ+Jhv85wLpjPAeSsRUHKQ4rSATgeFedTomAp9vGMen/lfSbJqhtOCjne1wrweCDqAY6vVhtF3Iylkesgm0ErQMnadcSyZuBEpsWLeu7f2J75HLuQYpjE2nzuAYP19BiotXB/96jCKYXv2ixZZgq1o197xyemOA4WG10r+6uznwILXseSuiGBtri1h9XoGoAUsOI2Kccm4vAa5VdX97e8z/GnDLzpm0ncaNIXNC0OVhVr+pVCCRyEmp2AGnpPBAErjydp1Il+HyD3jZtLez+a9ERgtxq94z4MfUZ/XOToB9zWW9XdBtK6J+LMyvu9a4f7NabIKDnex/i4UAjOU4bjggSu6wiaf1bHYVj8bGd1QsyjZrqhyR3uEtlVPxnkFLcmgV85SXcuCO4c+BowThzFF0FyApbMMUUN1pyM+alzc4wG2nAP5jQD04younbkI1XZTlhv82zqWyW4UafluMzjQTQNxxKK+vTXCT3DqEc5qAMi0o2pT6EiHTWI4SStTUSyFHLgkHUAoH4DFA5m7NSKKRzgdAF9qLPRa3bXXp76kU4F4HCrdoZYm8AJPUJjRPhhdRfTch6IyP9ciEb+VNZqIBAtykXml30TbkSqMQ4eZHWsibawFQ6bUOULdu+WKFP4fbsoleASTQ3IQZuuFTE2UQ6MmSGgTznpI1Lacnq8RKyrBmQr90VDOXhUkO/dtFDOKlyC+Bg2WfV0oICsM11+Rs6QGHx6tbjvJB5Tt1DoUP6bICRTWNpmYGOrSi8mLhni1lbHao8wWeTXSbe1LG5xJ6pjoOhI2Zeam2K0Ie1NBSIx2Q==
     properties :
      x : 22
-     y : 242
-     width : 80
+     y : 283
+     width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 9
+     tab_order : 10
     style : {}
     type : 4
     code_elements :
@@ -476,6 +476,212 @@ window :
          			Trace(cMaReponse.Contenu)
          	FIN
          FIN
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_SansNom3
+    identifier : 0x281885ef0151331a
+    internal_properties : HgAAAB4AAADJXyBddmuRNX//L6uNXdWvUXcS5Y1ScXJnOzZYhke8P3ShlIyDK3CYEXEYgGeiiWt/vYvry1jmItkY8QL/+H4MIrjPXvQpwqY3TyseH0ix1UZtGfwVGY8sDTgIBBziFJijvo+RB0g+U2diFJqYrmX41iKJpX7o3EGeNyzuczmPtvy4fHeH6toLz5TyeOQ9nermJ60mrzfhS6soZzQHRuObyz6nPBSlDIW5macCrh1s6tc8Bqh9Dfit9QIGV4Nkl9W/BgNPtK/JhBx1iUWwvjdti4S44oCYIKlAPf5uIjPr0kIsqh/NMbklrR1rpZoca9pNbnuKyG0cUaHsa7xLI43O6gHTmvcuPpUOJpqvJmAghkhmx1z9dc1qFGCErfXC2Id43ogwIrn4wTYHnaJCgobuQJhSrtAMJ3zCy9q38UZkibZH3o+ikWTRlVJbr60xuBHMNaAItcZb2H915UMJIH+FGV/s3nWY87enN/9o9eR6sCeUi8M+aR4/WcjGeH/RGoJUAZD4CjHMnD0RHZ8ygKM9LJswDxVG/E/MgVvAiHudfxCjLAaGzq7AWmEQvgj3GS3C9lWViqMKDkyIcnMQ+ZgRBZpFqCu2b3BMexZM38qm7w2vORYbeNEBJuMjcScJ8ib7qRw+lvcPfGJTc+5TV7mFw7OTfJBRIG+l329g1JfgxdT8s1alhxVcQZDkZXCNdjuk6+r8ZBk56QTQMXo8uEeLiOXo8Wpd61LKJCWlJ799YLWM7rlSv2AnzRrhUGoNoaOIMPdQA54fyMhFMoTyps/dXUN+DCRrnqYw3EKklyKrZPhLBpcvu3M7Vmg0D2AZ3q/6EVp95BVwcCaA0vbm0m5YpwyFUB86/46N28tYiScyVmiyEAjWPW8UFmfmdsW5hRqQeeOLyWrkYFKuLFP29bo3bhL5qH4xbog0GEcIQnU=
+    properties :
+     x : 22
+     y : 324
+     width : 102
+     height : 24
+     accelerator_key : 65535
+     tab_order : 11
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1-
+         cMaRequête is httpRequest
+         cMaRequête.URL							= "https://onedoc.nexapi.ch/calendars/18/events/6809e080ea212be4be400ca6"
+         cMaRequête.Method						= httpGet
+         cMaRequête.Header["Authorization"]		= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
+         cMaRequête.ContentType					= "application/json"
+         cMaRequête.Header["Accept-Encoding"]	= "identity"
+         //cMaRequête.ProcédureTrace = ProcTrace
+         cMaRéponse is httpResponse = HTTPSend(cMaRequête)
+         
+         if ErrorOccurred then
+         	Error(ErrorInfo(errFullDetails))
+         else
+         	switch cMaRéponse.StatusCode
+         		case 200
+         			fic_cleunik is int
+         			eventWithPatient	is JSON	= cMaRéponse.Content
+         			REQ_checkIfPatientExists.nom		= Upper(eventWithPatient.patient.lastName)
+         			REQ_checkIfPatientExists.prenom		= Upper(eventWithPatient.patient.firstName)
+         			REQ_checkIfPatientExists.datnais	= StringDelete(eventWithPatient.patient.birthDate,"-")
+         
+         			if HExecuteQuery(REQ_checkIfPatientExists, hCheckIntegrity + hCheckDuplicates) = False then
+         				Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+         				return
+         			else
+         				switch REQ_checkIfPatientExists.FICLEUNIK
+         					case 0:
+         
+         						// --------------------------------------------------- IL N'EXISTE PAS DONC ON INSERT LE PATIENT
+         						REQ_createPatient.nom = Upper(eventWithPatient.patient.lastName)
+         						REQ_createPatient.prenom = Upper(eventWithPatient.patient.firstName)
+         						REQ_createPatient.datnais = StringDelete(eventWithPatient.patient.birthDate, "-")
+         						REQ_createPatient.sexe = eventWithPatient.patient.gender = "male"? "M" else "F"
+         						REQ_createPatient.email = eventWithPatient.patient.email
+         						REQ_createPatient.tel_port = eventWithPatient.patient.mobilePhoneNumber
+         						REQ_createPatient.adresse = eventWithPatient.patient.address.street + " " + eventWithPatient.patient.address.streetNumber
+         						REQ_createPatient.cdpost = eventWithPatient.patient.address.zipCode
+         						REQ_createPatient.ville = eventWithPatient.patient.address.city
+         
+         						if HExecuteQuery(REQ_createPatient, hCheckIntegrity + hCheckDuplicates) = False then
+         							Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+         							return
+         						else
+         							fic_cleunik = SQL.IDAuto
+         						end
+         					case <> 0:
+         						fic_cleunik = REQ_checkIfPatientExists.FICLEUNIK
+         				end
+         			end
+         			// --------------------------------------------------------------- INSERT DU RDV
+         
+         			Prat is int	= 18
+         
+         			HChangeDir("RDV", "Prat" + Prat)
+         
+         			UNIC	is string	= NumToString(Val(fic_cleunik),"010d")+Left(Replace(eventWithPatient.startDateTime,["-","T",":"],""),12)
+         			HDEB	is time		= StringToTime(Right(eventWithPatient.startDateTime,8))
+         			HFIN	is time		= StringToTime(Right(eventWithPatient.endDateTime,8))
+         			CADATE	is Date		= StringDelete(eventWithPatient.startDateTime,"-")
+         
+         			REQ_checkIfAppointmentExists.UNIC = UNIC
+         
+         			if HExecuteQuery(REQ_checkIfAppointmentExists) = False then
+         				Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+         				return
+         			else
+         
+         				switch REQ_checkIfAppointmentExists.RDCLEUNIK
+         					case 0:
+         
+         						// ------------------------------- IL N'EXISTE PAS DONC ON INSERT LE RDV
+         						REQ_insertAppointment.FICLEUNIK		= fic_cleunik
+         						REQ_insertAppointment.NOM			= Upper(eventWithPatient.patient.lastName)
+         						REQ_insertAppointment.PRENOM		= Upper(eventWithPatient.patient.firstName)
+         						REQ_insertAppointment.RAISRDV		= ""
+         						REQ_insertAppointment.CADATE		= CADATE
+         						REQ_insertAppointment.HDEB			= HDEB
+         						REQ_insertAppointment.TYPRDV		= "Médical"
+         						REQ_insertAppointment.HFIN			= HFIN
+         						REQ_insertAppointment.DUREE			= IntegerToTime(Abs(TimeDifference(HDEB, HFIN)))
+         						REQ_insertAppointment.LIEU			= 1
+         						REQ_insertAppointment.ABSENCE		= 2
+         						REQ_insertAppointment.CLEINTERV		= Prat
+         						REQ_insertAppointment.CODEPRAT		= Prat
+         						REQ_insertAppointment.FORMTET		= "ONEDOC"
+         						REQ_insertAppointment.UNIC			= UNIC
+         
+         						if HExecuteQuery(REQ_insertAppointment, hCheckDuplicates) = False then
+         							Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+         							return
+         						else
+         							Trace(SQL.IDauto + " " + eventWithPatient.id )
+         							// On met à jour le RDV là-haut
+         							// PATCH???
+         							// ET ON SUPPRIME LE CHANGES????
+         						end
+         					other case
+         						Trace("Le RDV existe déjà")
+         				end
+         			end
+         		other case
+         			Trace(cMaRéponse.StatusCode)
+         	end
+         end
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_SansNom4
+    identifier : 0x2818911905f9ceec
+    internal_properties : HgAAAB4AAADMR5pTPFqwxmfBOeToH0oSepKJNnLuMB7x662AwP1s+YmzLxlhYmMdeq/QlcPF3q9rBJo/2LlY36wKL4lmC3zuofLxSxlt0/OlXqnpdFvYeATX0Wl7oGWjGTR1ka7g3vsDRc6TP3DE47QbCpJd92ZBJQO0rZRZ+tA9Dj9sQX5qktHzSX7T9NBQ7p0t9wPeID+sRaUigkSxVNwHfUgYOfaJLc8lVjsafXQpFlRcoDEkIPxVsCCEvC1p8AmsYA+rP3TMTrEn5aNanl8zBBwXNgmZFEC3TYP2b71td0vAm/Gqr6LfvZDZ3enoe1eEShzuuFDLzU1Ra8o6+jTbMgSyAaEgdgI7ZnMezNOJvkr9OKRftEOrh5WtXtDiyimtsreeH4a/N2+WAg4nCS6ZOcgOefcQZEwFGeK6XwSozoDFjal1NbXDwXyR5H/KBu3F0+Lf6bwLU3EeozqJ1Ca1BeMx0WE/S4B9fHzIEl3JbMUvKlu0lH/ZYNsHGb0Pv+XEcSq68DreAHf4U8fzUl9ihz7b6clBDFJfC/C0U7dStuEPQSqhZbh+x8Dv6AvmZhp6+5tyj8V809pbqQNZRBxrNJyDUhDvMd9ilK4i0EBe2hbTDMXCUc3ERixiMFKJfswjpPxoBKqhQjU4+Xdy1uoCm19iPGMRu/62lJFvh39xeuE5V0TWKUiz6vy6HcaUe/v+jtfopA+atJOOD1Oet56/9xUFiW+5jJJtF0GTNIqYs9s0PN5/kHeZA4GrM3ub4V3dzX0WjeFqjeR+CqQiFNrAlN/Hlx2Rg9ybWvmHB8YM+1JccWLAmz2gy5fah2WGL+ACX+UQ5YQxYZohoKxK1ZOST2zFkDaqYykU6WhgtHR9UHdGNS/TA8u0io7pBk/WJS3Rf2Iyk7Iv6YUUqGi/SJCp/lOkjzN5iyMuXJy8wqmTlmEVy/yF2Ug=
+    properties :
+     x : 22
+     y : 160
+     width : 102
+     height : 24
+     accelerator_key : 65535
+     tab_order : 7
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         cMaRequête is httpRequest
+         cMaRequête.URL							= "https://onedoc.nexapi.ch/calendars/18/events/68131c0a5de07023688bd74d"
+         cMaRequête.Method						= httpGet
+         cMaRequête.Header["Authorization"]		= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
+         cMaRequête.ContentType					= "application/json"
+         cMaRequête.Header["Accept-Encoding"]	= "identity"
+         //cMaRequête.ProcédureTrace = ProcTrace
+         cMaRéponse is httpResponse = HTTPSend(cMaRequête)
+         
+         if ErrorOccurred then
+         	Error(ErrorInfo(errFullDetails))
+         else
+         	switch cMaRéponse.StatusCode
+         		case 200
+         			eventWithPatient	is JSON	= cMaRéponse.Content
+         			Trace(eventWithPatient.patient.lastName)
+         		other case
+         			Trace(cMaRéponse.StatusCode)
+         	end
+         
+         	//	i, j	est un entier
+         	//	jsevents		est un JSON	= cMaRéponse.Contenu
+         	//	j = jsevents..Occurrence
+         	//
+         	//	POUR i = 1 A j
+         	//		Trace(jsevents[i])
+         	//	FIN
+         	//Trace(JSONVersChaîne(js,psdMiseEnForme))
+         
+         	//	Trace(cMaRéponse.CodeEtat)
+         	//	Trace(cMaRéponse.DescriptionCodeEtat)
+         	//	Trace(cMaRéponse.ContentType)
+         	//	Trace(cMaRéponse.EntêteBrut)
+         end
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_SansNom5
+    identifier : 0x2818ec5a2d874428
+    internal_properties : HgAAAB4AAADTUkpD1BwDrHe9uAigoitylLRlKI9Ocb6TLlhv8TOZdoPEfoMwSwLup7NKCvN58EZJvyOgllqDvbJ3JoILOF5xigoGPHhL8IU4rIjuQUX8u3ec9ULFM4jLqS/atbPXLw59x4nSN2U4eDZ6mtYSx/QOEOvnCIiHyx8h8QBSYG+OecXRm/43dlRZe0gH+9lvOrVyl/9FYkbnXFIj/KghsqOenmpQflT3URjbm1wlfNoUw/p3NKzrJ2ncAAEiqR5ZXI9uCagSYc8eE72wEtlrclhajaElj0tjVwZdG4qigpjwAVshHBdZNi9amzdH1V4NMRG0wmGhrMKMYE8NfbNlt2jA0qMiktNR1t8hNJmVZOj3IQy8sMa0gNjj2Ec1qSmPuX2bMp/PUMVuOn0DssVj9ZovFUYaDXB6+t9P0yaYBtin9/TTjBEvcJx7jvAq7jEKqAZyx+MSrcF3J+ehsgYcVL648rgmtp9xJTyOni6BVPTCudSBqeOo1J4cVBNXjzjHAiXtWmgW2H4MHwhsMkLXnE8SdWxyx93DYK6hhpJRs8UNEoncFPAYCxA3t+790YFXe8RbB5WDkIj8mYGtZcjHK+YG2LVdKrMx0SVf7ktXWEJWyjgSF2rHnwdM3/xyEqJ5+v3Yjnrm7h5PWTECYr9CkSdIeOi5IGaubPCAqmbZ52M+1Jv7PabtZvknwlH54OHzKJBPVj7inBqnlnmVtm19lqMqI7gWcUTkQ6UnkUTWvsMz7wBffoMM1jTi8L3QOYGHgyoD8+2I3TWJ5c8MwZWNzE+wSLYAaDAsdxCW4hVtXlRx9x442wxyHqItlis2bGdpkac8gyciSKZI8RhFR1mqUuqAdfpFq1SofZoc5kLJtRebDBn755zOFZlNZimk6eQMAuigBjmfgqvbJJq2FWGzxd0oL3arG/M41Fk=
+    properties :
+     x : 22
+     y : 365
+     width : 102
+     height : 24
+     accelerator_key : 65535
+     tab_order : 12
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         ResCréeClé est un booléen = RegistreCréeClé("HKEY_LOCAL_MACHINE\SOFTWARE\MonAppli")
+         
+         Trace(ResCréeClé)
         type : 18
       -
         type : 161
