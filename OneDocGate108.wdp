@@ -99,7 +99,29 @@ project :
       gMyConnect..Compression		= Faux
       
       HChangeConnection("*",gMyConnect)
-      HChangeDir(FIC_ADM,"Commun")
+      
+      // CREATE THE REGISTRY KEY FOR THE LASTCHANGEID
+      sCheminRegistre	is string
+      ResExiste		is boolean
+      
+      // We retrieve the path in the registry proposed by the application
+      sCheminRegistre	= ProjectInfo(piRegistry)+"\lastChangeID"
+      ResExiste		= RegistryExist(sCheminRegistre)
+      
+      IF ErrorOccurred THEN
+      	Error("Une erreur est survenue pendant la lecture de la valeur",ErrorInfo())
+      	RETURN
+      END
+      
+      if ResExiste = False then
+      	// The key doesn't exist, so we create it
+      	RegistryCreateKey(sCheminRegistre)
+      	// Verification of the operation
+      	if ErrorOccurred then
+      		Error("Une erreur est survenue pendant la création de la clé ""lastChangeID""",ErrorInfo())
+      		return
+      	end
+      end
      type : 196608
    -
      type : 196627
@@ -114,5 +136,10 @@ resources :
  string_res :
   identifier : 0x0
   internal_properties : HgAAAB4AAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+  strings :
+   -
+     text :
+      fr-FR : Une erreur est survenue pendant la lecture de la valeur
+     index : 0
 custom_note :
  internal_properties : HgAAAB4AAAAd98VSJfHHqE3P0QHwrwdhn7ig8dWBR6valpUTgnAMTVXiDg==

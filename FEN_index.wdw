@@ -69,24 +69,23 @@ window :
      p_codes :
       -
         code : |1+
-         cMaRequête est un httpRequête
+         cMaRequête is httpRequest
          cMaRequête.URL						= "https://onedoc.nexapi.ch/events/changes?afterChangeId=" + SAI_afterChangeId
-         cMaRequête.Entête["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
-         cMaRéponse est un httpRéponse = HTTPEnvoie(cMaRequête)
-         SI ErreurDétectée ALORS
-         	Erreur(ErreurInfo(errComplet))
-         SINON
-         	SWITCH cMaRéponse.CodeEtat
-         		CASE 200
+         cMaRequête.Header["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // TOKEN WINLOGIE
+         cMaRéponse is httpResponse = HTTPSend(cMaRequête)
+         if ErrorOccurred then
+         	Error(ErrorInfo(errFullDetails))
+         else
+         	switch cMaRéponse.StatusCode
+         		case 200
          			Trace(200)
-         		OTHER CASE
-         			Trace(cMaRéponse.CodeEtat)
+         			js is JSON = cMaRéponse.Content
          
-         	END
-         
-         	js est un json = cMaRéponse.Contenu
-         	Trace(JSONVersChaîne(js,psdMiseEnForme))
-         FIN
+         			Trace(JSONToString(js,psdFormatting))
+         		other case
+         			Trace(cMaRéponse.StatusCode)
+         	end
+         end
          
         type : 18
       -
@@ -680,9 +679,29 @@ window :
      p_codes :
       -
         code : |1+
-         ResCréeClé est un booléen = RegistreCréeClé("HKEY_LOCAL_MACHINE\SOFTWARE\MonAppli")
+         sCheminRegistre	is string					// chemin proposée dans la base de registres					// valeur lue dans la base de registres
+         ResExiste		is boolean					// Test de l'opération de lecture
          
-         Trace(ResCréeClé)
+         // On récupère le chemin dans la base de registres proposé par WINDEV
+         sCheminRegistre	= ProjectInfo(piRegistry)+"\lastChangeID"
+         ResExiste		= RegistryExist(sCheminRegistre)
+         
+         IF ErrorOccurred THEN
+         	Error(<§$0000§>,ErrorInfo())
+         	RETURN
+         END
+         
+         IF ResExiste = False THEN
+         	// La clé n'existe pas, alors on la créée
+         	RegistreCréeClé(sCheminRegistre)
+         	// Vérification de l'opération
+         	SI ErreurDétectée ALORS
+         		Erreur("Une erreur est survenue pendant la création de la clé ""lastChangeID""",ErreurInfo())
+         		RETOUR
+         	FIN
+         END
+         
+         
         type : 18
       -
         type : 161
@@ -769,6 +788,11 @@ resources :
  string_res :
   identifier : 0x180a00b20003889b
   internal_properties : HgAAAB4AAACmmCBE6pK3aBIm7vNkoGz9dsYQFTmVvb3ue+HorlsuKCCauicTtQW6CVSeGnhPb22ttQ==
+  strings :
+   -
+     text :
+      fr-FR : Une erreur est survenue pendant la lecture de la valeur
+     index : 0
 custom_note :
  internal_properties : HgAAAB4AAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
 rad :

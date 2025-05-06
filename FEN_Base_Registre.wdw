@@ -10,7 +10,7 @@ info :
 window :
  name : FEN_Base_Registre
  identifier : 0x2818ee022e1cbe3c
- internal_properties : HgAAAB4AAABnYfSrl8l4f+D4jprQGkCdq1FUdi/BeLDY9ID+QXQbVDRYHRUsZ+BrqpWvnrTodQRMuV9aCDB4erYcTGimCjiqh1YhdbIQ2bhgJbPn6uiLml3iZvrL//MFfNh/kqLGRzwcCsuW6cqK1keKTEBZpdsdAjl0XdBfw7Ud/s43sMVGLRsFtUXT4M6zk7peHk/URXIdkCnsOP25pECf2LMLjJJQthZrhl1jaJSw+5EdzfOAuOT9cl69E7HJA2Dt9iDeSTIKDulznQkcMG3Wfx6zNyEDuoWTgh8eU8sg+kmkvrHW3ZyEJ6Rw8sV8VasfymORwi6XNaCyhKpGTnUIjV3iIbnxj475JsrG4choE3QWO2BBHaT9PYRfhix/jmanHIwx1WT03BE/aXmIJ3a3+G3xDjLU1kzo1SIBb0WUHnhFxSHIraUX8jocJ+oEAxrPmsxb7DWoo+tMv+upEKKYjXSO473scbAIRdGxEYlYPTSSjcZIN1Oyau7PJeAckBuQ/PHprNAlyl/OrR6Ee2AJhma+9IazU6rG5w2J15/glzgXwGo+VnhP7/GtYikSgKyDZjUOE9ZcGWPWqFewCzaQGvS6m3HKtcZV19unFMpaIQ9+BZ71BsT8fDyt98koyeMRZGlbQ+vedlxxmR150QvZm4ThidtBKmf2fdLw8l9BJHSt90vhk/W9+vbwE/yCHePokU2/8Qdo6gQzrAuViwBZShJNOesBHU2PDuv3TKdVKWjPbyahgsyJtUFne/omCsTruKQeYa+zBR5lNM8IyZbtN9Ps8yYqPrM/oSZEwj4RL4jGb3aLioz6ftrb+puaDo79FdQtQmR5RF67XftC+INmThgN5JlQBnWs2QtM0GwFL86kUX9cuxYqm34wF35YtFQDP95E1r//a3hNlBJxuVEVfBfAeOBC/BZNrUvQlvfh3nbV6M2nsEOuHaj4uh5zCFf1DHo8jAz3VqacRjdP2bbZ9AH/qIZ/LsiMBFNYh/ATwz+gdP3QzFiV2x4klz3811kVu1k/KmbKVVf6ZT9w7euTXBwO0qdz65hzv1fOW0DcZrkRhf0kXxUHqarPs+X8unSCmnrWJcx9DdxM9cDgSERJoCEAYFX/CdbqaDM+LWOIMLyOjZAS7UhyEqChURxCgNTa2Vmvpsq32HMvrbmIRleYJW8SoMsIGRWzRAVKK3uqaGtSmnmCrE9lBe7RWO9SBiIx3pkofWoKOI8CnhEWnvOcrZ0pDriqTEkZk164ihtKHhYvbYqmahVgR/gw3+6onSDt/Ma02Rx/qyYl2yfyDZ+wLm9Y5g0wa7M7hv9UVoYg1ygMuQ9MKE30/03Lz38V7anhjsWATBAoA1vpnMTJ1JIIgN0T6TlupYWSd1upsEW/UM/LxdNquZ+upRyd0Jwu1EwWSJ8BoIotjGrE6U+Fh0oTLXhs/LfSppgKwHItOR9knSRExF6LQ72FZK/sC53t4QJkMgT++o2yckBG0LAtXdU4KucVasJ4ZiZn3ustJdWgttnkjmFU0nG9USdjLwgEWNrGYPMmU3BtOE8cW8MwFKSOWbh0JFUUx0Tbk0AMvCUlwcCbVL7jp9WojUMiZX1R6GF8WUQdCgUNE/NDbCZIKNFid0fVeXB1j1ZN/o7Np314gI7dmf+VjWjOaABV5uskFgtxNi6XqHOukgUA4DofYkMvSsb5E9I3HaN6nnbWbDgapFl18TdJGfIU0iEzFwMjzQ==
+ internal_properties : HgAAAB4AAABtzUD2zRfaofn2ciLizA0n4g91WNZssJE97lwdOChJCxnYCjSfv9ekVnm9IJOMf39Te0mokWQWWyDq/V5kwOPT6xI09BZNNl8zo2HUvWCUU8wb4QhV/n9rntgHXAXHIECezQIREi0Z9wJCwmTEi8DmxHcIUopWAES5BEBgswPUmsCaHbtgn9/W1nT7sdgtmPDP8CMy4cKetcDbG3/p58DjXFHEHxazdamcCJzEjYEs0ykPb5j6JcQ/tVou+dI232S7u1HuyEqfHBsgvfLymJtTYmdofQI1wUUQUFLs0soOtlR54Cbdu+n3j5ZtGQDY1V+CYTIhFmLif7rBv0putq77UYCjjnTEeq0wdAOk77ZFeRuDp8zhoiZbUbhMXrdLgkF8+TrA03ACXF8GYdG2HNCBBz1FO6b/fdrVScJ8mc42j2O3SRidHCXyuwoHOC/pr4q6VKwl1DdXFUqEPE0zpd4W9/SDX0ThI3obmHh8cOnYt3EuyYnu8/GDoUJd9tyVYQPBWtzxwJGkqA394C7PZuvv5cUNubH8Uricuk4pUeZ/lD2o8TczJ89GdTVygI6ByXWWxrliXbkdtvzjQGhlxfEBt5EUSOgrGkqYqX8LZagKmwVjFSEXRf5GLYgpseZc+aNn/aTu1KRCRXuSs8LH2QOWW0B97tipp74EaXE+co85Q1z2iEKB/QXaq7PuDGcEpSJubMlmJNp1PtPj5HkUjvK4MM/k2e3W/gLj1nXkPBq3ztfZRpWx2VnAkQwEmJdGFBVQiqLzmXPK4zecsvzUGv3fPhNG1TMr9J3ldQBCli+xgoo0wCY0kCq+R1DJ+RFCn6Is90xvUYVIWOa+hD7qIF6W73ZqnyGf2THvIi8DenAN+DIhpAVB2n6cB0WJlBkOnnpi+/hJiWa/fHo360WaNBlFhUAeuYSoGMj4CtUZmKsi1UZSts6BUGYY6fFAFB6OHX+mfKU6h8XXdhXTS0+pJHUsGfY9NFCSo0lQm8qCQjUvafvb/MBJAcndMJmSo73JcVv7X1Qw1gWE3PzbUdbEDrKa7BaKWW6Y09dRxLa1NcMnxMATDijgsx+zSx77zHB6/gs6HV2swhpcNz1Z7Wl0EgDINhZvAOj6I2qpzJWkB2ijUM8IIQ5U9cah2YjPjbHBubW4iDbZuh3+Bf7ImBcmOmTnjI1HcX3rWVits6m4k4shh/uOpNfrxuD3jTsoLOWUPlETi71qSiLS2say8cR2k75wfDzxvvDyWJwGOG0vkeOlYkamcmD/BB6tsA5YK2YAsko6uQ9ydhOnq8255RuaBTX4MhVGlIpVqC+btN6luhUYA5j3nZgO+mh5gh1r2P7c+mWSmD/1YeoSeRhwKC1PZTgVPvGvnf12QGw8nvEWwz2P3xWcp888roZl2FPacrzHCsiVD84vfKDqyLgPibs+DgblJWRm2jqS5smQMCqkjH74Ox345+4IuCggoCTgjPFTyQpzKQgehE/mr4dQ7nKRoRBTjAn4r9etaS7j/SAk3ImQfD+GMVsl16KbVy4qRwUPVxk0w4X2LP3RwmL6J2V0XgtK86H1zwn2iRrB3ZO92z8waHgjkDee/IT9Saq34/odqXj2ho3/4YOWWNFkkiBWpXwuwzhQg9eHI2gIB5uqy/M+zSiHiPIFrhS2fFj+XljG7LHs2fTn81XxpCz6gbF4XnvLEBM+0Jz8KPCzueL7fqJ7JE3MOKd19UJbsYyedij8+M3tsPBZslQs9ZyG5AV8/IcgfhHm8O1QhvgIRXC6WZGKVTO3RhawMju0tTmE8KBr49tOA/ORw/9M3Q==
  properties :
   width : 558
   height : 328
@@ -222,7 +222,7 @@ window :
      width : 80
      height : 24
      accelerator_key : 65535
-     tab_order : 4
+     tab_order : 3
     style : {}
     type : 4
     code_elements :
@@ -270,7 +270,7 @@ window :
      width : 80
      height : 24
      accelerator_key : 65535
-     tab_order : 5
+     tab_order : 4
     style : {}
     type : 4
     code_elements :
@@ -315,7 +315,7 @@ window :
      anchor : 5
      take_focus : 0
      accelerator_key : 65535
-     tab_order : 3
+     tab_order : 6
     style : {}
     type : 4
     code_elements :
@@ -375,6 +375,50 @@ window :
           
           
         type : 14
+  -
+    name : BTN_SansNom1
+    identifier : 0x28199b8d3094a506
+    internal_properties : HgAAAB4AAADf8tNrielDiwofZuxP8Ort1rr+XHJe/OZ1eiK2FJqR6/OnM0ishiGwlFmjSW1PPAvxClaxhDW2UhYgB5zZsUsGx84oiDKOynY4jwP24b9eqipiGWT/F6VW4yYZbFzEbRebTv6AovUrs5jZp44Robjux3Kz3eMGOAMQy+dBsmRQHPFwBd2oKGGQ9yONRfqhFzIl4+oW7YvNoXmeq56VEbycPQ1XjrlTE9sfa/7V53a9YAoFIuYAFCYS7lkK/BIdkiDTCpIiAzuKULs+XHykGm2+YCuAHyr/HATMkllMgVO1vHztTCKqpk9LHnKGm5hz6QmBO6s8y1UifI7d592o8/ARhsc+MWWv3dtejn68LUjJFdhValvXAPgKG2/sBqlXqgYPyhZRuvzcMwTuZxjJogYRvgou9990/FFxSnl3Wvd0O7uysiiXCIj40exRoqJqgKukrYXB3dNyqtgC4ZS4WqNdVYjZ1DgBp2HthrPtjO4FOlnLfuvr6rLRD3f6SdZbt7oKKLvyKYTETrMwOZhxUGblTHydnyABtBEiwJ+b0QUCb3K41YI9Rfw8lLJ+Iy/zSl/oYdybJQI8AtD3/Irty5N5g3EYIvgz3Rxo/q6Jnq6NNe/kwtCCa41/ClyfnJjJr16dpEviJ1RDQtBG81d241xFHZ4iisMyCgedXvn9NzG5H6oRvNgKSNVePVcuCh/blcfQAIPKD8AXDTgZjcWBwLzpYEIxB4Usxeo2dYkg3IsK4DWRf9FX4iSpinldHbntDpu+Xyqc9F9hFPqAiGMXROQFFUK5bO/+YUXzlPWZ+WfrjYtYUzEKzTWhIApmkUh6ZVMSrAkPuKU/nyLYnVpPa/bOJfuHKhhtMgbWGzayGrQBtKW4XUVktlrJ5HK+Lv0J4PKoQTXSguIKlGIFpSqslb2CXX9Wrb1l7nVv
+    properties :
+     x : 465
+     y : 234
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 5
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         sCheminRegistre	is string					// chemin proposée dans la base de registres					// valeur lue dans la base de registres
+         ResExiste	is boolean					// Test de l'opération de lecture
+         
+         // On récupère le chemin dans la base de registres proposé par WINDEV
+         sCheminRegistre = ProjectInfo(piRegistry)+"\lastChangeID"
+         ResExiste = RegistryExist(sCheminRegistre)
+         
+         if ErrorOccurred then
+         	Error(<§$000f§>,ErrorInfo())
+         	return
+         end
+         
+         if ResExiste = False then
+         	// La clé n'existe pas, alors on la créée
+         	RegistreCréeClé(sCheminRegistre+"\lastChangeID")
+         	// Vérification de l'opération
+         	SI ErreurDétectée ALORS
+         		Erreur("Une erreur est survenue pendant la création de la clé ""lastChangeID""",ErreurInfo())
+         		RETOUR
+         	FIN
+         end
+         
+        type : 18
+      -
+        type : 161
+        enabled : false
  menu :
   name : _Menu
   identifier : 0x3dfd90ae5753a9a0
@@ -488,6 +532,26 @@ resources :
      text :
       fr-FR : " a bien été supprimée de la base de registres ou elle n'existe pas"
      index : 14
+   -
+     text :
+      fr-FR : Une erreur est survenue pendant la lecture de la valeur
+     index : 15
+   -
+     text :
+      fr-FR : La clé existe
+     index : 16
+   -
+     text :
+      fr-FR : (vérifiez que la clé existe)
+     index : 17
+   -
+     text :
+      fr-FR : La clé est inexistante
+     index : 18
+   -
+     text :
+      fr-FR : Une erreur est survenue pendant la création de la clé "Test"
+     index : 19
 custom_note :
  internal_properties : HgAAAB4AAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
 associated_test :
