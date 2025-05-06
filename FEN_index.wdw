@@ -68,7 +68,7 @@ window :
      type_code : 4
      p_codes :
       -
-        code : |1+
+        code : |1-
          cMaRequête is httpRequest
          cMaRequête.URL						= "https://onedoc.nexapi.ch/events/changes?afterChangeId=" + SAI_afterChangeId
          cMaRequête.Header["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // TOKEN WINLOGIE
@@ -78,15 +78,14 @@ window :
          else
          	switch cMaRéponse.StatusCode
          		case 200
-         			Trace(200)
          			js is JSON = cMaRéponse.Content
-         
-         			Trace(JSONToString(js,psdFormatting))
+         			for each member of js
+         				Trace(member)
+         			end
          		other case
          			Trace(cMaRéponse.StatusCode)
          	end
          end
-         
         type : 18
       -
         type : 161
