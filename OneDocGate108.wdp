@@ -99,6 +99,8 @@ project :
       gMyConnect..Compression		= Faux
       
       HChangeConnection("*",gMyConnect)
+      REQ is Data Source
+      HChangeRep(FIC_ADM,"Commun")
       
       // CREATE THE REGISTRY KEY FOR THE LASTCHANGEID
       sCheminRegistre	is string

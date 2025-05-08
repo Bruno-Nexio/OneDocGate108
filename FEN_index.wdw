@@ -73,14 +73,75 @@ window :
          cMaRequête.URL						= "https://onedoc.nexapi.ch/events/changes?afterChangeId=" + SAI_afterChangeId
          cMaRequête.Header["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // TOKEN WINLOGIE
          cMaRéponse is httpResponse = HTTPSend(cMaRequête)
+         
+         
          if ErrorOccurred then
          	Error(ErrorInfo(errFullDetails))
          else
          	switch cMaRéponse.StatusCode
          		case 200
          			js is JSON = cMaRéponse.Content
+         
          			for each member of js
-         				Trace(member)
+         				SWITCH member.action
+         					CASE "created":
+         						// On va chercher les détails du event à partir du eventId et d'abord on va gérer le patient
+         						route est une chaine = "/calendars/" + member.calendarId + "/events/" + member.eventId
+         						jsResult est une json = getRequest(route).Contenu
+         
+         						SWITCH getRequest(route).statusCode
+         							CASE 200
+         
+         								fic_cleunik is int
+         
+         								REQ_checkIfPatientExists._nom		= Upper(jsResult.patient.lastName)
+         								REQ_checkIfPatientExists._prenom		= Upper(jsResult.patient.firstName)
+         								REQ_checkIfPatientExists._datnais	= StringDelete(jsResult.patient.birthDate,"-")
+         
+         								IF HExecuteQuery(REQ_checkIfPatientExists) = False THEN
+         									Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+         									RETURN
+         								ELSE
+         
+         									POUR TOUT REQ_checkIfPatientExists
+         										// Impression de la facture pour chaque enregistrement
+         									FIN
+         									SWITCH REQ_checkIfPatientExists.FICLEUNIK
+         										CASE 0:
+         
+         											Trace("Le patient n'existe pas")
+         											// --------------------------------------------------- IL N'EXISTE PAS DONC ON INSERT LE PATIENT
+         											REQ_createPatient.nom		= Upper(jsResult.patient.lastName)
+         											REQ_createPatient.prenom	= Upper(jsResult.patient.firstName)
+         											REQ_createPatient.datnais	= StringDelete(jsResult.patient.birthDate, "-")
+         											REQ_createPatient.sexe		= jsResult.patient.gender = "male"? "M" ELSE "F"
+         											REQ_createPatient.email		= jsResult.patient.email
+         											REQ_createPatient.tel_port	= jsResult.patient.mobilePhoneNumber
+         											REQ_createPatient.adresse	= jsResult.patient.address.street + " " + jsResult.patient.address.streetNumber
+         											REQ_createPatient.cdpost	= jsResult.patient.address.zipCode
+         											REQ_createPatient.ville		= jsResult.patient.address.city
+         
+         											IF HExecuteQuery(REQ_createPatient, hCheckIntegrity + hCheckDuplicates) = False THEN
+         												Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+         												RETURN
+         											ELSE
+         												fic_cleunik = SQL.IDAuto
+         											END
+         										CASE <> 0:
+         											Trace("Le patient existe")
+         											fic_cleunik = REQ_checkIfPatientExists.FICLEUNIK
+         											Trace(fic_cleunik)
+         									END
+         								END
+         
+         							CASE 404
+         								Trace( "Not Found")
+         						END
+         					CASE "updated":
+         						Trace("Mise à jour, eventId: " + member.eventId)
+         					CASE "deleted":
+         						Trace("Suppression, eventId: " + member.eventId)
+         				END
          			end
          		other case
          			Trace(cMaRéponse.StatusCode)
@@ -334,7 +395,7 @@ window :
          jedi = ChaîneConstruit(jedi, demos)
          
          cMaRequête est un httpRequête
-         cMaRequête.URL						= "https://onedoc.nexapi.ch/calendars/18/events"
+         cMaRequête.URL							= "https://onedoc.nexapi.ch/calendars/18/events"
          cMaRequête.Méthode						= httpPost
          cMaRequête.Entête["Authorization"]		= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
          cMaRequête.ContentType					= "application/json"
@@ -343,7 +404,7 @@ window :
          cMaReponse est une httpRéponse
          
          cMaReponse = HTTPEnvoie(cMaRequête)
-         Trace(cMaReponse.CodeEtat)
+         
          SI ErreurDétectée ALORS
          	Erreur(ErreurInfo(errComplet))
          	SINON
@@ -370,7 +431,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 9
+     tab_order : 10
     style : {}
     type : 4
     code_elements :
@@ -407,7 +468,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 10
+     tab_order : 11
     style : {}
     type : 4
     code_elements :
@@ -481,14 +542,14 @@ window :
   -
     name : BTN_SansNom3
     identifier : 0x281885ef0151331a
-    internal_properties : HgAAAB4AAADJXyBddmuRNX//L6uNXdWvUXcS5Y1ScXJnOzZYhke8P3ShlIyDK3CYEXEYgGeiiWt/vYvry1jmItkY8QL/+H4MIrjPXvQpwqY3TyseH0ix1UZtGfwVGY8sDTgIBBziFJijvo+RB0g+U2diFJqYrmX41iKJpX7o3EGeNyzuczmPtvy4fHeH6toLz5TyeOQ9nermJ60mrzfhS6soZzQHRuObyz6nPBSlDIW5macCrh1s6tc8Bqh9Dfit9QIGV4Nkl9W/BgNPtK/JhBx1iUWwvjdti4S44oCYIKlAPf5uIjPr0kIsqh/NMbklrR1rpZoca9pNbnuKyG0cUaHsa7xLI43O6gHTmvcuPpUOJpqvJmAghkhmx1z9dc1qFGCErfXC2Id43ogwIrn4wTYHnaJCgobuQJhSrtAMJ3zCy9q38UZkibZH3o+ikWTRlVJbr60xuBHMNaAItcZb2H915UMJIH+FGV/s3nWY87enN/9o9eR6sCeUi8M+aR4/WcjGeH/RGoJUAZD4CjHMnD0RHZ8ygKM9LJswDxVG/E/MgVvAiHudfxCjLAaGzq7AWmEQvgj3GS3C9lWViqMKDkyIcnMQ+ZgRBZpFqCu2b3BMexZM38qm7w2vORYbeNEBJuMjcScJ8ib7qRw+lvcPfGJTc+5TV7mFw7OTfJBRIG+l329g1JfgxdT8s1alhxVcQZDkZXCNdjuk6+r8ZBk56QTQMXo8uEeLiOXo8Wpd61LKJCWlJ799YLWM7rlSv2AnzRrhUGoNoaOIMPdQA54fyMhFMoTyps/dXUN+DCRrnqYw3EKklyKrZPhLBpcvu3M7Vmg0D2AZ3q/6EVp95BVwcCaA0vbm0m5YpwyFUB86/46N28tYiScyVmiyEAjWPW8UFmfmdsW5hRqQeeOLyWrkYFKuLFP29bo3bhL5qH4xbog0GEcIQnU=
+    internal_properties : HgAAAB4AAADcdHDEuZ/YTU1vIVkzgmgcxhrNNzH9cDN38987YPau8l+oVTw7nrYZ2E5f0UlcKW1M8yCTb1N8zH9w4eJXYHd6APlkAcZW9Vp3gjPusC7uIu/lGQnlkiu/e8mnOz5cf5G/xM1P7YfbKgVyIpGGuKBQAkpSSoAfUJERapMO0zntx86aRrDpg04J3IqAJUxVmZ/2Xz09LPH1uFxjTd4ahQz1LuQ23orAi1cTkXZ8kuAvFXVSjHFrBFMynf3F7zIJds8pp+xBkXTTU2M6TqXYr6wtzEi6rOYUsG+00b4wfnx44Hq7GSzq61bHfLWolS3VmPboa+7f7Hii9wT1w9W7N3g/pi1sLi0jDTv+9RAvHp7QQVN0sDVKgT38KWILhzyoHDTqs3ATBOCImakFo6ADgX0FWKhguZpw9OceuXO0IEankoiZK52UDnDZg0miNRhRPrvwecUqz0EakM88/5Be5+KVmkYo78DYDbW/m3L4WAIQ9u4BdcRF/w4LlwpvzIBBuIitSCJpUztCBqs7XoHpaF1Xt4BgAJ6qljWUXc6ksSVtK+EKMHufDCJIrI9hAF01V1PNV9t807XkDGzMZ3cpPyy5bIev4+Ro3+TiNcukQLz61/LK7/3uIPkdOlMky3z1yqpAxMKP4+mnsEyxtIz4gd8TzugdKZ03Wm3dE/S4H7kSXxOVUXMendHc37Kj0ZWlupNPkPo9JQG/cwpKmOYf4rWJO/5EOMWDOdz6aILPPtlxeH6PrEqt9SoNfQbwrOWBzylxi/VRtEZnRFKTbWYlNof5lv4+Jdnr4lhCCjtBMT9qgY7MD2WYnaXRArW8Gx8jpx1hlmTnOlpRJ3CFCuHPHEY32wbLpOkbixc1azS+BWHeksZt3sgp18LpSM95z2KpF8yqqdtuF3/yytQ0gA+jYbg81pMfHrdR5+CELwCb
     properties :
      x : 22
      y : 324
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 11
+     tab_order : 12
     style : {}
     type : 4
     code_elements :
@@ -514,9 +575,9 @@ window :
          		case 200
          			fic_cleunik is int
          			eventWithPatient	is JSON	= cMaRéponse.Content
-         			REQ_checkIfPatientExists.nom		= Upper(eventWithPatient.patient.lastName)
-         			REQ_checkIfPatientExists.prenom		= Upper(eventWithPatient.patient.firstName)
-         			REQ_checkIfPatientExists.datnais	= StringDelete(eventWithPatient.patient.birthDate,"-")
+         			REQ_checkIfPatientExists._nom		= Upper(eventWithPatient.patient.lastName)
+         			REQ_checkIfPatientExists._prenom		= Upper(eventWithPatient.patient.firstName)
+         			REQ_checkIfPatientExists._datnais	= StringDelete(eventWithPatient.patient.birthDate,"-")
          
          			if HExecuteQuery(REQ_checkIfPatientExists, hCheckIntegrity + hCheckDuplicates) = False then
          				Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
@@ -670,7 +731,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 12
+     tab_order : 13
     style : {}
     type : 4
     code_elements :
@@ -678,8 +739,8 @@ window :
      p_codes :
       -
         code : |1+
-         sCheminRegistre	is string					// chemin proposée dans la base de registres					// valeur lue dans la base de registres
-         ResExiste		is boolean					// Test de l'opération de lecture
+         // sCheminRegistre	is string					// chemin proposée dans la base de registres					// valeur lue dans la base de registres
+         // ResExiste		is boolean					// Test de l'opération de lecture
          
          // On récupère le chemin dans la base de registres proposé par WINDEV
          sCheminRegistre	= ProjectInfo(piRegistry)+"\lastChangeID"
@@ -701,6 +762,29 @@ window :
          END
          
          
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_SansNom6
+    identifier : 0x281b50ed07b7afce
+    internal_properties : HgAAAB4AAACd1kZut5eLgnEXJR47UG5veknpRVpD5sxje92xbMbvqu9Mnnr8TR7TLYEu16IY3/z7Mm5TlPgXgMLTvQ88yClGmzZAI//2P+Hw+GF9kqBN39kTRopumcNxPHaJFvq6f+JfQ84nsUNYzSLotxaQl+9LBgLLlD+SDJF1ozRzuGkmck4bGza03ED+D5Iffn8h/qZnXR/UsxnPaJ/e/Zw+6oZKCFG7LnY3lOZvgDNc7ixedOKWifOFxBTMS3RPS5QGa2/9wjDB7ooxky2Hd3fS9JwEVXm/Fx9XB8ZldgPSOmEjwLoBz9mAYiRgFjYSRZviCA6Yhben+8usW78DTCQps/v2fiJzAN0uqj0FosF+EbR2NLtIRrbLADnTdetFwIl2fRY54ZuXe79mTPbAg4Z9O5z6b0rzABwQC0SIi5GVDjLkqfDk3nMV0wv7L07kVP2SkbriFLiK5+oTzpLaf0iS3LNuMKGXidb2Oz8iT1FKvMqrvZi2gk5L7QD5qDgAMhqDTd1ntRk5QUFmToAjsbcvpj5ssZkTYswQjL9dQzfAoaGMQmOJTSvLBL544ZVqyCvriICXsgrCTwWY5PvWFnMFhxEK0B6eBWb69QYd76hWDlr7fGyZnPmkduk5779bHcTRcXHKbdF7uwXDINMRI9IIPaTAriMGl+G/5iU4pSvAXWcplme6iPcqXZGQFDASMyGdXbb3Df2333OT+9d24e5JPBbqSZkxcslLFfwzChWRMOvEfzDYTZBxpdjH5R5pRHkp9PpV0Az9duDZ8u+vEqgpzliSRAXHxVcRJIgDnPbGvv6JC0yATENEyMCyzfJx99dXr7ivT3sj1vhDfGie7mZKBOqpcCwjoP077a15SA7pBE2QIiUs51cLpJWnw2fsvd/etykeN5V7+r5krAvWEdBFq0HAoWiyI+9D/xw/1w==
+    properties :
+     x : 130
+     y : 201
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 9
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         Trace(getRequest("https://onedoc.nexapi.ch/events/changes?afterChangeId=1"))
         type : 18
       -
         type : 161
@@ -777,6 +861,30 @@ window :
       		Trace("Données reçues : " + Taille(bufByData))
       FIN
       
+     type : 458752
+   -
+     name : getRequest
+     procedure_id : 1737070269849788858
+     type_code : 14
+     code : |1-
+      //!
+      //! @brief <indiquez ici ce que fait la procédure>
+      //!
+      //! @param route  routes  <indiquez ici le rôle de routes>
+      //!
+      //! @return (httpRéponse)  <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //!
+      //!
+      
+      procédure getRequest(route)
+      
+      cMaRequête is httpRequest
+      cMaRequête.URL						= "https://onedoc.nexapi.ch" + route //"https://onedoc.nexapi.ch/events/changes?afterChangeId=" + SAI_afterChangeId
+      cMaRequête.Header["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // TOKEN WINLOGIE
+      cMaRéponse is httpResponse = HTTPSend(cMaRequête)
+      jsResult est un JSON = cMaRéponse.Contenu
+      
+      RETOUR cMaRéponse
      type : 458752
   procedure_templates : []
   property_templates : []
