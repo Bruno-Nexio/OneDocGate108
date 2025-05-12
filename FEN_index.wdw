@@ -84,36 +84,37 @@ window :
          	switch cMaRéponse.StatusCode
          		case 200
          			js is JSON = cMaRéponse.Content
-         			for each member of js
-         				SWITCH member.action
-         					CASE "created":
-         						// On va chercher les détails du event à partir du eventId et d'abord on va gérer le patient
-         						route est une chaine = "/calendars/" + member.calendarId + "/events/" + member.eventId
-         						jsResult est une json = getRequest(route).Contenu
+         			// ON BOUCLE SUR LE TABLEAU RETOUR
+         			FOR EACH member of js
+         				switch member.action
+         					case "created":
+         						// On va chercher les détails de l'évènemet à partir du eventId et d'abord on va gérer le patient
+         						route = "/calendars/" + member.calendarId + "/events/" + member.eventId
+         						jsResult is JSON = getRequest(route).Content
          
-         						SWITCH getRequest(route).statusCode
-         							CASE 200
-         								Trace(JSONVersChaîne(jsResult, psdMiseEnForme))
-         								// ON CHECK LE PATIENT ET ON RECUPERE SON FICLEUNIK
+         						switch getRequest(route).StatusCode
+         							case 200
+         								// ON REGARDE SI LE PATIENT EXISTE ET SI OUI ON RECUPERE SON FICLEUNIK
+         
          								fic_cleunik is int
          								REQ_checkIfPatientExists._nom		= Upper(jsResult.patient.lastName)
          								REQ_checkIfPatientExists._prenom		= Upper(jsResult.patient.firstName)
          								REQ_checkIfPatientExists._datnais	= StringDelete(jsResult.patient.birthDate,"-")
          
-         								IF HExecuteQuery(REQ_checkIfPatientExists) = False THEN
+         								if HExecuteQuery(REQ_checkIfPatientExists) = False then
          									Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-         									RETURN
-         								ELSE
+         									return
+         								else
          									// -------------------------------- GESTION DU PATIENT
-         									SWITCH REQ_checkIfPatientExists.FICLEUNIK
-         										CASE 0:
+         									switch REQ_checkIfPatientExists.FICLEUNIK
+         										case 0: // LE PATIENT N'EXISTE PAS ON L'INSERT ET ON RECUPERE LE FICLEUNIK
          
          											// --------------------------------------------------- IL N'EXISTE PAS DONC ON INSERT LE PATIENT
-         											REQ_createPatient.titre		= jsResult.patient.gender = "male"? "Monsieur" ELSE "Madame"
+         											REQ_createPatient.titre		= jsResult.patient.gender = "male"? "Monsieur" else "Madame"
          											REQ_createPatient.nom		= Upper(jsResult.patient.lastName)
          											REQ_createPatient.prenom	= Upper(jsResult.patient.firstName)
          											REQ_createPatient.datnais	= StringDelete(jsResult.patient.birthDate, "-")
-         											REQ_createPatient.sexe		= jsResult.patient.gender = "male"? "M" ELSE "F"
+         											REQ_createPatient.sexe		= jsResult.patient.gender = "male"? "M" else "F"
          											REQ_createPatient.email		= jsResult.patient.email
          											REQ_createPatient.tel_port	= jsResult.patient.mobilePhoneNumber
          											REQ_createPatient.adresse	= jsResult.patient.address.street + " " + jsResult.patient.address.streetNumber
@@ -121,102 +122,165 @@ window :
          											REQ_createPatient.ville		= jsResult.patient.address.city
          											REQ_createPatient.cleinterv = member.calendarId // Attribution du patient à un médecin
          
-         											IF HExecuteQuery(REQ_createPatient, hCheckIntegrity + hCheckDuplicates) = False THEN
+         											if HExecuteQuery(REQ_createPatient, hCheckIntegrity + hCheckDuplicates) = False then
+         												Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+         												return
+         											else
+         												fic_cleunik = SQL.IDAuto
+         											end
+         
+         										case <> 0: // LE PATIENT EXISTE ET ON RECUERE SON FICLEUNIK
+         											fic_cleunik = REQ_checkIfPatientExists.FICLEUNIK
+         									end
+         									// ----------------------------------- PUIS INSERTION DU RDV MAIS ON VERIFIE SI LE RDV N'EST PAS PRESENT DANS LINKS
+         
+         									route = "/calendars/" + member.calendarId + "/external-event-links/eventId/" + member.eventId
+         									resp is httpResponse = getRequest(route)
+         
+         									SWITCH resp.StatusCode
+         										CASE 404:
+         											Prat is int	= member.calendarId
+         											HChangeDir("RDV", "Prat" + Prat)
+         
+         											UNIC	is string	= NumToString(Val(fic_cleunik),"010d")+Left(Replace(jsResult.startDateTime,["-","T",":"],""),12)
+         											HDEB	is Time		= StringToTime(Right(jsResult.startDateTime,8))
+         											HFIN	is Time		= StringToTime(Right(jsResult.endDateTime,8))
+         											CADATE	is Date		= StringDelete(jsResult.startDateTime,"-")
+         
+         											// UNIC EST UNIQUE ET EST COMPOSE DU FICLEUNIK ET DE LA DATE DU RDV SUR 22 CARACTERES
+         											REQ_checkIfAppointmentExists.UNIC = UNIC
+         
+         											IF HExecuteQuery(REQ_checkIfAppointmentExists) = False THEN
          												Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
          												RETURN
          											ELSE
-         												fic_cleunik = SQL.IDAuto
+         
+         												SWITCH REQ_checkIfAppointmentExists.RDCLEUNIK
+         													CASE 0: //  LE RDV N'EXISTE PAS
+         
+         														// ------------------------------- IL N'EXISTE PAS DONC ON INSERT LE RDV
+         														REQ_insertAppointment.FICLEUNIK		= fic_cleunik
+         														REQ_insertAppointment.NOM			= Upper(jsResult.patient.lastName)
+         														REQ_insertAppointment.PRENOM		= Upper(jsResult.patient.firstName)
+         														REQ_insertAppointment.RAISRDV		= "OneDoc"
+         														REQ_insertAppointment.CADATE		= CADATE
+         														REQ_insertAppointment.HDEB			= HDEB
+         														REQ_insertAppointment.TYPRDV		= "Médical"
+         														REQ_insertAppointment.HFIN			= HFIN
+         														REQ_insertAppointment.DUREE			= IntegerToTime(Abs(TimeDifference(HDEB, HFIN)))
+         														REQ_insertAppointment.LIEU			= 1
+         														REQ_insertAppointment.ABSENCE		= 3 // SI CADATE ET HDEB > date et heure du jour ALORS 3 SINON 1
+         														REQ_insertAppointment.CLEINTERV		= Prat
+         														REQ_insertAppointment.CODEPRAT		= Prat
+         														REQ_insertAppointment.FORMTET		= "ONEDOC"
+         														REQ_insertAppointment.UNIC			= UNIC
+         
+         														IF HExecuteQuery(REQ_insertAppointment, hCheckDuplicates) = False THEN
+         															Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+         															RETURN
+         														ELSE
+         															// PUIS ON INSERT LA CORRELATION eventId -> rdcleunik (externalId)
+         															link is string = [
+         																{
+         																"externalId": "%1",
+         																"eventId": "%2"
+         																}
+         															]
+         
+         															link	= StringBuild(link,SQL.IDAuto, jsResult.id)
+         															route	= "/calendars/" + member.calendarId + "/external-event-links"
+         															statusCode is string = postRequest(route, link).StatusCode
+         
+         															SWITCH statusCode
+         																CASE 201:
+         																	Trace("RDV inséré")
+         																CASE 500:
+         																	Trace("Pas youpi")
+         															END
+         
+         														END
+         												END
          											END
-         
-         										CASE <> 0:
-         											fic_cleunik = REQ_checkIfPatientExists.FICLEUNIK
          									END
-         									// ----------------------------------- PUIS INSERTION DU RDV
-         									Prat is int	= member.calendarId
-         									HChangeDir("RDV", "Prat" + Prat)
+         								end
+         							case 404
+         //								Trace( "Not Found")
+         						end
+         					case "updated":
          
-         									UNIC	is string	= NumToString(Val(fic_cleunik),"010d")+Left(Replace(jsResult.startDateTime,["-","T",":"],""),12)
+         //						 UPDATE UN RDV QUI VIENT DE ONEDOC. 1- ON VA CHERCHER LA CORRELATION eventId -> externalId
+         						route = "/calendars/" + member.calendarId + "/external-event-links/eventId/" + member.eventId
+         						resp is httpResponse = getRequest(route)
+         
+         						SWITCH resp.StatusCode
+         							CASE 200: // ON A UN EXTERNALID DONC ON A UN 200 ET DU COUP ON REQUETE SUR LES DETAILS DU UPDATE
+         								// ON RECUPERE LE EXTERNALID (RDCLEUNIK)
+         								jsLink est un jsON = resp.Contenu
+         								rdcleunik est string = jsLink.externalId
+         
+         								route = "/calendars/" + member.calendarId + "/events/" + member.eventId
+         								respEvent est un httpRéponse = getRequest(route)
+         								jsResult is jsON = respEvent.Contenu
+         
+         								// ON MONTE LE REP RDV PAR PRAT
+         								HChangeDir("RDV", "Prat" + member.calendarId)
+         
+         								REQ_getFicleunikByRdcleunik.RDCLEUNIK = rdcleunik
+         								IF HExecuteQuery(REQ_getFicleunikByRdcleunik) = False THEN
+         									Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+         									RETURN
+         								ELSE
+         									UNIC	is string	= NumToString(Val(REQ_getFicleunikByRdcleunik.FICLEUNIK),"010d")+Left(Replace(jsResult.startDateTime,["-","T",":"],""),12)
          									HDEB	is Time		= StringToTime(Right(jsResult.startDateTime,8))
          									HFIN	is Time		= StringToTime(Right(jsResult.endDateTime,8))
          									CADATE	is Date		= StringDelete(jsResult.startDateTime,"-")
+         									DUREE 	is Time		= IntegerToTime(Abs(TimeDifference(HDEB, HFIN)))
          
-         									REQ_checkIfAppointmentExists.UNIC = UNIC
+         									REQ_updateAppointment.UNIC = UNIC
+         									REQ_updateAppointment.CADATE = CADATE
+         									REQ_updateAppointment.HDEB = HDEB
+         									REQ_updateAppointment.HFIN = HFIN
+         									REQ_updateAppointment.DUREE = DUREE
+         									REQ_updateAppointment.RDCLEUNIK = rdcleunik
          
-         									IF HExecuteQuery(REQ_checkIfAppointmentExists) = False THEN
+         									IF HExecuteQuery(REQ_updateAppointment) = False THEN
          										Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
          										RETURN
          									ELSE
-         
-         										SWITCH REQ_checkIfAppointmentExists.RDCLEUNIK
-         											CASE 0:
-         												Trace("Le RDV n'existe pas")
-         												// ------------------------------- IL N'EXISTE PAS DONC ON INSERT LE RDV
-         												REQ_insertAppointment.FICLEUNIK		= fic_cleunik
-         												REQ_insertAppointment.NOM			= Upper(jsResult.patient.lastName)
-         												REQ_insertAppointment.PRENOM		= Upper(jsResult.patient.firstName)
-         												REQ_insertAppointment.RAISRDV		= "OneDoc"
-         												REQ_insertAppointment.CADATE		= CADATE
-         												REQ_insertAppointment.HDEB			= HDEB
-         												REQ_insertAppointment.TYPRDV		= "Médical"
-         												REQ_insertAppointment.HFIN			= HFIN
-         												REQ_insertAppointment.DUREE			= IntegerToTime(Abs(TimeDifference(HDEB, HFIN)))
-         												REQ_insertAppointment.LIEU			= 1
-         												REQ_insertAppointment.ABSENCE		= 2
-         												REQ_insertAppointment.CLEINTERV		= Prat
-         												REQ_insertAppointment.CODEPRAT		= Prat
-         												REQ_insertAppointment.FORMTET		= "ONEDOC"
-         												REQ_insertAppointment.UNIC			= UNIC
-         
-         												IF HExecuteQuery(REQ_insertAppointment, hCheckDuplicates) = False THEN
-         													Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-         													RETURN
-         												ELSE
-         
-         													//----------------------------- INSERT LINK UPSERT??
-         
-         													link est une chaine = [
-                      	             	             	             	{<§cs:10§>
-                      	             	             	             		"externalId": "%1",<§cs:10§>
-                      	             	             	             		"eventId": "%2"            <§cs:10§>
-                      	             	             	             	     }<§cs:10§>
-         													]
-         
-         													link = ChaîneConstruit(link,jsResult.id,SQL.IDAuto)
-         													route = "/calendars/" + member.calendarId + "/external-event-links"
-         													statusCode est une chaine = postRequest(route, link).StatusCode
-         
-         													SWITCH statusCode
-         														CASE 201:
-         															Trace("Youpi")
-         
-         														CASE 500:
-         															Trace("Pas youpi")
-         
-         													END
-         												END
-         											OTHER CASE
-         												//
-         										END
+         										Trace("Update")
+         										// SYSLOG
          									END
          								END
-         							CASE 404
-         								//Trace( "Not Found")
+         							CASE 404:
+         								Trace( "Pas de corrélation")
          						END
-         					CASE "updated":
-         						Trace("Mise à jour, eventId: " + member.eventId)
-         						//UPDATE
          
+         					case "deleted":
+         						//Trace("Suppression, eventId: " + member.eventId)
+         						// UPDATE UN RDV QUI VIENT DE ONEDOC. 1- ON VA CHERCHER LA CORRELATION eventId -> externalId
+         						route = "/calendars/" + member.calendarId + "/external-event-links/eventId/" + member.eventId
+         						resp is httpResponse = getRequest(route)
          
+         						SWITCH resp.StatusCode
+         							CASE 200:
+         								jsResult IS jsON = resp.Contenu
+         								REQ_deleteAppointment.RDCLEUNIK = jsResult.externalId
+         								IF HExecuteQuery(REQ_deleteAppointment) = False THEN
+         									Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+         									RETURN
+         								ELSE
          
-         
-         
-         
-         
-         
-         					CASE "deleted":
-         						Trace("Suppression, eventId: " + member.eventId)
-         						//DELETE
-         				END
+         									route = "/calendars/" + member.calendarId + "/external-event-links/eventId/" + member.eventId
+         									resp = deleteRequest(route)
+         									SWITCH resp.StatusCode
+         										CASE 204:
+         											Trace("Lien supprimé")
+         										OTHER CASE
+         											// SYSLOG
+         									END
+         								END
+         						END
+         				end
          			end
          		other case
          			Trace(cMaRéponse.StatusCode)
@@ -980,16 +1044,16 @@ window :
       //!
       //! @brief <indiquez ici ce que fait la procédure>
       //!
-      //! @param route  routes  <indiquez ici le rôle de routes>
+      //! @param _route  route  routes  <indiquez ici le rôle de routes>
       //!
       //! @return (httpRéponse)  <indiquez ici les valeurs possibles ainsi que leur interprétation>
       //!
       //!
       
-      procédure getRequest(route)
+      procédure getRequest(_route)
       
       cMaRequête is httpRequest
-      cMaRequête.URL						= "https://onedoc.nexapi.ch" + route //"https://onedoc.nexapi.ch/events/changes?afterChangeId=" + SAI_afterChangeId
+      cMaRequête.URL						= "https://onedoc.nexapi.ch" + _route //"https://onedoc.nexapi.ch/events/changes?afterChangeId=" + SAI_afterChangeId
       cMaRequête.Header["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // TOKEN WINLOGIE
       
       cMaRéponse is httpResponse = HTTPSend(cMaRequête)
@@ -1005,23 +1069,49 @@ window :
       //!
       //! @brief <indiquez ici ce que fait la procédure>
       //!
-      //! @param route  <indiquez ici le rôle de route>
+      //! @param _route  route  <indiquez ici le rôle de route>
       //! @param body  <indiquez ici le rôle de body>
       //!
       //! @return (httpRéponse)  <indiquez ici les valeurs possibles ainsi que leur interprétation>
       //!
       //!
       
-      procédure postRequest(route, body)
+      procédure postRequest(_route, body)
       
       cMaRequête is httpRequest
       cMaRequête.Méthode					= httpPost
-      cMaRequête.URL						= "https://onedoc.nexapi.ch" + route
+      cMaRequête.URL						= "https://onedoc.nexapi.ch" + _route
       cMaRequête.Header["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // TOKEN WINLOGIE
       cMaRequête.ContentType				= typeMimeJSON
       cMaRequête.Contenu					= ChaîneVersUTF8(body)
       //cMaRequête.ProcédureTrace			= ProcTrace
       cMaRéponse	is httpResponse			= HTTPSend(cMaRequête)
+      
+      RETOUR cMaRéponse
+      
+     type : 458752
+   -
+     name : deleteRequest
+     procedure_id : 1738616376608211517
+     type_code : 14
+     code : |1+
+      //!
+      //! @brief <indiquez ici ce que fait la procédure>
+      //!
+      //! @param _route  route  <indiquez ici le rôle de route>
+      //!
+      //! @return (httpRéponse)  <indiquez ici les valeurs possibles ainsi que leur interprétation>
+      //!
+      //!
+      
+      procédure deleteRequest(_route)
+      cMaRequête is httpRequest
+      cMaRequête.Méthode					= httpDelete
+      cMaRequête.URL						= "https://onedoc.nexapi.ch" + _route //"https://onedoc.nexapi.ch/events/changes?afterChangeId=" + SAI_afterChangeId
+      cMaRequête.Header["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // TOKEN WINLOGIE
+      
+      cMaRéponse	is httpResponse	= HTTPSend(cMaRequête)
+      jsResult	est un JSON		= cMaRéponse.Contenu
       
       RETOUR cMaRéponse
       
