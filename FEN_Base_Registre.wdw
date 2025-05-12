@@ -10,7 +10,7 @@ info :
 window :
  name : FEN_Base_Registre
  identifier : 0x2818ee022e1cbe3c
- internal_properties : HgAAAB4AAABtzUD2zRfaofn2ciLizA0n4g91WNZssJE97lwdOChJCxnYCjSfv9ekVnm9IJOMf39Te0mokWQWWyDq/V5kwOPT6xI09BZNNl8zo2HUvWCUU8wb4QhV/n9rntgHXAXHIECezQIREi0Z9wJCwmTEi8DmxHcIUopWAES5BEBgswPUmsCaHbtgn9/W1nT7sdgtmPDP8CMy4cKetcDbG3/p58DjXFHEHxazdamcCJzEjYEs0ykPb5j6JcQ/tVou+dI232S7u1HuyEqfHBsgvfLymJtTYmdofQI1wUUQUFLs0soOtlR54Cbdu+n3j5ZtGQDY1V+CYTIhFmLif7rBv0putq77UYCjjnTEeq0wdAOk77ZFeRuDp8zhoiZbUbhMXrdLgkF8+TrA03ACXF8GYdG2HNCBBz1FO6b/fdrVScJ8mc42j2O3SRidHCXyuwoHOC/pr4q6VKwl1DdXFUqEPE0zpd4W9/SDX0ThI3obmHh8cOnYt3EuyYnu8/GDoUJd9tyVYQPBWtzxwJGkqA394C7PZuvv5cUNubH8Uricuk4pUeZ/lD2o8TczJ89GdTVygI6ByXWWxrliXbkdtvzjQGhlxfEBt5EUSOgrGkqYqX8LZagKmwVjFSEXRf5GLYgpseZc+aNn/aTu1KRCRXuSs8LH2QOWW0B97tipp74EaXE+co85Q1z2iEKB/QXaq7PuDGcEpSJubMlmJNp1PtPj5HkUjvK4MM/k2e3W/gLj1nXkPBq3ztfZRpWx2VnAkQwEmJdGFBVQiqLzmXPK4zecsvzUGv3fPhNG1TMr9J3ldQBCli+xgoo0wCY0kCq+R1DJ+RFCn6Is90xvUYVIWOa+hD7qIF6W73ZqnyGf2THvIi8DenAN+DIhpAVB2n6cB0WJlBkOnnpi+/hJiWa/fHo360WaNBlFhUAeuYSoGMj4CtUZmKsi1UZSts6BUGYY6fFAFB6OHX+mfKU6h8XXdhXTS0+pJHUsGfY9NFCSo0lQm8qCQjUvafvb/MBJAcndMJmSo73JcVv7X1Qw1gWE3PzbUdbEDrKa7BaKWW6Y09dRxLa1NcMnxMATDijgsx+zSx77zHB6/gs6HV2swhpcNz1Z7Wl0EgDINhZvAOj6I2qpzJWkB2ijUM8IIQ5U9cah2YjPjbHBubW4iDbZuh3+Bf7ImBcmOmTnjI1HcX3rWVits6m4k4shh/uOpNfrxuD3jTsoLOWUPlETi71qSiLS2say8cR2k75wfDzxvvDyWJwGOG0vkeOlYkamcmD/BB6tsA5YK2YAsko6uQ9ydhOnq8255RuaBTX4MhVGlIpVqC+btN6luhUYA5j3nZgO+mh5gh1r2P7c+mWSmD/1YeoSeRhwKC1PZTgVPvGvnf12QGw8nvEWwz2P3xWcp888roZl2FPacrzHCsiVD84vfKDqyLgPibs+DgblJWRm2jqS5smQMCqkjH74Ox345+4IuCggoCTgjPFTyQpzKQgehE/mr4dQ7nKRoRBTjAn4r9etaS7j/SAk3ImQfD+GMVsl16KbVy4qRwUPVxk0w4X2LP3RwmL6J2V0XgtK86H1zwn2iRrB3ZO92z8waHgjkDee/IT9Saq34/odqXj2ho3/4YOWWNFkkiBWpXwuwzhQg9eHI2gIB5uqy/M+zSiHiPIFrhS2fFj+XljG7LHs2fTn81XxpCz6gbF4XnvLEBM+0Jz8KPCzueL7fqJ7JE3MOKd19UJbsYyedij8+M3tsPBZslQs9ZyG5AV8/IcgfhHm8O1QhvgIRXC6WZGKVTO3RhawMju0tTmE8KBr49tOA/ORw/9M3Q==
+ internal_properties : HgAAAB4AAACsKwQ6nwRg61u27Yf4IO2rV79PiUQLX0zGqGx0SZdYhAuYGV5yht4BKO0mFeHRbVaDBbwEISI7tqz58hSRFi0ccJzWNQM2itiVQlwJOeR1VVXNykjoqjHKhYrZbeLpcRb1Lr+cVMlMWPbvLpJ+KhTL0aKfJF5L/3u0htOFwgjygUcSbZr8m+xhtijIcDd7jI4ugmaKCmUJduwxxGLEXTjHQklJ2rwSPH2mEzSmDe2q8c70coTf6M8whBYuVcr3cXoEkdG3ihv/7PnL62azadCfCVV9v5+bbuGILVAySzI0gWTQeHJeF9LF15IS5Lal/Rm+cW2Ihrs7YZd5f7BQyS29+VvR/shPXVpmltCM8Go8zzF9TbrZsGYX6q9qN7X9ayTP9BekqAceFkerT5XFXH0L6EaH2QzF8WNT/zBGezYIGyy6LLnU6W6CmKH7BxHDgR5Vgf1dg2+H3Bbjix491Ms7Gj7V+QZLXjPQrYQ1zMFA1HPJyMgUTe/jQlefH8qMTxvykPW9xgeEqx+9DikejcLdVQmQUxeUOpx2RZnuoNgw49wdc8WlvEcIF39p692i4S8lE1k7yicchaeEkrX0JU1xIB4FuHoibvJU440OOftIvl5HvaGay63AcNPOTVXMdsVY8k33+fA9DWbP6rDfoMI1OpbPuMAelL9vqp97TvONlkrLDck+HRBVu+Wc6kZbBTFntdzJyE63dvNmWlUP3L47CYONL7NLT6ycEEeNTT+LQw7/LtpImF9hMf0s+qynjcfbGI2kzTeguNYEafNOIYMurQmGY4HXlGJp+9Ve9eYhG7KxrGMNF4Y4lBOULwwokbear7OD8X5KC8nFOYJMgWltsrZ+dGbVVU9QTYEMwcgGBAEi3VvhT6/E+6UgnLmra+i+TOJLUlpJOsdWe08Z7AWlPxzP4IwEq8zOe2cnFt0W/C+W9tjo40Yb5JBoCmiafKBfpodLC6UWzvIxzZs1NqjmlMAGPQcPEHdfLBbx46iSBbM9bsDk7fSfv0Wp3C3vyGAEn8i8FRD9DjFEmAjLoPO/WZbOS7t2sAj9UCATyFZEcKfdJToWrHgTg1G0f9abxCImi5iMmDngOQFviSXZWCwi5TlEkt53dJ3doRtUE/iY3rJ1kERmcyqcNccbIzom/+p1zNGraCS777SfNxptxwNrcf/W+GVv4Ex/oEziaAsCHQj+qYYyv0oHjCH1M2tmlyX/EPHHKE0XikYNHDI9rbWPb8uIB+RFoeNwrSCBErd0Kza1YEdyimW4EYT3oi47be5s1xH6Llevh0BfUxXCrih9yCQvPUt2iJrZVb3XXwrQRBmvfN9TmaGzmRjyPT1p0FeojZrlxQuDAi7pahWOP5keWeqjOxbwmJm53+NBTTWzWpZVyKS6jOfFbI/pxBviFW1M6wDIfFyhaTCTT+X6ghw8bh+Si3/U58J5zUUbY7e7q0L4lHdWC0yze1k0si2W
  properties :
   width : 558
   height : 328
@@ -117,11 +117,6 @@ window :
       -
         code : |1-
          
-         sCheminRegistre est une chaîne			// chemin proposée dans la base de registres
-         
-         
-         // On récupère le chemin dans la base de registres proposé par WINDEV
-         sCheminRegistre = ProjetInfo(piRegistre)
          
          // On affiche l'information à l'utilisateur
          Info(<§$0000§>+sCheminRegistre)
@@ -152,10 +147,6 @@ window :
       -
         code : |1-
          
-         sCheminRegistre est une chaîne			// chemin proposée dans la base de registres
-         
-         // On récupère le chemin dans la base de registres proposé par WINDEV
-         sCheminRegistre = ProjetInfo(piRegistre)
          
          // Création d'une clé "test"
          RegistreCréeClé(sCheminRegistre+"\lastChangeID")
@@ -189,13 +180,10 @@ window :
      type_code : 4
      p_codes :
       -
-        internal_properties : HgAAAB4AAADrzfNZj3j81ybkJY7ilcRtj9EA0kBdrTEDbXR0f4z5UefKCDz95kUddoXj+gg26wTtGOjoBh7rD+taQXIDzalJgISdyKQFne9NV4MZcZdI08KZdUxJJE++td2y2Z7Kfm3sCMzFAwzf9Z0214w=
+        internal_properties : HgAAAB4AAACXYYFY9xDJB8ZUtZ7CNTQNT5EwQsC9XTGzDXSU75xZYbd66PxtlsVtNnXTaqgWeyTt2Pi4xj5zp/MiqRrLZSHByHwlUEwdRQfVn0uBuU8ga4qxHRSxfJcWXQWaweYCtmVUINQtS7mcGKe6azA=
         code : |1-
+         			// chemin proposée dans la base de registres
          
-         sCheminRegistre est une chaîne			// chemin proposée dans la base de registres
-         
-         // On récupère le chemin dans la base de registres proposé par WINDEV
-         sCheminRegistre = ProjetInfo(piRegistre)+"\lastChangeID"
          
          // Ecriture dans la clé "Test" de la valeur "mon test" dans "variable chaîne"
          RegistreEcrit(sCheminRegistre,"changeId",197,registreTypeEntier)
@@ -229,15 +217,13 @@ window :
      type_code : 4
      p_codes :
       -
-        internal_properties : HgAAAB4AAAB7vWPJf8F5hwZUNR5afYwdBxFw8kAt3enLtYxs36xZaUfycITlHl0tNkWDikBuo0SlqAgIJn4X2y9WdVbPEe1FjPCZxMDp6Vtxc4ddfRvMny7lUQiFmLvKiRlmPRp+wikYZBgBn31PZQ2mRxw=
+        internal_properties : HgAAAB4AAADrzfNZj3j81ybkJY7ilcRtj9EA0kBdrTEDbXR0f4z5UefKCDz95kUddoXj+gg26wTtGOjoBh7rD+taQXIDzalJgISdyKQFne9NV4MZcZdI08KZdUxJJE++td2y2Z7Kfm3sCMzFAwzf9Z0214w=
         code : |1+
          
-         sCheminRegistre est une chaîne			// chemin proposée dans la base de registres
+         
          sValeurLue est une chaîne				// valeur lue dans la base de registres
          bTestLecture est un booléen				// Test de l'opération de lecture
          
-         // On récupère le chemin dans la base de registres proposé par WINDEV
-         sCheminRegistre = ProjetInfo(piRegistre)+"\lastChangeID"
          
          // Ecriture dans la clé "Test" de la valeur "mon test" dans "variable chaîne"
          sValeurLue = RegistreLit(sCheminRegistre,"changeId",bTestLecture)
@@ -283,10 +269,6 @@ window :
       -
         code : |1-
          
-         sCheminRegistre est une chaîne			// chemin proposée dans la base de registres
-         
-         // On récupère le chemin dans la base de registres proposé par WINDEV
-         sCheminRegistre = ProjetInfo(piRegistre)
          
          // Suppression d'une clé "test"
          RegistreSupprimeClé(sCheminRegistre+"\Test")
@@ -393,8 +375,8 @@ window :
      p_codes :
       -
         code : |1+
-         sCheminRegistre	is string					// chemin proposée dans la base de registres					// valeur lue dans la base de registres
-         ResExiste	is boolean					// Test de l'opération de lecture
+         					// chemin proposée dans la base de registres					// valeur lue dans la base de registres
+         					// Test de l'opération de lecture
          
          // On récupère le chemin dans la base de registres proposé par WINDEV
          sCheminRegistre = ProjectInfo(piRegistry)+"\lastChangeID"

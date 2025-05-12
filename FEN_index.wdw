@@ -73,8 +73,16 @@ window :
          Scripte synchronisation OneDoc vers Winlogie<§cs:10§>
          */
          
+         // ON RECUPERE LE CHANGEID DE LA BASE DE REGISTRE
+         bTestLecture est un booléen
+         sValeurLue		est une chaîne
+         
+         
+         // Ecriture dans la clé "Test" de la valeur "mon test" dans "variable chaîne"
+         sValeurLue = RegistreLit(sCheminRegistre,"changeId",bTestLecture)
+         
          cMaRequête is httpRequest
-         cMaRequête.URL						= "https://onedoc.nexapi.ch/events/changes?afterChangeId=" + SAI_afterChangeId
+         cMaRequête.URL						= "https://onedoc.nexapi.ch/events/changes?afterChangeId=" + sValeurLue
          cMaRequête.Header["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // TOKEN WINLOGIE
          cMaRéponse is httpResponse = HTTPSend(cMaRequête)
          
@@ -281,10 +289,15 @@ window :
          								END
          						END
          				end
+         				changeId = member.changeId
          			end
+         			// ON INSERT LE DERNIER CHANGEID DANS LA BASE DE REGISTRE
+         			RegistreEcrit(sCheminRegistre,"changeId",changeId,registreTypeEntier)
          		other case
          			Trace(cMaRéponse.StatusCode)
          	end
+         
+         
          end
         type : 18
       -
@@ -570,7 +583,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 10
+     tab_order : 11
     style : {}
     type : 4
     code_elements :
@@ -607,7 +620,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 11
+     tab_order : 12
     style : {}
     type : 4
     code_elements :
@@ -688,7 +701,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 12
+     tab_order : 13
     style : {}
     type : 4
     code_elements :
@@ -871,7 +884,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 13
+     tab_order : 14
     style : {}
     type : 4
     code_elements :
@@ -883,8 +896,9 @@ window :
          // ResExiste		is boolean					// Test de l'opération de lecture
          
          // On récupère le chemin dans la base de registres proposé par WINDEV
-         sCheminRegistre	= ProjectInfo(piRegistry)+"\lastChangeID"
+         
          ResExiste		= RegistryExist(sCheminRegistre)
+         Trace(sCheminRegistre)
          
          IF ErrorOccurred THEN
          	Error(<§$0000§>,ErrorInfo())
@@ -934,12 +948,12 @@ window :
     identifier : 0x281ca7fb2969bff5
     internal_properties : HgAAAB4AAACaH0GIwmfn+orDULW5/jhBf8PjZrKZpDScZ6wQg6uFsGkFxa9hu68+wexZvd3FJnsD5ITm/uC8Hj6oV7RPlWR1CdH4Sdq1wSmkJU5ljDSyVWzoEeTlYP3VlcWROuIASKG5j/Vctc58iiX1OLODn/c1YSX+HhN1ASqqRQu/eDXTEXU1iHJ0YT4nuHSEHTCpyHthU4RILEwAg7FMiH5FKni7AuEZtYQMQ2gedjx1w5iXuI3wk0FMreSCmBkoD1qPj4XqPpm2jQXa/ZMeaIkSyUGtWv080YWYQK5q8ICOxD8siv81Rx5r9dOEGYWBkQitWp3jsdDwVFtboqMrhzkFrm3CzPWJFTeDQMhJ16kGlzx/ReV1MxWpiLh7+Ays0BRjQFfkfUJGtANMBRTiLIGfVPDJLCsJmyXvafvNl0YwNaiQVAMFwXN/r6xOuZ7J8YpBLuAvRyzPR9c7EX6NfXRj07dyJ+A4elCRCk/RGmH3xwCiSSjKFCt/Y/OyuwluW2my/WS3o8GgXVSL3Rj45dE/28CKZSMGz6tZiJb5/uJFIgpsAG6Xtzo6hYzHTk/wDbXvR8iviZihP6cNcQJtZGDInBfR2nPnvYyJAuwBl+P+uXtvd+VY1DDGNocXVWNzQuxL9IztJIl3QPxQsR8w7OnJvKz6Ot/61xA0Po1jpwIXn19LB0mZ5OoTxDAZTJXGydi+/fvMkud7f5v6MIHgvWkTvYrQJNgQokQhZ7vcfsXDnXJ8HIJoc3G+spjsM7cXXmIqvjo4QtT0ExmETqBdtt8shTK4panMV3JwvfnSnFd9bu/2ZyA5/JZMKwiizdKzenbwFUFWXYgGJPrrXRAKa/6aFZSLYGwJq/IGKv8S6S244dOGGhgDZVkhntA6AYq5+RTjPwBmrTDvapjljJOGeCt1LEQ+ZoKfWA==
     properties :
-     x : 44
-     y : 399
+     x : 154
+     y : 230
      width : 80
      height : 24
      accelerator_key : 65535
-     tab_order : 14
+     tab_order : 10
     style : {}
     type : 4
     code_elements :
@@ -959,6 +973,92 @@ window :
          
          Trace(age.Année)
          
+         
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_Ecrire
+    identifier : 0x282195de03adfd84
+    internal_properties : HgAAAB4AAAA+bA+KiZPuEWzt7/AStG5aVCUkgoBjsU1r3GYESNhISc8e/OpwW7bSGAzOUL9D+XJ6ffnvynO8y1ej+Ybx4bMDLyvGOr81+cQyVseBQTfrrRBMNwCxo+FtNtjpzseFaU3k/z1X2gj0vDE9WKz64JsezwrQy5LY8ZDMkHMdSq0tENRE6ANF+dgKXqj44Vex4MUBW0DsNvln/eu1Y+tcY7cYhBR4gZLdyntt+GWqvD5o2tFhCNVIzkZSgicvk7BlmtpGG2lc+FJhgnKl4IlDzfugvK3tm9I80i7s0GytDhtxlEfZrK/+e90Qf8O6XnX85kZUhS4WIdf/kEqGRFExGB+2NXspzg1oooFc3hsG6h74ZEA7WNVMfukSIFaS6BbpTYQhz7CKPOCOni1Ew4ofdrSUjm1gUZ1WiH6LcC03Gl13uoZwtzk5j/Za/U19MBZrFlQucZtStgxgDFG/fD4vTjMNq7jYVqJAFLKkZlTX0UHCxMqwPnUhuPG3PIl9Hf25B5FlHWc882dJ6jW0OEdtPGKZs53kFxXKZHHkst1doDlM5WzxCdqiCm4w5xHhNV/cMbubMSBrRdDL8pPjwcBwnStaJFkBOeYQ7L90d1IKvS4fFCuitpRuz6k0JpME5ipe3m/RjHG1XqlmeqTkV3u5Z/7vVp/yIwSL5hAWMxXDVQafaIllMH6vc4qWyXMlXZh3R8YuoEV3kdSAo3Qe8jNViibdMLgYJOIAoURl5DJbO43qGT74m6VwkzigcWWsfzX+3t+A5u+E8q52hYYLaH1XrtuNt48EOfAyJ08geQD21Qr9pDmSc0SbYcYvXiQeJ6H7T91axf923Kk7o1aO6wuk4k+cg5MNr2yDAg8mu4khhQ==
+    properties :
+     x : 22
+     y : 406
+     width : 102
+     height : 24
+     accelerator_key : 65535
+     tab_order : 15
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        internal_properties : HgAAAB4AAADrzfNZj3j81ybkJY7ilcRtj9EA0kBdrTEDbXR0f4z5UefKCDz95kUddoXj+gg26wTtGOjoBh7rD+taQXIDzalJgISdyKQFne9NV4MZcZdI08KZdUxJJE++td2y2Z7Kfm3sCMzFAwzf9Z0214w=
+        code : |1-
+         
+         			// chemin proposée dans la base de registres
+         
+         // On récupère le chemin dans la base de registres proposé par WINDEV
+         
+         
+         // Ecriture dans la clé "Test" de la valeur "mon test" dans "variable chaîne"
+         RegistreEcrit(sCheminRegistre,"changeId",197,registreTypeEntier)
+         
+         // Vérification de l'opération
+         SI ErreurDétectée ALORS
+         	Erreur(<§$0001§>,ErreurInfo())
+         	RETOUR
+         FIN
+         
+         // On affiche l'information à l'utilisateur
+         Info(<§$0004§>+<§$0003§>+sCheminRegistre+<§$0002§>)
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_Lire
+    identifier : 0x2821964703af9877
+    internal_properties : HgAAAB4AAAC9qA7S/wfR31bg/6CPTiYY6YZ6TM06mywuhEW/k/DjVuCeWjE+EKt+mAD0GVhZotNEFwecPzDi+883hVgdALhNarX6gZ9zorGxEhLEG2NruV20RB4A4sYuIX+O4cNFP/jzusxmWMlAWQPfJukILzOodMF4C0SiwYjS9b697R7/X89eull+y3hWW6c1wJdXEUn7xXl4rOMG6nmh0ZX2NbPTXNcNKjqvoUDIF027cYMxNT3mNNfppnTcCKFik0jBQwc9+sNvOohWEqtr1YTs8B2mB/Dxw3TDr+CJwJGHkHpMim0d/IWZhtCLOo7tpvXa310RzgWKrQ2vDj2I65dGA2k05raQhbs2n8lMi9f6uHpXFcAJFYLbiF4qn4WuYAaq09WSBGpjFLkTLQ0c7svXv0k/j4JFk2T5IXHs6XYMksDsbpPZIZMUpBCJYzxiYnxQ3g31yll2fpcoAxdW8eJVHTGkZE8YyiaXwJGSLVmRn/zYBwMzaBOnr3cKjgLww5E+S/JQdplkpeBb0cuR18Pvf9SqhvLs80lneqQG3fZ7pDwSvnNSHQ6ejThfFUieV/NNB1yWmryb/ZVBycly/pYGAoORafx5c8StaHbY9OmoaYf7nygFQLr0HL/73Dj7wGCT1jaif4dtdPSkeZDfRGsPWsKIlaQY7246XEdiuJibRW114USCpqRpShh1J4p2c8jCrRd9lSFRD+cO0GL7AcOXLURSq53YqozNa1Mp6YkVAUL8kAMvFe92RqzFn1rTYTUD/SWqrurf4cZbuTnfogwY1PAHRXz4o/7P7k/dkQGPTIYc8Tu69k16/GYA4+IZD3es79Yc9VGYowEcIXPX6hdADScKRAIqI1XDxiIzt1ly
+    properties :
+     x : 22
+     y : 447
+     width : 102
+     height : 24
+     accelerator_key : 65535
+     tab_order : 16
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        internal_properties : HgAAAB4AAADrzfNZj3j81ybkJY7ilcRtj9EA0kBdrTEDbXR0f4z5UefKCDz95kUddoXj+gg26wTtGOjoBh7rD+taQXIDzalJgISdyKQFne9NV4MZcZdI08KZdUxJJE++td2y2Z7Kfm3sCMzFAwzf9Z0214w=
+        code : |1+
+         
+         			// chemin proposée dans la base de registres
+         sValeurLue est une chaîne				// valeur lue dans la base de registres
+         bTestLecture est un booléen				// Test de l'opération de lecture
+         
+         
+         // Ecriture dans la clé "Test" de la valeur "mon test" dans "variable chaîne"
+         sValeurLue = RegistreLit(sCheminRegistre,"changeId",bTestLecture)
+         
+         // Vérification de l'opération
+         SI ErreurDétectée ALORS
+         	Erreur(<§$0005§>,ErreurInfo())
+         	RETOUR
+         FIN
+         
+         SI bTestLecture ALORS
+         	// On affiche l'information à l'utilisateur
+         	Info(<§$0006§>+sValeurLue)
+         SINON
+         	// La lecture ne s'est pas faites
+         	Info(<§$0008§>,<§$0007§>)
+         FIN
          
         type : 18
       -
@@ -1130,6 +1230,38 @@ resources :
      text :
       fr-FR : Une erreur est survenue pendant la lecture de la valeur
      index : 0
+   -
+     text :
+      fr-FR : Une erreur est survenue pendant l'écriture dans la valeur
+     index : 1
+   -
+     text :
+      fr-FR : "\" de la base de registres"
+     index : 2
+   -
+     text :
+      fr-FR : " a bien été créée dans la valeur \"Test\" de la clé :\" "
+     index : 3
+   -
+     text :
+      fr-FR : La valeur "mon test"
+     index : 4
+   -
+     text :
+      fr-FR : Une erreur est survenue pendant la lecture de la valeur
+     index : 5
+   -
+     text :
+      fr-FR : "La valeur lue est : "
+     index : 6
+   -
+     text :
+      fr-FR : (vérifiez que la clé existe)
+     index : 7
+   -
+     text :
+      fr-FR : La valeur n'a pas été lue
+     index : 8
 custom_note :
  internal_properties : HgAAAB4AAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
 rad :
