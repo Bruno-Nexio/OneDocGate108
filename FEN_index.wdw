@@ -61,7 +61,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 1
+     tab_order : 2
     style : {}
     type : 4
     code_elements :
@@ -80,6 +80,7 @@ window :
          
          // Ecriture dans la clé "Test" de la valeur "mon test" dans "variable chaîne"
          sValeurLue = RegistreLit(sCheminRegistre,"changeId",bTestLecture)
+         Trace(sValeurLue)
          
          cMaRequête is httpRequest
          cMaRequête.URL						= "https://onedoc.nexapi.ch/events/changes?afterChangeId=" + sValeurLue
@@ -313,7 +314,7 @@ window :
      width : 204
      height : 23
      accelerator_key : 65535
-     tab_order : 2
+     tab_order : 3
     style : {}
     type : 2
     code_elements :
@@ -344,7 +345,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 5
+     tab_order : 6
     style : {}
     type : 4
     code_elements :
@@ -409,7 +410,7 @@ window :
      width : 204
      height : 23
      accelerator_key : 65535
-     tab_order : 6
+     tab_order : 7
     style : {}
     type : 2
     code_elements :
@@ -440,7 +441,7 @@ window :
      width : 230
      height : 23
      accelerator_key : 65535
-     tab_order : 4
+     tab_order : 5
     style : {}
     type : 2
     code_elements :
@@ -471,7 +472,7 @@ window :
      width : 230
      height : 23
      accelerator_key : 65535
-     tab_order : 3
+     tab_order : 4
     style : {}
     type : 2
     code_elements :
@@ -502,7 +503,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 8
+     tab_order : 9
     style : {}
     type : 4
     code_elements :
@@ -583,7 +584,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 11
+     tab_order : 12
     style : {}
     type : 4
     code_elements :
@@ -620,7 +621,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 12
+     tab_order : 13
     style : {}
     type : 4
     code_elements :
@@ -701,7 +702,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 13
+     tab_order : 14
     style : {}
     type : 4
     code_elements :
@@ -828,7 +829,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 7
+     tab_order : 8
     style : {}
     type : 4
     code_elements :
@@ -884,7 +885,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 14
+     tab_order : 15
     style : {}
     type : 4
     code_elements :
@@ -930,7 +931,7 @@ window :
      width : 80
      height : 24
      accelerator_key : 65535
-     tab_order : 9
+     tab_order : 10
     style : {}
     type : 4
     code_elements :
@@ -953,7 +954,7 @@ window :
      width : 80
      height : 24
      accelerator_key : 65535
-     tab_order : 10
+     tab_order : 11
     style : {}
     type : 4
     code_elements :
@@ -988,7 +989,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 15
+     tab_order : 16
     style : {}
     type : 4
     code_elements :
@@ -1028,7 +1029,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 16
+     tab_order : 17
     style : {}
     type : 4
     code_elements :
@@ -1061,6 +1062,25 @@ window :
          FIN
          
         type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_SansNom8
+    identifier : 0x282d9adf1a55798d
+    internal_properties : HgAAAB4AAAC0HXuazHFhRBS9Lg8neLrD+UFl4MwbJrYmae+hib3PwsNjz+ljpWHA0yZ3Z+s3kCUF0h4YQIIWwKhyXU7Vf95nUy9C8yw/U/u2l1x3eob8v/5+w3YHoTaaRRU9ZiokGHHtE6tA6XLwztnxxM/PW/OR7Tn6+k+xnQZmCV9jrHnH9Ymf8C7wJSZb1Ni4AdjN8JOlj+wcWPjo50Ug1Krl5jhDfs2R2cBY85SCSnihu+xfcFEkoy3gEWR+1G30W5KLl7XmygkiOUHSASfSxN2C1Tn9tmnE5aHccBLODEw6VOt8qnPRJxIHwVsw7fHtTcgZUj1nrag8ECeLXudf8z216vXq4Bkhiftn+GTdey16t9jnbTm5g6m17Fjn3PDoRLQHwLf4gfqSYMfESbCueH1nKHBpgA+pb2kLGfcp22LsxVzALBeBYR+7M8zqfco9FQoFzliTqwxTs4uTxeKxB4Zxpckw5Q7q3DabHCEHtGOJdXKst7YQrkU9PdXUOZt4dSe0Dyrl8VNq4369R1bqV1vlRWoQ64nYgZkrWqjfCBQvyHSOBhTtWbT4R05RpBlqr8uxSd5F9wrLzdEnw+B/DpLedsEPmAFxV+Jz5Ia/GUVQn915feueTppsyBFpe13d3HrV9uLDAhvJNlaiu1U6fhPXjsagwG0E6QY+OEcZoXS5XdHVvZ9XJiTRFpr7ck8Ys/aQvzkKeMkFRd08+o+ih3txX1QO4l5qBDqr6fWqQId1g9ym6njul00ytrRID2MjSnZGqjY0lrC4n4XY4kRh6oPo+XZseYfWeTCy97ugnlFHDhdcyQI7vrRCPSZAD7R1WDTyK7tQ9xJs4gTxI4rUBUTA/8JVqtbjoSjI6D28Y/eWJ50cTKq9b69/eLYgiww7f5JlvYLoL7Jt6BpjCh0Q8rHzrjoweJyhRg==
+    properties :
+     x : 154
+     y : 37
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 1
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
       -
         type : 161
         enabled : false
