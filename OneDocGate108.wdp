@@ -19,8 +19,8 @@ project :
     type : 1
     generation_name : OneDocGate108.exe
     version :
-     generation_version : 8
-     internal_generation_version : 8
+     generation_version : 14
+     internal_generation_version : 14
     language : 1
     64bits : true
     code_elements :
@@ -83,6 +83,12 @@ project :
      internal_properties : HgAAAB4AAAAnIw8TkM1lBtV5EXXyhykBRSIIKBM/OPuus8U1n+ktk3VfYjOecIIkcqgS7rYq1soyMg==
      physical_name : .\REQ_deleteAppointment.WDR
      type : 5
+   -
+     name : REQ_insertInt_Doctolib
+     identifier : 0x482db04003f5fd40
+     internal_properties : HgAAAB4AAAC4luA8C7D4IyCR2IA+M9rDVCuji0QtqB22sbfxrsrCNoZYiGWTaMiIjbMtiwvFvTOdpQ==
+     physical_name : .\REQ_insertInt_Doctolib.WDR
+     type : 5
   other_elements : []
   array_of_analysis :
    -
@@ -121,6 +127,7 @@ project :
       HChangeConnection("*",gMyConnect)
       REQ is Data Source
       HChangeRep(FIC_ADM,"Commun")
+      HChangeRep(Int_Doctolib, "Commun")
       
       // DIVERS GLOBAL
       route est une chaîne
