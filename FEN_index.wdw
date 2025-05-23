@@ -36,9 +36,10 @@ window :
      p_codes :
       -
         code : |1+
+         
          cMaRequête est un httpRequête
-         cMaRequête.URL						= "https://onedoc.nexapi.ch/events/last-change-id" ///15264615
-         cMaRequête.Entête["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" //winlogie
+         cMaRequête.URL						= uri + "/events/last-change-id"
+         cMaRequête.Entête["Authorization"]	= "Basic " + authorization
          cMaRéponse est un httpRéponse = HTTPEnvoie(cMaRequête)
          SI ErreurDétectée ALORS
          	Erreur(ErreurInfo(errComplet))
@@ -88,8 +89,8 @@ window :
          END
          
          cMaRequête is httpRequest
-         cMaRequête.URL						= "https://onedoc.nexapi.ch/events/changes?afterChangeId=" + sValeurLue
-         cMaRequête.Header["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // TOKEN WINLOGIE
+         cMaRequête.URL						= uri + "/events/changes?afterChangeId=" + sValeurLue
+         cMaRequête.Header["Authorization"]	= "Basic " + authorization
          cMaRéponse is httpResponse = HTTPSend(cMaRequête)
          
          if ErrorOccurred then
@@ -325,7 +326,7 @@ window :
   -
     name : SAI_afterChangeId
     identifier : 0x280a043a020b534e
-    internal_properties : HgAAAB4AAAAVeat8A7nlN2ihxBm6jYp522xVzkhHFdMdzIVz+52QIxduQ6KakBHJl5X9c7lxoCMHG7ppvMC+PDKCVJwbCEF7pyFlBjRbvXpM2GiWhAlCXH8O9UhDnkSd7vAGeuqVCM0fVRYAn3RcLOUHn5Kin8M+Toz1To0ij0sctRqxXCRixCBj1KJEdA/2VfLAueFQaBWkp16BK83dB/fueXtXpGzqToKP1tPCKvPhic9K4BiOEBFd3uPChFWDY87/B8hXC8zMBp1KlbiFh7nXn12vk6Zyto9rXnaWljtTBumRkVCoKKb9dFQgL9x2Vtdrc9uFGA2lOCgJrpznaICHxt8Qp5KmX3R3eV9n+Z9KoItEY6NG/2yQGfUeTq2Z+3ZC/Yb7TW1v6R5z5wCZF1YPkj8d3hSYuZIHGsEf+djQPx3ayXgmhYGi2CXHmjQX8yH5uUfSDeFJO4iA192hA1xppUdA6ardfVAU0KJm9E0PClaLNVHUo0KcRDxg8TUOnIjKKrL0pkPCTvP0+rW7tLJSjtT0sSw3lr75+0TubnoeJr1s68/dgXWviG126dg3PpPSgYUteTwh+uVeKn/XRb+Bdrk12XSBwidXZyaN4/nHd0MNcYC18V10cQcxnq1B2mQn2QXHOyPzWkRf7VxjkYcFl4QDoLC8/6Sl0lEiFxuuDnU6llMWkPkIudoJ/RfixOqgUg0574JJiOFpe8HEfKXTvLVrAgpZZm+rWY+35dDF/FeABYbZAHnF0Ka6nUE/COh9zFc4kNkZcbXTfdytACVzqZfff/4si4pD9Rl0kHaLpJcWBo+dSAGTvFlXNTLmkEUGU95phDPXVthqHuAzj9af4DBAyYn5bNLFBlO1yiZ9r7aEB0jz0rIxCa8W6P1Q7PPenokaLzny3oLX1i/hJrgQrt7EZtu54xhCwnQ8CFsWH4nXHv57HXFu+MYH/fqenR23MVXGdhaY1T6t9peAflivXDVFjvsdM8yiAf/fa/malFdrkE28Gbpxc9vTQPhrUj4i09PMv3+4kS7MuA0XkRD6/2yjmef/dSKaivI3DfOJ1WUEeSUv//Oq0q3MttsGGm7g/EntVCkRs6Aft342u1AF52WeegW5ZoECJL4yE2sw40a9K9cfUqggHl0ysDni2DeqCYGylPRaTnsF21KKN3gJj0+NupbiSgnxrfWSFk5aYDrSIyfjAX/jFu/cGgbqJ6zMqBebqrz3qYrcUxN3Laot+gYd9Pul/tdubthV9Neg8CWUhJqF+CipcdSC23T8iTIj7l4E7pvCIBYRSMsQQhgxTNxKtSY0IOUCXmaecTtR1k+DjKaiQ35joPsUL5rYlQfQMuiOC0QN6bMrGe6RL+N/3BaxiSZPRKDWMofHq8FgaFLuqxsHpBbw9k0EEIJDFsnqZKIUhJdIl/UWOieGzauHqi4pg5PgcxRbLdKFh+qZwFY7dJ41gJAE2qg3skwJK/be4rOXnEZ0ijtIjVYuVeYXzTW4WjM6S15TxLbkeNwQOJWU7Nlp2a7Jg6Vo5AF71OvTG2KpdvaLgG59heAJaANXzGi59ZqwY1CgYeVkNka662Ui1oLnUS6ZPASUPNk7UtHwfwdNTZkQ7Vk5pDweqyLQEcbyHDoCSi1Cwm5+CLjC2bPd9KqGq52ESVWxSGTp2ZZMbSgLC7wvQpj86VnU5oL75+Nw8FrlD4TZGaS+BCRQC1bRrwcXciWfmwik9dvS77Kcnm7RneOC1du9Sn7epMpEsjJXlIKG+hNpYvDs3EhlPLj6N00/J7C3iTgfMBsLJxTVP1hBnDTmy8Ucr3i6FsCGeRbf5dtQb04RDs6yNjfLgoyCLHPwX/zLa+lNpFb4KDHvc+D9mcMW1FY9noZwBbWIlLQ7H7ju1WzXl6cmPcD7Aig8LawI3K2hG2J2Er26XbLiRI/LfePR4jxUSvs8/Q==
+    internal_properties : HgAAAB4AAADRNp3LxCO23acqgiK1hwaaRLlrK1LBBtfeCgcTNPoCfsqXO+wR2B8TQEXv96wmpdZNKyVi2RUMc8s2ZT+AgtW2xKRy6JrPq3Bqaq44reaWr+rv8sKjYqzEqOrrb29yYBSAd4nUzqG2rKG9vz0eorSN3eI3uvHkcrQwbnkTMlt8UXaMIstgF8K3D50MQqMh3JQbb7EBogCnIw+SVAIUNjSVz7BmStHBRsw355X87pRvgMm8OXLAZfOeBnplq26vDba4sGyjGppPuJ3ey8S2ypLriTmPfdJs/kyTJj5hdTv+8uulzePFIFj6Qpn4rNL3TsFoilBrkI8TDG4EEqYd/PVqw5h5OveG4MWZ797Zb7MCl9YkUDxO4dgcwm9TMEsL4XbNn9V76nQFQpdNousLrN9+dohH1YeidM3wuKb04mj7Hn56VvXTeQQzygQ0GsSrXuGIdll7iXOU7t8qUh7u0FGvtmFW4G+mkhN5yzLf/XwUec2QBPR3KBVHEFPpXnmj3s3PDe/hrcpTEyQAHPogMeQ9wfnIKA9/UtUmb14Y5BNsSguRp8DpEju7mCzRSbY1L2a4Q7uaxeLfHZTVgYswH+nH/lszB5u4ULrnSgsVfCiHFzmeFK9f7vI5aBZm1AF1Ct14+vRR72OldNhuGhdv7UCfBzFt3FV+R3rUbXrII7HAFHbgrAw8GDeQ82Ehr3PMVz//JibqLCRSFSLqYavp7mOFU48LX5cVpjJ3E9wZn55c9ydgas5s/SjUSW+lBEAzwEFAfz9ajPt1EGgfpSDJbcmCfRWeyuIEr20pDezxQSWvuPYDF6ER3VyafafibnyhFh+vFY6W6JJgmKyR/je5Ht+CApmWqL+vzYHjjkb9zsULHekIOdkqlTSECovrSuueO2w+BK7xjteazA4YeXjoMaHBMtfFHwfVqJV0L83JRosfaUaagIe+CPQV39liS/2faA4eXekb0hrMqCrzAzoZUI93LQEaGJOsDOT0AXsLkioad1nmlWP3PVLlHys8rkpJd73FvmNGtKvZeuKZIn2qly6Ahd0p7i+dl4oSUpd0R9v25A6h7c2kOcrh0FTwXoCO5cXzlF96ZdkLrPGn7JXtj1JH5xvaVA8CJZkYBTzYdgXOdn3wXstYdysB/ku6wNfp88rtwtn9cVGU+nxOFQm3hr5Ur2hOAQqKw1Btc0OuXcGOfQ8T8txFGo4anTtJRv8QPsskWZ6/TtBCePLU13kpEdvXXud6v50kSWUYuQRQTKLuYHPhNQh8RbMw2EzA/Ekir3t2EV/3jf0g0QKSM7nclpf/xxPDGkEKyZrmLyxSdufQJY+QKo4GRW+K5kU97sW6lYg57TEn2YO/I6Y19RQfr7D8SKW5iEN20/SX2FA=
     properties :
      x : 147
      y : 78
@@ -372,10 +373,10 @@ window :
       -
         code : |1+
          cMaRequête est un httpRequête
-         cMaRequête.URL = "https://onedoc.nexapi.ch/calendars/" + SAI_calendarId + "/events?fromDateTime=2020-06-01T00:00:00&untilDateTime=2020-06-30T23:59:00.00" + SAI_afterChangeId
-         cMaRequête.URL = "https://onedoc.nexapi.ch/calendars/" + SAI_calendarId + "/events?fromDateTime=" + SAI_fromDateTime + "&untilDateTime=" + SAI_untilDateTime
+         cMaRequête.URL = uri + "/calendars/" + SAI_calendarId + "/events?fromDateTime=2020-06-01T00:00:00&untilDateTime=2020-06-30T23:59:00.00" + SAI_afterChangeId
+         cMaRequête.URL = uri + "/calendars/" + SAI_calendarId + "/events?fromDateTime=" + SAI_fromDateTime + "&untilDateTime=" + SAI_untilDateTime
          cMaRequête.Méthode = httpGet
-         cMaRequête.Entête["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
+         cMaRequête.Entête["Authorization"]	= "Basic " + authorization // WINLOGIE
          cMaRequête.ContentType = "application/json"
          cMaRequête.Entête["Accept-Encoding"] = "gzip"
          //cMaRequête.ProcédureTrace = ProcTrace
@@ -452,7 +453,7 @@ window :
   -
     name : SAI_fromDateTime
     identifier : 0x280a08ca052d230f
-    internal_properties : HgAAAB4AAADp+BbC/0iwk2FqOyYfsJeHXaegQ5F48ZIPA9IpCtDZED5669fxLPRu7ZSs+W2is1Rd5NNbwk+qSI55KFyzaIoWvsMzkHXoH4dFCFZtszoK2Tki4NvDfYgdAs4U40R2x/ZunNV4dw86y1biwyVabcTzOBmS63AdlCpBzNLpMow7Rd3TyiMzsLNI8qliEwNKXyD0PPtQtEJiqMbP5C50nCIAo6fFoMjYpvtbauHWt6fBpyy/kYVlQc+cpPPJ8j5TO+cY2ePRE4G/7fcH2PbXTRlSKMIGWBkb9jrHJvchmHj1O5qlOUNTkIyz1FhV3D9bK3wEGWnRA6b+XiqklC/WKyfiIbrwKnQ0uv9w9nyfp6W9EgRwLKfHOhrIbUeeZhCz569v6T/ibaQyeI/Had1FQ3lsSUkEn6RrSwL18aosxr+9i9wzRyQ09rlp4Xs8zmQyyDE+ijn1D2qQm1fSpVYEZ2SqwwWyB9Oh8NYzimhhUE2cfHe+cEmWhB9rkiP24iLS/LgAnb80hq+MuSN56ckeXjyd+5YXwD8hTrIlvpxfJlyyyMJLXGj6VEOlWcUgAwXXazeOTjPVfWeW+/1bc+iDkV2NL80seeZorPjmwcY04GvZiZpb4iNpDl8UuU77d2EFu0vL1SOX0gynPtJWZlSVKrSOey5dxqX+Ai9/vV7s7gS6yytQhS0N3bCT4lgghtCe4WgnNCfSXRdCOLfDesWe6kVl/UxNmD0xRdEMqGW/cBIrZtYWRxrmv3/8xEv6nZpLrHsKeAehFBCIFkE+OMRobxLpFcxw+w4GGuB2SzGO65rALn+tc/F+/vguzibsDcViJ/riBS8ALNhfgsNDhkknizZMoawWvF73p2y144fA/X5bSEFSwI1pKoqM3p0xnDt22ljYOXqZihsG+fxHEyMZyacR72uxBDzB5u3VZzHHs8nojd/bmqUAe/OL4emrAcY2GluXYo3uVFc5VBrJmxS8A8ygq31q9S9j2HhIASj3ODvlTmbWHI5MTLKa0qEHcCveFDrJ7tGJx67CAxCpVWlwdyaFf0RIjxKo+S70qYRI3s9R86MCTsziH21CiW425qS7OQcJ+NVo6QRezmptVa1VwMlch5NsnU0/O9wVJ3EEKS7D0c0Gq6E0NEQCAe4UU8xmk04DPvcpymXoxhH1psNOGy5/k+XboJgrbSt3ln/Hbqb+HlpE6fO2hU5Hsq8cgAdS3C/SoEoZv+jIyy//P0sSIQFKiVo5KZ5rkWQmXWYHIzkRZbWCdlOfZ6tYEmj7elHLyodIO4nyzzDW7bZ+cdQBcN4dbXsQDMjwGKtOJTAmLNz5a17ExenYxhfq7OZ1oRHroebwZ2P/CzDzuajOCBFH/Ykr9iUc2CvZGNIDLZ+NKVB4J4LiRikU5Dl3D92kCGIKVIcWbnHsVJFE0VyHbzYYENbNMPphI0/qAfapWTOFgqkOILWevhoV2AipjpVkJMfB2URezUextf6O8jl6G47T1y0HycUrWM8WLqvUi/EDCVPYblDyASMg3HtkkibkrdU4vJ6N2XoCJjNGbujfuSduD+h+u1oisxocvFaFnR97n7+zng0vQf45Q84OfyBlAx6HnlE30a8zfy2hkVy9hA98tNOmECRyXlD+rjwe5MkjdLw7MRElQkxA3YvCxSE0+z48+oI0cHmEA9u/kMzU/PgsdEUCl6w8cStzGleZlywSPDlS6WZiFPcKZqXPSWgHQ388fEYIJONiPyB7bS88WqDXGBw8yecpd7x0ADB+FTM0BNP3lr2rFHdRUfS348G/ObKR3/dWCvapbYdafeE5tgRjRTXZ8iybC0tlCRh/V93tNlkYxwJ9Oh6WhlwmWL+v3YDWT2005ScvrxE8vacB+XCdDwbI31suhu5eFDcRl5P/I1t2VCU5WvLv3svlOvoibus1Ml1ATxEEKHmBfhf53bTKddYaI6lHyuZJngY78w==
+    internal_properties : HgAAAB4AAABfUE9p/eWNV7x1UOx/Ac7r2/Tx2ZylG/cAhoicK+/BhcVMttrCfTGPstTU9FiFVnr+g0OKEz17jzD180iclZKZg4K0gX+uCBhnTYWb5hS0aYfd56zAUcL9GybXkKii3VKZ48r1oxeViN/1GOpV9WUKH7Qb21CQBWjopLB6Zf30PjDvrLTObyFjOftj1BuY7Uhf0uYVSgo+cC8YcEQ8lZUMyR1GpZQkYLhpnTdas/HhPl9UXtXN7WWJ/qeIP74FDatnJIXWFzxgLE5bRy/OFtGdBjtKrLVCwkKzfCb4gEgFjsPsbRxw2rljfgQthKFz37Brx4mq1BxkwjJd1AT3oMHs4/cZlRKQSG3X2p207fyVoyKkBi+h/xSPTRBcouecPPgeD5YnhCvXmol413AyE45dAjufUVBMmTmyF1EviYL9TLN1avz916gARib9bfdUiZ0/iDuWNMxWqNkY3ecBAh42MIz3hs41rHqoBZwKpf1sLahJP375rASofTta2dE/brPzuNnmK8lMLeGX7H7KUyuWQTXwzxTMfuP5y7ufED+fFHORHPG9cE2yatozk1oXIPStIn8Ea0dofaElPtyPJimKuOzjhX9LDgWMNgb9POBctIRZ5RvdVbZoT9wkyoo4YPIOjHVbVtuEQg0YR/9rL70ZSAHdJvPBCV7NunL3wwYzFMhv2GTgTQfvjIPi7C2XsWQ+KXoDvk17Wgq8kbE9mmcMHHpp8N8QDXcWd/HiTBiCkRKn4aZNTAp+Ulq7Sl7tmtN1sT+ZGGvLphoFlKI50CQF4Gl/pBDchjaGTWhJdR0CQ/nV7xlUhLqy3EBk7lQNsXbPo1MUAoKwdPshfS6PEyM9MRgPDwFVd3Z/KM1+AKTuA7nvLBfLMqe0lqmE9R0Gm0G3BfYUTWh62EIGsjtO89+uyFFsq0ijOt3MUTdBMxKWXpfRqJIY6BSFL+ulwKvBlplp7rn5L0VB2RjnX+y6zs0OIOwl7l4XIjdHwv/PDpiE8nT2Yj2+VCx3DX9RIHOsYg3TAXNdU2VDbukNjBc9oWxXXkhfI1/Q7d8eJmgb6j+l8mFz39JAqKSYoUXYspQ7q/pKnnkmXoqTTOTVOey8emE63Z9RypIZSfB2nczHPdlUa8aRsafeOE8mGYWHxW1774GwjQeRsR+MUs9LP1mlz0bqJ2svTZBVGCTBxbsr75hzS4uYvj/bktoka0NJRscu8Fi3YzXwz7Iy3JcowPBrRPsFQWTkA/FZE5s15ug+BezabgEjhsyuW4XuDyZjnpHoiWDJpXJ5x1jVwBWz8//dAUVuHFp83AThSlFKPcy35DyP9KkW7ZUxbZ/lXmPw4kQHEPGXiRcpXfou83qSlnoDFIGqa9R0SO6eDVF++gdgCuzVSYbHAnfol3op7j2SG061e1Tv947MeA==
     properties :
      x : 369
      y : 118
@@ -483,7 +484,7 @@ window :
   -
     name : SAI_untilDateTime
     identifier : 0x280a08ce0531362a
-    internal_properties : HgAAAB4AAADwUdvOGusnzpsJb5n6xNkBnxz7qAWwIKokhqYs9EH+vt2RQJfNw7C5FCa1FPGSTkKG2kGnRi03scOjHOjsTEQ5PX7ytXIjYdws5nC2oz8ajxSXZunBXFPW95JvGn8NWwYblSdNOb6wxt7FaLCux+vOo56i9paI284wYhbTMV+suM1UbUM0qaMwWcq5xOQ1CGLJlenK9WQlQGbb1LE9r7tEigI4L5OdxSvPfMRSCruwSzGtP7m30IZc55ThzCMX1KoGFvjWeoL/I25MAxsRhl3Kg8BA30S3L6yOS/rLIZpHigqKsOa4hiP94/rvWUvXFzKx+2+kxlVQYjR4SJ2HtoWnyqo+ZWnO6kKFxvUop+f/nPy65Z0QbAn2B1G+OdARijWdvMwKW5z2IALxRUPw+STcSdm8rUZbdwTVrRDtr49Q4iLOtzP49fzeEXLtmLMrfoFOrxgSG6qv0qq5YR/HFdV1r0URZhVE1KGdDYHI5VLI2K4beJC3d/Kkho50dKyUCKNqCXpHieT1PDnZd0Ckc+u44tHulQRPmN0csChNHDr4+Ap0/M8X1WunFNpBZBZsJbf4Yj9gS68UHhQbaJdmPvjILUV0FQhbg0oiTSqq1ltIfvcRm1v1US2DYeq3xaC8jSBP4h/M87Or9pkHAihFHnkT+ISeeHrzuRXf4P8N0JyfdgxHjcQj1GF4DZSy1rxnkzMhzQgh582mALqSr9npNUIZjp2M5sUFFf8U8skpPDnl2/dIBlW2/qe67sSYY6DdhzFIvljT6AJADdTF97tJ/c7C3wi663DGMe/M/+0GChpY7z6UbsJXUlOOaOkbQ77EiGUNyxo8/U8fZ8gsV3dta9upXxN3derlls6LjwQyl1Y9RLrSk2vmudTtfH+fgw4iaEOFAUCQUTkbaNPRP0La6GaeaPEkiQUXsxfTFVAtZowcBdrBbneWQFg2R0en0x71cNemju8NGaVC7w26bZsfXKfDT6n06wgxA3JZYXxoW3IgJBHfe9eXQ/FzXLVle3vpHbotfMhdPta6vj/V/kVWerqBc7v6UVKiDx7dLK1uqeE6OuoEa0rk4Q1/+0oVqzni/zZFijxljHCwO1uehMfzptORTBiSnL/RpVngaGVrU5wnpMKedi0sf/gQHFPezj7wN1MozW8IyOTEE5c5SzmmYddbOM++rEKCd6o+11fEKr7Y1DhwKscbU1mKPN8TeOWOph4InqX5bKn3PuOdurv3IZcP32hN/tdMR+AmMnTywl1tl18dDKmAaiucHs8UGFUFWNcDPnkLrQeFVjrMmaim09ElDY7sIdY6DgM365KfVMNYT/cpJ39YAmTsDEjP/NvHsYYV2OwZSfX+2HconMZyddPaWwONWAphf/H3JPnk5e3M1lbv7ocmwePEq8t5LbcJFvvC/h6FsNImL4Mnm5KBM6ifA6vQpwlsGi63iEIs41DAuhFg12krBnvwywSTmE+HTw5CQ1f1TmuBZZDaZe38CnRA1aZv2FdwNRuvsvZzrH9aVpiUJ3RNuHb6vOql09w1bzBNWyaS1U/Ykl9K7apPqbd4ubOwcJ4hK+AC7tfw9SnjQjCrai7IUwBnc355WdTlR+o7n+GoG6sj4B5mR+mheKqP09Oe67uNRrS6KlmWEvpX04VlSOv4mcVQsPLbQ6rLJ3xGYluAxjK128eWbxNEcyaQpo1GCPqU0Jwj8ApeINmFIOBZA+KxXvk0jac1TBDrnwampS0s9FTOk+eJRLOM+1WgXcGdZPr7ju6PgDmkCSoEJXyvicHbnf8fQCUMxNwkl0PXRsMh7dyExjz8EhdQmk5TqaxIc6i6IntJ/81UKgv4xRP11AGmA4F8n4RMibjj3gI0EUhr2Sh8drJATe6PCV3gVcHVw5KXcOCsta8U06Aaz0y1EXROJ1MdN9n8WJLqoQGkcuHLU9wtbCm2fRz1pRVCpuQV/7UQ+gnPBjvGn3E0bd8+VeJ9ts8SOA==
+    internal_properties : HgAAAB4AAAA7ovZiws5P6sAUP4TuJF6zBxOA6P3he3tppmUmF3YfzgAw3+7UJlfxNuSJI+cbNv39WADNL8r1YNnIllmpQL0iVTOsSjYRqBfeW0v39IXYutbTbfsI9v0m5u73jimjB25COkhpV5dmmYj1lYr8PFZYNxb6DLaXz8BwowPUPRJWl9toFw06TPH321xItZ84qkaLxHsH75royeJ7mhX2DcGcGA3Nql9NyoH25OLllQOgy3UIIxTROl83NMgnzJ7m1Iji6PRontfvGn2qSI5cYfWQMpe3+/dNQUM8TnyHmkmXpyO8N3TzQIvxZUP0bDfBw6s4HiVxjSNhQapT39ZyObsZEnLh2QsY2xs9nrr7z4ULwqLVa5Mi/R95asjNCgoddZOyjq1bv2TsCv+wYjVig5xM4403mRS01I5CsTo+lMALR8ZvV/yvUqoCvdmxDFNrzyGaeZbmLQYGAFILgz6AC9E0REd/7QYquCxNZw8PGIZ1WGIltdhkvG9oNnfKwZo5/qFYYAm30NeqO0JH9jMuCJl36CK1p7j4DhbWfuz95uA7IILuWkhvzwOsHHa01VrzvbNso6XTeAI/z+v1Qw497+Su/8ul1UE5MCdwc3jHe/THnvtXJTgSj4PXDWNT4iRZ0c7IZokJJTAn6nH4BH/RuGjohQjcvKGRZKfT69PUNbFaWLDpBJhrTrFq9vcA2D/tq8GdO1XQo45g8Be1fzClQoAV6ifaiqlq8j+5Jb/u9xLkeP7dMUDu7moshYFmjXJeCRZKrUJR5eKfgx955XVPH/gKFM1DdITA3jPQ6YXwYOe68Zbpb2vOIUk+5UlQz+PlPOO343P9ti/MJZUdtrZOCaa5AnC8gbjnAvS8yrvHhFcUxMlfk9DUFbrwL6pSqTAFJapHW23Fw1+wjd+xDg95rPGhUUd28Sp6YoB68cMar9mB4ObR6q8e8icxRfUgxq6YzgZjeIWy+eVJEkxvx5xJXGWKhcsNEzdOERAWCXvQSCuHqTeOSE7uLNZ4M+U6ewloWXfgAuiQQNt6i/VfKe+9oSskzKSsRNh0f5MN6PwwlS5PqRHWQpAxi4zYYfVbNYrXIsScuEVw6/1wuCufT5daiO5O0DYcttgImB0GjR1L5vhpI8iv/GIpV00UPGlhXpj5y1bZuY8/5vMlVRlMSb5aivt6LNZ7iM0agCUO6v8DQjHcmoMgeDFgVITH4r7sljD6HLZrNqHQ+5z4jyGxbsCuyCJ4V8feWxFBf+LhpyDYExxE69vlhJ7uQsnlL3aqDnqRtv7Mx3gVuKDjEKgBZi+I3SW+2z9gTKTp4OfWwSgROHHJWx4HpnDgzwireUD051eanZ28g6WShuXfoyNCvypj2w0zxp/8+kKluaXIsQ3L0okF1BjHxx8yaYLgCfvOS6IPnXz5jcjklIXg/6gcBlm4/w==
     properties :
      x : 603
      y : 117
@@ -567,9 +568,9 @@ window :
          jedi = ChaîneConstruit(jedi, demos)
          
          cMaRequête est un httpRequête
-         cMaRequête.URL							= "https://onedoc.nexapi.ch/calendars/18/events"
+         cMaRequête.URL							= uri + "/calendars/18/events"
          cMaRequête.Méthode						= httpPost
-         cMaRequête.Entête["Authorization"]		= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
+         cMaRequête.Entête["Authorization"]		= "Basic " + authorization // WINLOGIE
          cMaRequête.ContentType					= "application/json"
          cMaRequête.Contenu						= chaineVersUTF8(jedi)
          
@@ -650,9 +651,9 @@ window :
          jedi		= ChaîneConstruit(jedi, demos)
          
          cMaRequête est un httpRequête
-         cMaRequête.URL							= "https://onedoc.nexapi.ch/calendars/18/events/"
+         cMaRequête.URL							= uri + "/calendars/18/events/"
          cMaRequête.Méthode						= httpPut
-         cMaRequête.Entête["Authorization"]		= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
+         cMaRequête.Entête["Authorization"]		= "Basic " + authorization // WINLOGIE
          cMaRequête.ContentType					= "application/json"
          cMaRequête.Contenu						= ChaîneVersUTF8(jedi)
          
@@ -698,9 +699,9 @@ window :
          eventId is string = "6809e080ea212be4be400ca6"
          
          cMaRequête is httpRequest
-         cMaRequête.URL							= "https://onedoc.nexapi.ch/calendars/18/events/" + eventId
+         cMaRequête.URL							= uri + "/calendars/18/events/" + eventId
          cMaRequête.Method						= httpGet
-         cMaRequête.Header["Authorization"]		= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
+         cMaRequête.Header["Authorization"]		= "Basic " + authorization // WINLOGIE
          cMaRequête.ContentType					= "application/json"
          cMaRequête.Header["Accept-Encoding"]	= "identity"
          //cMaRequête.ProcédureTrace = ProcTrace
@@ -824,9 +825,9 @@ window :
       -
         code : |1+
          cMaRequête is httpRequest
-         cMaRequête.URL							= "https://onedoc.nexapi.ch/calendars/18/events/68131c0a5de07023688bd74d"
+         cMaRequête.URL							= uri + "/calendars/18/events/68131c0a5de07023688bd74d"
          cMaRequête.Method						= httpGet
-         cMaRequête.Header["Authorization"]		= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // WINLOGIE
+         cMaRequête.Header["Authorization"]		= "Basic " + authorization // WINLOGIE
          cMaRequête.ContentType					= "application/json"
          cMaRequête.Header["Accept-Encoding"]	= "identity"
          //cMaRequête.ProcédureTrace = ProcTrace
@@ -1084,8 +1085,8 @@ window :
       procédure getRequest(_route)
       
       cMaRequête is httpRequest
-      cMaRequête.URL						= "https://onedoc.nexapi.ch" + _route //"https://onedoc.nexapi.ch/events/changes?afterChangeId=" + SAI_afterChangeId
-      cMaRequête.Header["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // TOKEN WINLOGIE
+      cMaRequête.URL						= uri + _route
+      cMaRequête.Header["Authorization"]	= "Basic " + authorization
       
       cMaRéponse is httpResponse = HTTPSend(cMaRequête)
       jsResult est un JSON = cMaRéponse.Contenu
@@ -1111,8 +1112,8 @@ window :
       
       cMaRequête is httpRequest
       cMaRequête.Méthode					= httpPost
-      cMaRequête.URL						= "https://onedoc.nexapi.ch" + _route
-      cMaRequête.Header["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // TOKEN WINLOGIE
+      cMaRequête.URL						= uri + _route
+      cMaRequête.Header["Authorization"]	= "Basic " + authorization
       cMaRequête.ContentType				= typeMimeJSON
       cMaRequête.Contenu					= ChaîneVersUTF8(body)
       //cMaRequête.ProcédureTrace			= ProcTrace
@@ -1138,8 +1139,8 @@ window :
       procédure deleteRequest(_route)
       cMaRequête is httpRequest
       cMaRequête.Méthode					= httpDelete
-      cMaRequête.URL						= "https://onedoc.nexapi.ch" + _route //"https://onedoc.nexapi.ch/events/changes?afterChangeId=" + SAI_afterChangeId
-      cMaRequête.Header["Authorization"]	= "Basic d2lubG9naWU6UGFzczR3aW5sb2dpZQ==" // TOKEN WINLOGIE
+      cMaRequête.URL						= uri + _route
+      cMaRequête.Header["Authorization"]	= "Basic " + authorization
       
       cMaRéponse	is httpResponse	= HTTPSend(cMaRequête)
       jsResult	est un JSON		= cMaRéponse.Contenu

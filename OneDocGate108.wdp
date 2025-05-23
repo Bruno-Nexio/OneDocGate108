@@ -19,8 +19,8 @@ project :
     type : 1
     generation_name : OneDocGate108.exe
     version :
-     generation_version : 14
-     internal_generation_version : 14
+     generation_version : 15
+     internal_generation_version : 15
     language : 1
     64bits : true
     code_elements :
@@ -130,6 +130,8 @@ project :
       HChangeRep(Int_Doctolib, "Commun")
       
       // DIVERS GLOBAL
+      uri est une chaîne = INIRead("NEXAPI", "URI", "",fCurrentDir() + "\settings.ini")
+      authorization est une chaine = INIRead("NEXAPI", "AUTHORIZATION", "", fCurrentDir() + "\settings.ini")
       route est une chaîne
       changeId est une chaine
       
