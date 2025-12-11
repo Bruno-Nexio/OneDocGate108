@@ -90,8 +90,10 @@ window :
          
          cMaRequête is httpRequest
          cMaRequête.URL						= uri + "/events/changes?afterChangeId=" + sValeurLue
+         Trace(cMaRequête.URL)
          cMaRequête.Header["Authorization"]	= "Basic " + authorization
          cMaRéponse is httpResponse = HTTPSend(cMaRequête)
+         Trace(cMaRéponse.Contenu)
          
          if ErrorOccurred then
          	Error(ErrorInfo(errFullDetails))
@@ -103,24 +105,29 @@ window :
          			FOR EACH member of js
          				switch member.action
          					case "created":
+         						Trace("Det")
          						// On va chercher les détails de l'évènemet à partir du eventId et d'abord on va gérer le patient
          						route = "/calendars/" + member.calendarId + "/events/" + member.eventId
          						jsResult is JSON = getRequest(route).Content
          
+         						Trace(jsResult)
+         
          						switch getRequest(route).StatusCode
          							case 200
-         								// ON REGARDE SI LE PATIENT EXISTE ET SI OUI ON RECUPERE SON FICLEUNIK
          
+         								// ON REGARDE SI LE PATIENT EXISTE ET SI OUI ON RECUPERE SON FICLEUNIK
          								fic_cleunik is int
          								REQ_checkIfPatientExists._nom		= Upper(jsResult.patient.lastName)
-         								REQ_checkIfPatientExists._prenom		= Upper(jsResult.patient.firstName)
+         								REQ_checkIfPatientExists._prenom	= Upper(jsResult.patient.firstName)
          								REQ_checkIfPatientExists._datnais	= StringDelete(jsResult.patient.birthDate,"-")
          
          								if HExecuteQuery(REQ_checkIfPatientExists) = False then
          									Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
          									return
          								else
+         
          									// -------------------------------- GESTION DU PATIENT
+         
          									switch REQ_checkIfPatientExists.FICLEUNIK
          										case 0: // LE PATIENT N'EXISTE PAS ON L'INSERT ET ON RECUPERE LE FICLEUNIK
          
@@ -142,18 +149,31 @@ window :
          												return
          											else
          												fic_cleunik = SQL.IDAuto
+         												// ON INSERT LA CARDID SI insuranceCardNumber EST DIFFERENT DE ""
+         												SWITCH jsResult.patient.insuranceCardNumber
+         													CASE <> "":
+         														REQ_insertInsuranceCardNumber.CARDID = jsResult.patient.insuranceCardNumber
+         														REQ_insertInsuranceCardNumber.FICLEUNIK = fic_cleunik
+         														IF HExecuteQuery(REQ_insertInsuranceCardNumber, hCheckIntegrity + hCheckDuplicates) = False THEN
+         															Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+         															RETURN
+         														ELSE
+         															fic_cleunik = SQL.IDAuto
+         														END
+         												END
          											end
          
          										case <> 0: // LE PATIENT EXISTE ET ON RECUPERE SON FICLEUNIK
          											fic_cleunik = REQ_checkIfPatientExists.FICLEUNIK
          									end
-         									// ----------------------------------- PUIS INSERTION DU RDV MAIS ON VERIFIE SI LE RDV N'EST PAS PRESENT DANS LINKS
+         
+         									// ----------------------------------- PUIS INSERTION DU RDV MAIS ON VERIFIE SI LE RDV N'EST PAS PRESENT DANS externalEventLinks
          
          									route = "/calendars/" + member.calendarId + "/external-event-links/eventId/" + member.eventId
          									resp is httpResponse = getRequest(route)
          
          									SWITCH resp.StatusCode
-         										CASE 404:
+         										CASE 404: // NEGATIF
          											Prat is int	= member.calendarId
          											HChangeDir("RDV", "Prat" + Prat)
          
@@ -172,7 +192,7 @@ window :
          
          												SWITCH REQ_checkIfAppointmentExists.RDCLEUNIK
          													CASE 0: //  LE RDV N'EXISTE PAS
-         
+         														Trace("Le RDV n'existe pas")
          														// ------------------------------- IL N'EXISTE PAS DONC ON INSERT LE RDV
          														REQ_insertAppointment.FICLEUNIK		= fic_cleunik
          														REQ_insertAppointment.NOM			= Upper(jsResult.patient.lastName)
@@ -194,8 +214,8 @@ window :
          															Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
          															RETURN
          														ELSE
-         															// PUIS ON INSERT LA CORRELATION eventId -> rdcleunik (externalId)
-         															// Ainsi que le Int_doctolib
+         
+         															// ON INSERT LE RDV DANS INT_DOCTOLIB
          															insertedID is int = SQL.IDAuto
          															REQ_insertInt_Doctolib.unic		= UNIC
          															REQ_insertInt_Doctolib.cleinterv = Prat
@@ -206,9 +226,11 @@ window :
          																RETURN
          															ELSE
          
-         																Trace("Int_Doctolib")
+         																//Trace("Int_Doctolib")
          
          															END
+         
+         															// PUIS ON INSERT LA CORRELATION eventId -> rdcleunik (externalId)
          
          															link is string = [
          																{
@@ -223,11 +245,20 @@ window :
          
          															SWITCH statusCode
          																CASE 201:
-         																	Trace("RDV inséré")
+         																	//Trace("RDV inséré")
          																CASE 500:
-         																	Trace("Pas youpi")
+         																	//Trace("Pas youpi")
          															END
          
+         														END
+         
+         														// --------------------------------------------------- ON INSERT LE COMMENT ET LE SUMMARY SI ILS SONT DIFFERENTS DE ""
+         														SWITCH (True)
+         															CASE (jsResult.comment <> "" OR jsResult.summary <> ""):
+         																Trace("Hello")
+         
+         															OTHER CASE:
+         																Trace("Bye")
          														END
          												END
          											END
@@ -277,12 +308,12 @@ window :
          										Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
          										RETURN
          									ELSE
-         										Trace("Update")
+         										//Trace("Update")
          										// SYSLOG
          									END
          								END
          							CASE 404:
-         								Trace( "Pas de corrélation")
+         								//Trace( "Pas de corrélation")
          						END
          
          					case "deleted":
@@ -304,7 +335,7 @@ window :
          									resp = deleteRequest(route)
          									SWITCH resp.StatusCode
          										CASE 204:
-         											Trace("Lien supprimé")
+         											//Trace("Lien supprimé")
          										OTHER CASE
          											// SYSLOG
          									END
@@ -316,7 +347,7 @@ window :
          			// ON INSERT LE DERNIER CHANGEID DANS LA BASE DE REGISTRE
          			RegistreEcrit(sCheminRegistre,"changeId",changeId,registreTypeEntier)
          		other case
-         			Trace(cMaRéponse.StatusCode)
+         			//Trace(cMaRéponse.StatusCode)
          	end
          end
         type : 18
@@ -326,14 +357,14 @@ window :
   -
     name : SAI_afterChangeId
     identifier : 0x280a043a020b534e
-    internal_properties : HgAAAB4AAADRNp3LxCO23acqgiK1hwaaRLlrK1LBBtfeCgcTNPoCfsqXO+wR2B8TQEXv96wmpdZNKyVi2RUMc8s2ZT+AgtW2xKRy6JrPq3Bqaq44reaWr+rv8sKjYqzEqOrrb29yYBSAd4nUzqG2rKG9vz0eorSN3eI3uvHkcrQwbnkTMlt8UXaMIstgF8K3D50MQqMh3JQbb7EBogCnIw+SVAIUNjSVz7BmStHBRsw355X87pRvgMm8OXLAZfOeBnplq26vDba4sGyjGppPuJ3ey8S2ypLriTmPfdJs/kyTJj5hdTv+8uulzePFIFj6Qpn4rNL3TsFoilBrkI8TDG4EEqYd/PVqw5h5OveG4MWZ797Zb7MCl9YkUDxO4dgcwm9TMEsL4XbNn9V76nQFQpdNousLrN9+dohH1YeidM3wuKb04mj7Hn56VvXTeQQzygQ0GsSrXuGIdll7iXOU7t8qUh7u0FGvtmFW4G+mkhN5yzLf/XwUec2QBPR3KBVHEFPpXnmj3s3PDe/hrcpTEyQAHPogMeQ9wfnIKA9/UtUmb14Y5BNsSguRp8DpEju7mCzRSbY1L2a4Q7uaxeLfHZTVgYswH+nH/lszB5u4ULrnSgsVfCiHFzmeFK9f7vI5aBZm1AF1Ct14+vRR72OldNhuGhdv7UCfBzFt3FV+R3rUbXrII7HAFHbgrAw8GDeQ82Ehr3PMVz//JibqLCRSFSLqYavp7mOFU48LX5cVpjJ3E9wZn55c9ydgas5s/SjUSW+lBEAzwEFAfz9ajPt1EGgfpSDJbcmCfRWeyuIEr20pDezxQSWvuPYDF6ER3VyafafibnyhFh+vFY6W6JJgmKyR/je5Ht+CApmWqL+vzYHjjkb9zsULHekIOdkqlTSECovrSuueO2w+BK7xjteazA4YeXjoMaHBMtfFHwfVqJV0L83JRosfaUaagIe+CPQV39liS/2faA4eXekb0hrMqCrzAzoZUI93LQEaGJOsDOT0AXsLkioad1nmlWP3PVLlHys8rkpJd73FvmNGtKvZeuKZIn2qly6Ahd0p7i+dl4oSUpd0R9v25A6h7c2kOcrh0FTwXoCO5cXzlF96ZdkLrPGn7JXtj1JH5xvaVA8CJZkYBTzYdgXOdn3wXstYdysB/ku6wNfp88rtwtn9cVGU+nxOFQm3hr5Ur2hOAQqKw1Btc0OuXcGOfQ8T8txFGo4anTtJRv8QPsskWZ6/TtBCePLU13kpEdvXXud6v50kSWUYuQRQTKLuYHPhNQh8RbMw2EzA/Ekir3t2EV/3jf0g0QKSM7nclpf/xxPDGkEKyZrmLyxSdufQJY+QKo4GRW+K5kU97sW6lYg57TEn2YO/I6Y19RQfr7D8SKW5iEN20/SX2FA=
+    internal_properties : HgAAAB4AAABdJlFcykzVioc0VjFGE0D/qpYV9tdrveMDMzwLFSBxFLcKRDWkx38PqyvMMpyNnbPObQRdObS0F7OoIJfxHjH66ZLwoA6V0t/GqNwZgSxKMgooZkIFLeNaQi7ti0IWIIt9yW+2LJVED1wvHzTmVgHgMxxn5aTEQ5J7fHSbwFYk/+ZIZAVjJrwAqm7Zf8HPUG5yR09rVIRHMts4vlRGjPOSBKbnxSzjY2V5pJVk34pNWmREC45yh6JuUOTNo2Ofebc+bsyD2qslAVTtv73b11ORbojfpRt16DiCSTE2g6ayo56QFz4NVy494vFlMAJq4Q0Y6pfWZqhyYX2UDKBqAuWylh1oy3kc6gNPgXRLsDWyoFG8YqP3NscNhTsSRDp78VN5nCPp15PituPbWEyjfZesivVBjkRevz6JJfE/3dNsrGBYfZgc9XPwTqaXm4PzgykRvP1fcbmCzK+Dg3qf8Fr9HPCR68GnnRQaZGjo58fXduMNDQ1BrE1w/sU2f/9nMfiQZHkI+ny6S0EDr3gsY90vvrOemHMBXts4sZ9ukgilgEN4N5AhuhHyOmBulYCEV7RuJA6cf+7R6rKAH1+VjqB+RauSxPvJTvx763g4qDJlHjLKMrs4eJYQXgMTSjUi4cwdrZdBSKs7xTx37IhJvOnHkIBhBPwmPoBwIVQ+saeKUtrkXCadJOBpzRjQeVFKp9C6qvHZ9tkW2vS+fJWmnirMI51RvC9r9EP6iFtwUm1UILsVsLTXYpvv1HCc+EnAZYMSi/dIIf60U6BeVhvgNt4YoHvKe5hKdiHwzRI5zvl2+X83UTed7MfIoTopf9LNaje7EIm2LGaewAAVJNu0subHP7AdUWkCSMKFHE3O6xdfUf5bt5ERCvO4eAloa3oXKS/2liRxm0pQo3u/fy6LMgodMSqL+1Ce/DJ+r0a6POO1yWiTuJ2lyM+6QFKuFBB+W8GW8n9EnLn6sewenmxc+IZjmV3S8tFhHScqVcHij79V/YCIKQaHaBSRlsPYiIiisB3ISlSDWHmfYThFL/U0myxZ06sg0wQRq03rtj0BTqdsj7cNuDbW2OmGvhPwF8y9Pzcn2FxASeCcT9p4N/ZPJCitJJQOl2oq31POSlawhnvI+uJrsrg0mtN6TFbiOACaxVIAZz1CfxJeT0Jmg5QaAsG0fu7zKqvYbJDw4SgHCI+YhfGClv6i8KROWfd0ARj3oWxF9O6ZuQmF33y47nMyEnwTtJwYkZpXlvHoD3N7Aza4kC4umV3q92BiA38ZZdXgc2kSLZQEorVWegaulk81CzEuKnquQ9Q8M5frgw2mP8Ax19S0Vibe0Ry2swRiAU9WUABN+t3gd3xXlRnkFqNG2RGdBGvIUd8zSx3CM9ibCPeoGuJrfkJ4GOrvgFqUZy1MH+3qoqlT1kfSdduACmEkBUbUn61/9qyXdci5t8x0LUoAxgJZxM07MgwRyeOmb4BVScpSUXEVadauT8COE1J9hpxmNzkraaRa1jLk5b+9hTOWp8zGkTiklKWpKEjXAM+Hg5IN82qQF9LrcCNCSC3m96lYt3dcpMcOvMw4TLOdeQAAv6iqMq2Grluj0EaaSLg/il8KXmlIQtLs7WjVifdzDkF4HCCy8166VHxGBJ0G/eQ//XFvPcAlAAg9QT0CqIOdGJhxV7pNOZ0UMtKau+YTwptbr/dpClQKgOAY/DZmVO8WsAFs7wcamzmWRQU0L8/lduO00m1OknLC+lCnTrm+vC1+9k6/KdZqXqjlO9jFCr3+d1ZGj4UrkJsxAydXqhNz9YpmPrOxczBuKNTdv3Ms+fQORetL547uZu/zyeZRA5clCzwGEyB9UBr81nI3NuONHnFCA/YO7kIwmWU5zNscq4xuyb+/lQq0wPq9jnJrbDVuUZNFL5B+TX66d153/He0ENKiYpQ1LMhKMfIOWfjiFvZI2Q==
     properties :
      x : 147
      y : 78
      width : 204
      height : 23
      accelerator_key : 65535
-     tab_order : 2
+     tab_order : 1
     style : {}
     type : 2
     code_elements :
@@ -364,7 +395,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 5
+     tab_order : 4
     style : {}
     type : 4
     code_elements :
@@ -422,14 +453,14 @@ window :
   -
     name : SAI_calendarId
     identifier : 0x280a0894052453a9
-    internal_properties : HgAAAB4AAABqoRCqvzjK1sihIcAdynAyJILbL5FrXi1M9CiyfevEObVNf4VC0fd1U/GFXx99ERl/uPprkVwJmNsbJmS7qNdpd7Zn+tcuBBy95f+o1WTj2zSX61xsUJbvCUMZwv0a4r0jpCClq3EzpmRppk75D8wG94wRJi1XGyUJyC1dEJ97xwu7ns6CZR0rGd5+XGHHinPl+dyUH3nKXOBSUAHbQLIQK/nkT26+wpmaphreTtcomkbd6fH4S+6ro0ezteb9FhToQcxgN8oz3n8N+XzLg3rMGPzKaOw+LmA92i6QPXI6WnLK1NgmfBr4yn7gJKsQ22JNjoC9b7GV6gylBo8ZoI1YFm93WM6gYY05v45iU853E5OT1ru0q77rXUWwvO1AmLgrX5WL2gCpeRoiThTxE/RtVgdDrsATZFiw17lCw9Cg2Mm8dtWBL+4IPuhNcE3Q5yXSyInncupxZOKPJ6H5zgoibYQaiqcUwYbVzAJgsguonEhMQh4vYm1KidfJVR2lTtCdvVsgwGjUuxDWiAiSH3K/Q0FDGzqc8dLrJOvwZEjpnwyPa/rqYxCEjv9kKsjjlP2lwxwOxXzG+K/iZmb2Ca0eZtrdD7rngRC7uzjkO8E5VrVRD7ED3CWQpNLPyBYnZR7LZ0NvjfJLdLCi1t/YPxJkBSe9zUUaunIMZCCi3GEvpQnaB/cflQVsEJwgv4KYwUxXWYgGIAlHTgUyla++5VpVijLdptZGzQkLfnl55K+inFbE6BrJGF2WYWjm8DtFGXTyRNn92pD4A1kWOcxsHOBQ7KgmbsdKUTVm8H15FyLsbXhcWnmDFx6avzLgkA7UNjtt7LQ7g59boyEIyNsFnB6/PJPfjcVJNW4c9TVGQTYe8MMCXupdt02cyZ94jl++Q5KP1Ib1QnWxXTfUAGQUpY2ng8b1W5uoy/pcIJO7unw/KF4+r2OZsMyn/3YIp9HXDrSBr9yWXmH6EqyETYmESR2M7eqMqSSggoo8ar2ftdgV1dVVt5S9POm0xazQZqJnlRXaiXc6ccvLjTV4Ufhw1hVsutlZHKfY8GsXWc6vklOFwRmLT6R8EzNWn+pvjr3cGCyq0Z6K3o/hgANW1a73jyziVivJfNcWH3VIGMlMGXO3B+44NVheZ4SakpIhQcW+58yBcuCjk7cSEzm5xaflla/g5DGOiNSgG88oTXmYmUzcNA1ZoR+PAG13pnk27dUltCSZC87swKxpb2v4BGP3hdj87QZ945IvqNol8sKXRGf+B71WhfoToC55S//aWTNg8px+vuGZazSEIOBGGv0gv3DKfA31KJ/L6Msw0DEDd8kJRepZ4GO2WrAjiVcSGlCi/0yds+OEg9gXu6KgfV1dZMuwIwe4GWJStO++fd6r+HzrH84=
+    internal_properties : HgAAAB4AAAD3IRwytk3oZxmtg2oGSzSiusD5i814OXtGxXm6PXbuBbqoP1ZDiGA32QxPKbViErtZEcOM4JXE8Im2hygEpRobIu7RdeHiek8s6XeMtTA9WH80JcmDqzmqkyWiPKtVqwOOCEEt85nkOzxcOL/utbYTlLIDuw76oPq5a0y6BXqGQt71pM++81WpBOP0L9H9G4nRpWu4giX8haJm/YsT/KUtD3jKUquqt53PTQ9iOADQkF+R7sQ8AJ8m1zUGAwlszqNqfNVOKwryGnZucA3k+rUagZqcyyEzvEnialCIvMnfywH4z/cSzo9VEUq0ddeNzwUIiMuHfE3PJivVlQRG3zD+HffJYVEphEO1Z6ZkymbccK1Zh90GQZ4d2g+mxVBSn9i4uKwIpzVJqAozlwbufKm/fmIqAbkdcDr6syvZNj7t88O72LaHk0cC6oM3+U3Oh7KnRU+Y89WekYuRKU89y91Kmhi9eyxpcKfw9QfI6UQDySkqWfC7qUvVDO5ZO686DwDx+F8oIIWuIZO4I6plOKh6aSU31iW2a7UqS3IXZfDA/OHS1IqD9NCBHObOERv0lNxjHnBC6vmaxXmjlSIU0qeJIPtkE7GDIyEyWw0uhjvkGfU/WlPEvcXu4QMU4V45l4zOPnv68Q5+g0GCzISk4Gy+5V6YGuV7Ica926C8k7XJcbz0t5DDdOovIaUWAizMDbTSMKDdXYbTfdSPZHS0idyZHL9DgwPfs1oBBU7j3bU/E6SeajRPOX+REhA0ADhEh48SxdrfMa4NC0m1C4kJ22eSrjjz7B7U4FLaAjDItxhD+G97OdG6yGsYoFomJXpWCh5tHPdnITELuR2xtqOBHyOW21qh1HC9084mQJSVHfzRx6VATIMRBfz6D/kFA639Qah2VVu4iiNOKOJvrhlyvjx+d6mOOLnLTeYy+5hvmruR4sIl73useQQsfekx6RWG5nf7p8RUfJpsVSNzirKBYKhp8a2q9HcaTi7aD1d3hiZuKw2ZxnAEVnqLsUnY1ACVo8npBBfQ/bf9lpaJQzLnNtzSZ5lvyOVL6hqclqgzEjng9zx4SgcVLvwNvCgE4pyS2Rlf+tWaRQu5YxjW6Vyk9rVUotgdITjKOBWzvgjsMLz9kc6W6VolWiFWUxH90eX2ZzA2rzyj91mDvaodbMDJfenm9K93p3lXFqDtQ1CJ27oyvXR2UZI6yDC+ExmO88wG3IW2RHJAX6BsEN6Nu04ms+O+Q0IkrWr9SgbDwqftEc99Is+NB5J9TbQAZ7sTQcoRiiLphk4icFgg1K8iIskTo286NTS/Zt8DQVVW/xkImWuSEHfdlIQ5g59+65AaRUCj22cb4BkaNsiHvlIiJ3e/GyeTU2X8Z/Vo/FFqmjB3DLMIndSFiaodUt7StBGSCmhVNJoOLntWFQELsS65EEtme1YOk5+ZEIZnk0TAsJuhxMyG9yfeiASij65EysAe3+qr/XvmS96kaR6KmfVIVNRPtqp9s3rKE05rnqsihpvkufUK2UIm2HF+VV084ZZESn+V1f2T2XnXrhb1lFxGCBsUZYEzNROp+TNcBKK9hqAThNsXk5ATqbdlfLsFhCx0UrEFKW2DIzRzUszWLKnGdqSIICjOlZepIFRarYYTAnK1HZDzGm07x163IKrO375Imq2LRcE4PCjBi0Fyr7jW8tQhFaa7HJ+DF92TPTruAo3tA5mP4cT/cMHMx8Rulp+wA3N76XcoDV5DF/ndx9rNh6qfFc2zGRs4g/XInWg89KzR2jZGdv4p2sKw/Kz1KZefE5e2x2aV7s40/KGzCKswOSb7jM6gd14HAuvF20d4uaa7VZI5a/1bzzJz0BBolJzt4GrNmnNdYXOLKE3jonD/yOFSewdoyM7pq+IJ6aau6rwg4SxMehI3waluX1KipWGPRs9XS/HcXtCPhHCwYRrWbg==
     properties :
      x : 147
      y : 119
      width : 204
      height : 23
      accelerator_key : 65535
-     tab_order : 6
+     tab_order : 5
     style : {}
     type : 2
     code_elements :
@@ -453,14 +484,14 @@ window :
   -
     name : SAI_fromDateTime
     identifier : 0x280a08ca052d230f
-    internal_properties : HgAAAB4AAABfUE9p/eWNV7x1UOx/Ac7r2/Tx2ZylG/cAhoicK+/BhcVMttrCfTGPstTU9FiFVnr+g0OKEz17jzD180iclZKZg4K0gX+uCBhnTYWb5hS0aYfd56zAUcL9GybXkKii3VKZ48r1oxeViN/1GOpV9WUKH7Qb21CQBWjopLB6Zf30PjDvrLTObyFjOftj1BuY7Uhf0uYVSgo+cC8YcEQ8lZUMyR1GpZQkYLhpnTdas/HhPl9UXtXN7WWJ/qeIP74FDatnJIXWFzxgLE5bRy/OFtGdBjtKrLVCwkKzfCb4gEgFjsPsbRxw2rljfgQthKFz37Brx4mq1BxkwjJd1AT3oMHs4/cZlRKQSG3X2p207fyVoyKkBi+h/xSPTRBcouecPPgeD5YnhCvXmol413AyE45dAjufUVBMmTmyF1EviYL9TLN1avz916gARib9bfdUiZ0/iDuWNMxWqNkY3ecBAh42MIz3hs41rHqoBZwKpf1sLahJP375rASofTta2dE/brPzuNnmK8lMLeGX7H7KUyuWQTXwzxTMfuP5y7ufED+fFHORHPG9cE2yatozk1oXIPStIn8Ea0dofaElPtyPJimKuOzjhX9LDgWMNgb9POBctIRZ5RvdVbZoT9wkyoo4YPIOjHVbVtuEQg0YR/9rL70ZSAHdJvPBCV7NunL3wwYzFMhv2GTgTQfvjIPi7C2XsWQ+KXoDvk17Wgq8kbE9mmcMHHpp8N8QDXcWd/HiTBiCkRKn4aZNTAp+Ulq7Sl7tmtN1sT+ZGGvLphoFlKI50CQF4Gl/pBDchjaGTWhJdR0CQ/nV7xlUhLqy3EBk7lQNsXbPo1MUAoKwdPshfS6PEyM9MRgPDwFVd3Z/KM1+AKTuA7nvLBfLMqe0lqmE9R0Gm0G3BfYUTWh62EIGsjtO89+uyFFsq0ijOt3MUTdBMxKWXpfRqJIY6BSFL+ulwKvBlplp7rn5L0VB2RjnX+y6zs0OIOwl7l4XIjdHwv/PDpiE8nT2Yj2+VCx3DX9RIHOsYg3TAXNdU2VDbukNjBc9oWxXXkhfI1/Q7d8eJmgb6j+l8mFz39JAqKSYoUXYspQ7q/pKnnkmXoqTTOTVOey8emE63Z9RypIZSfB2nczHPdlUa8aRsafeOE8mGYWHxW1774GwjQeRsR+MUs9LP1mlz0bqJ2svTZBVGCTBxbsr75hzS4uYvj/bktoka0NJRscu8Fi3YzXwz7Iy3JcowPBrRPsFQWTkA/FZE5s15ug+BezabgEjhsyuW4XuDyZjnpHoiWDJpXJ5x1jVwBWz8//dAUVuHFp83AThSlFKPcy35DyP9KkW7ZUxbZ/lXmPw4kQHEPGXiRcpXfou83qSlnoDFIGqa9R0SO6eDVF++gdgCuzVSYbHAnfol3op7j2SG061e1Tv947MeA==
+    internal_properties : HgAAAB4AAAArbYO5k2hhOG5nFSOD3W+i3kAY1k80utUK6sD/VqReHYWSgVVwKbzlxuzgyuzc1vUI+9igRa+l9LZBFlex42XrnRnYewisGBg2d0GwdtjQA6jmAbsPUtX3zTLMGmNSRpq6b/hdCs7zqeyinwMlYIw09HYfGGEdrm0WL+bB9AmWxR9Do3jGnMeyF/VTjZTuDyEudNz6krTpyr420Ajo44UIIpO4l7sXywDuaT295z1Ya6tAYHxDDMHi22S0e/FMmvGkjprK8vn/xjuq7F0bAItbAlRrKiI5ABXMz3PqaTPWYGGX/NJhf7DrxAe76JRHqS8UFCfPgRHhFbawV8mAH/Ktf6zN0zaP3QK+WGGX4hNSMQPYW/MLx5CA9BYHLCgNv7ojEKtfI6DgBuGI+G5zY7a2ypFpAhuLQ1DRH5aWhG0X1gMtAA+zeYLi6eTWAD0FlnTNUee4N/znjYjCw5dRHO3/MecF0Aai7uNIrkikmMJ4t+BijFCCzr9rybTVsxjEU2TqHpgghq20yztnFNEi0GFYU/3/qBPHEwoUENX3nOjOaoZgfgvU1f2NpKwfUXQZtjjUd4kl4w7dWkw1TNaC+7Iu6N4C/5W6YKFlE/a1Ul2N4Xaoq/igi3AP9yBzQv7Oi/XIkcd6s12QqMpTB530v/i3bvbYG6laYyfNsoRTiMJRKLCBXGukrrqsVCBp7esGlGJ5+ZWC77VUV4AfTO9tU1JdX4gMpqOiqq7Llzz3XedE79/QJW7OFjUL9sS2CgM80LTdq65Zq9OT45CKIyJDY4YCyvboyzu5ZMuDbx+HHSwtoge8HmColsmlG2txy50q3+hbcCrPYfknBmjH19IyJk0tsFIXbGGlVA0LwiZ7VTqiG1T3yABtD7L17X9cf2vwh1410HjGq4aE1Ywxb6muC3TXBPCtpYbqbLnAd2Z90SZadf19iXfmcqampxng9Et5Vj5JjRKvJLVZ5PPNtasXOc8DK0bF+3/P2PRTAWtrjLMcQQZvBc4+RhjEH58giMuaQ73xpXgrOQCipxWrSpNi+YuCv21BaYB+w9zbn0d8Ym/CkMsb9QL2byMcBOjTEvKxbE7bhTZSd3KoDPU1moc3enoZwQRfOVkH/7xU4wKk/WYunF2/mi2qmhaAYHBNuQ6wDFfJzeC3krFCbKIZvTUyEyHaIySWmtDfr3FW4gRLLLxTw8wB8mvafbyJ73tFzqMCDVCg1T9BPX5g9zbNIB88a4Jvmw8gg6B9x745WcspKbdAmNWzjf8lnUmqgxZa+tl/O/gkBAC2eaJKPWugHoKNoIsCL36VRhqSWP+l9XPUtv4i7Pxn5JkevKOidXZiXy9xPqfmfALPcabtJ2MyLbnpz3JUqqIFcmuFQB4KFeY1W+rTThxhJ4esaKlr3KvHcvyEjRB09eyarF0s5VNzgtTmzvcSuG9GUS0gx6i0hayz+M9hp/lrqbQN1Pg9zQXJjKNBqt3C9vRNYT6ufhLegsQtOeAyGYhoFO3UeMFd15y578k9E1qlSpnmcn0iZ2pFU5Xs4e/TajGgto8Q7LeP0lmiH9stX81JYfQOLKp8kyyblcX4G7dc0poV42QIzO6qJ7J/wayfXr6dddOz53Ot6fF2HtrN4mF7yAAaTD5LsGyDzPikIsdwuUAGa7N+5l+9bVTiLTHmu5YUC8+fDKm05yoW/lLXaeEvm4fT7B12dTUufO0j3q7ls/1qMu0TrDgIt/NUtdc8wYh6Yyhr4bjcwRqFbveL9YRq33CkxsIZg+7s2rmaRaGsIz0rm6ZFXGHCX86BgpY6Ewk1xWsol94PX3z561h4do+UszNBSw6E/RDRmilZaKhedcAE3Lo48Rl4F/CaskwQHqg779X6H2pVSiQaLh+02AF+cY2L3tvtRtjCuhu25KjnJPbrTB01t652xghxPzCZaadOQCn+CXWjdMBus5k3rzSsauTzRuvwpvfs
     properties :
      x : 369
      y : 118
      width : 230
      height : 23
      accelerator_key : 65535
-     tab_order : 4
+     tab_order : 3
     style : {}
     type : 2
     code_elements :
@@ -484,14 +515,14 @@ window :
   -
     name : SAI_untilDateTime
     identifier : 0x280a08ce0531362a
-    internal_properties : HgAAAB4AAAA7ovZiws5P6sAUP4TuJF6zBxOA6P3he3tppmUmF3YfzgAw3+7UJlfxNuSJI+cbNv39WADNL8r1YNnIllmpQL0iVTOsSjYRqBfeW0v39IXYutbTbfsI9v0m5u73jimjB25COkhpV5dmmYj1lYr8PFZYNxb6DLaXz8BwowPUPRJWl9toFw06TPH321xItZ84qkaLxHsH75royeJ7mhX2DcGcGA3Nql9NyoH25OLllQOgy3UIIxTROl83NMgnzJ7m1Iji6PRontfvGn2qSI5cYfWQMpe3+/dNQUM8TnyHmkmXpyO8N3TzQIvxZUP0bDfBw6s4HiVxjSNhQapT39ZyObsZEnLh2QsY2xs9nrr7z4ULwqLVa5Mi/R95asjNCgoddZOyjq1bv2TsCv+wYjVig5xM4403mRS01I5CsTo+lMALR8ZvV/yvUqoCvdmxDFNrzyGaeZbmLQYGAFILgz6AC9E0REd/7QYquCxNZw8PGIZ1WGIltdhkvG9oNnfKwZo5/qFYYAm30NeqO0JH9jMuCJl36CK1p7j4DhbWfuz95uA7IILuWkhvzwOsHHa01VrzvbNso6XTeAI/z+v1Qw497+Su/8ul1UE5MCdwc3jHe/THnvtXJTgSj4PXDWNT4iRZ0c7IZokJJTAn6nH4BH/RuGjohQjcvKGRZKfT69PUNbFaWLDpBJhrTrFq9vcA2D/tq8GdO1XQo45g8Be1fzClQoAV6ifaiqlq8j+5Jb/u9xLkeP7dMUDu7moshYFmjXJeCRZKrUJR5eKfgx955XVPH/gKFM1DdITA3jPQ6YXwYOe68Zbpb2vOIUk+5UlQz+PlPOO343P9ti/MJZUdtrZOCaa5AnC8gbjnAvS8yrvHhFcUxMlfk9DUFbrwL6pSqTAFJapHW23Fw1+wjd+xDg95rPGhUUd28Sp6YoB68cMar9mB4ObR6q8e8icxRfUgxq6YzgZjeIWy+eVJEkxvx5xJXGWKhcsNEzdOERAWCXvQSCuHqTeOSE7uLNZ4M+U6ewloWXfgAuiQQNt6i/VfKe+9oSskzKSsRNh0f5MN6PwwlS5PqRHWQpAxi4zYYfVbNYrXIsScuEVw6/1wuCufT5daiO5O0DYcttgImB0GjR1L5vhpI8iv/GIpV00UPGlhXpj5y1bZuY8/5vMlVRlMSb5aivt6LNZ7iM0agCUO6v8DQjHcmoMgeDFgVITH4r7sljD6HLZrNqHQ+5z4jyGxbsCuyCJ4V8feWxFBf+LhpyDYExxE69vlhJ7uQsnlL3aqDnqRtv7Mx3gVuKDjEKgBZi+I3SW+2z9gTKTp4OfWwSgROHHJWx4HpnDgzwireUD051eanZ28g6WShuXfoyNCvypj2w0zxp/8+kKluaXIsQ3L0okF1BjHxx8yaYLgCfvOS6IPnXz5jcjklIXg/6gcBlm4/w==
+    internal_properties : HgAAAB4AAABdPX/CQsRoS92iXMSm6tJMaFWlp7i8vDHY+HbS1lRPMhsMEJcmuwy1sNKVA1FBVHYdYVslIY7ywjZZcBwleZ7OIE0vJ7at8zHOcIixZb+HN++5aGciq9HdCUqFlwa6M++mXVpcJYGByvI3vgpomNjMnzESQKJ6EZVV39kG3634Brt+8WHP1RPqwX7fVuIWKA5zHuCN6j/4vraisFVT5tArZC9SFa+yIpvpGDDMokxllVQKhWNSEguvMgtqCIQS06i3deDZX5GdDk0hXEui0ij2WoPVGJto7YS+L9CIZhJ0qOdfA/UacnF1CwrepaFhKjNu7iOrgghHnvYJ3ncrzE1H7Yrnaikkep4hKMRSZA2t5RdZAYeWold0LydGDx69kVdmftnt5dAkkuIIgKzagXN4iAi6kjvbA/tm4QI6PTVFY/wp/9JH/u/PtrQbij+Fx679fwKMF5GsDlzmU5A2AD1qg8xuRgj9+X4sUWvUj785+3Jl7c4pSfxEcT/JM34MI7B6H4pQOebdGA4JF8VCFSUIlwhFD3nG/l+U+HhSXbYmigLJ+Ge1n2ulUvbUMRYXFvhRmZDNNSybB9p3GjmR1hk1ehZwh8dM6Ox8IebgzU2hEB5Q/S69ezakXZlJzogETJ7eNI0/7UTxN2DR7mQCZSYHe88WkPpDJdpE8Ch4NWGREHXw8X78TcGgd4tYt4OAxEOE+9WVuiNLLMqnuDCKW7F0QPSP6f7+ElDcovAr3ycvzQ3rYZQsFPxNBOOZEva88ygq7viJU/ITmSt8Ah2EFZHXY3Y1h3AR23vTv8s79jJOZF6pEKY+UhjHSEcsUaiXMNWc4oGY2D6rAUmSSVvVu/FesTl2utRWZvE3fhFl85tQ3Yh49U8kn96CuLjsd3KOAvdYGPYYCJS/2od81/rRgkU3dMN2z3C3rLlbyVc08iA/ERKf875iIPIXsdL9+gVmfYN7nd4kbsQn4PN1jcZbmtSKR8jDeKW1A+Xt0kqCCaf3csJUcSdTh6k2dNiFZxOQbiacL8alKl6200v+qo80ybvjzp4O3dJUAbWzbfvu1Xgj9BPVE4jWHb1KSflxfWejljSsV7pZhNZuFGl/Mm+3w6Z7p1uUWslX2zbwf58vc22C9KuBKL+CSzBpdsAupKAh8m2x1DGwJFaWxhuay03OdrbxrXikgFIo1eFqjJlCnPtzbE1PuH93O83nqKodTJVND9pRWXkXdlshRxmAWuMztuZTion/Qt/GQf/Iw1LaBvhCFQSQIvEc9C37iprOipNKE0mCvy3DGXdR/eRX9x44kHjBnp14xzgARM7fTAR/kJYx8SJmez98QGJBtodrdAfu1px+uXy7nzUKvWU93r5GZFxWxFaHKDZZyx5nt/muy8bHnps27OnEnVNJ35wLt11Aw1t1E7iLutrihhveUehrSMuhWA4GWYea0IPTQxAwSyVvHui9yU8VbJGpH5kpbnksch4HzkOPvHHHSvJ9yV9Co4eIqN2niJs0RU7pofSndARFxgFlgfKn9hz9buOxATbOUngYZpAkW1U2UeGT95QNnID8ENSECCrHeZn8RcvO70xsVgmsNjL45QJAawNLx16e3lDEirHko1dbtRa7KymFNRWJMp5Ojzud2j0aHUv+VldiOzBm4EnCzU31Nl2Xl9JmYA6XEXHIipDDfgMpte06GmPGTdKacsjOcusH8976kOrE1MkOIfzP6POXJ1gzYJBMpjIVSj2uev74aNPmwHOgFMwcFBbDCiRlMHNLx/HUVdEl15E8hfWL2Z/wPAoujDgJKvswe3+DuxD0UbANcukWZy3R1rPqM+RcZM5TEFuIwhR/+SYiIGlKJVut0Z2yS9byu4KrVOxtv5CQ8Tj1FT7rnhScLr5lE1J9ab4Dc+c0H0FwaADoaLHnSOr17PqkT6/mp1noP5SpkSisfyvOIPDx31XOSJbKVlCpeQvuZ210PWp2zlp9zYAfqhwX3VHb
     properties :
      x : 603
      y : 117
      width : 230
      height : 23
      accelerator_key : 65535
-     tab_order : 3
+     tab_order : 2
     style : {}
     type : 2
     code_elements :
@@ -887,7 +918,7 @@ window :
          // On récupère le chemin dans la base de registres proposé par WINDEV
          
          ResExiste		= RegistryExist(sCheminRegistre)
-         Trace(sCheminRegistre)
+         //Trace(sCheminRegistre)
          
          IF ErrorOccurred THEN
          	Error(<§$0000§>,ErrorInfo())
@@ -960,7 +991,7 @@ window :
      width : 102
      height : 24
      accelerator_key : 65535
-     tab_order : 7
+     tab_order : 6
     style : {}
     type : 4
     code_elements :
@@ -992,6 +1023,42 @@ window :
          	Info(<§$0008§>,<§$0007§>)
          FIN
          
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_SansNom1
+    identifier : 0x293936780158953b
+    internal_properties : HgAAAB4AAADlzohRGS44g8MKeU5mO8UOOga+ow1c5fXlvjVWvM1X2sNT+8flLz+CBzINLy9rUHUV8opuAkScfpx+T3I9Z8ozo/fesTI9YVWOP8bjdr4k98ZWk2D75QHNIemmQt6c6HFpPwmCz9jqMPlZwqPvdwN5mWX2WJXnF4AWoX1/oAkP7bmBdPhyL3gpnNAO3QSNHF8Bg8zibv6WGQ04giJxErjTBmW1O2JiaU4GDrZ9B9wDRNUwE0t681pshHUag84TIzkK3gnY1z9oS99i0jX+NT3JstVEux8CljzG5K4e9A/QhgfNN9Att5XyITV/JUQVkkV7yURmNn0tzAdfUf3Vzjl2fDX906VptrIx51ceCxAPFZGZ67dP7kLROEyycJSfLPNkhYZclh26q9xSWpWHDASdEA8x1QfBk821j9SgRdQE4NdRpbElXebc3WqTsWrhXgibs0id9c2Rvwp5Xn1y3D6r6AmZe4vOVyJEteIILrFthu0n6eje3Hw1HnDL2LRP6HEsePqB2FGY4D8Hen7CYKfDMsDvOPbmLf1AcfMWGQMXjZ9gzPeZZl1e0cZ9gtjMQiUMNiE6UqQCXNloxfmnhbZy/+BIbn8Ol3sQflBDxHjq7OJlkdVFp+j2VI64Z+8IiwVmvVIQs8Ed/Ir3wT4EedNDa/iTsGNpW2hObmeU2lzWnPJ6hQM2GZU8Y7z/ku9X1Ozdq/AM4mi/fxBTlmpaBq31SRWtb6s6eEKHQe7s5AMPUddlcNZle3HPlhIIl+Gr2efF78HxMjqVYYd02/wH2umBEh69cI0dWtRZv9TaTcjDspe4azmpln8bSlvOYRNTmjQh4McRCU066i3TIgHbFBEG/8vc6rPF7cCzZiyr+mo7bc96kOBqVYs/+pMyQFOk/EMr6vWqrV2gydxfQWKs5Q0Fr0vQlw==
+    properties :
+     x : 29
+     y : 253
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 7
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1-
+         
+         toto est un JSON
+         toto.comment = ""
+         toto.summary = "Summary"
+         toto.patient.insuranceCardNumber = 80756015090041321138
+         
+         SWITCH (True)
+         	CASE (toto.comment <> "" OR toto.summary <> ""):
+         		Trace("Hello")
+         	CASE toto.patient.insuranceCardNumber <> Null
+         		Trace("Assurance")
+         	OTHER CASE:
+         		Trace("Bye")
+         END
         type : 18
       -
         type : 161
@@ -1090,6 +1157,7 @@ window :
       
       cMaRéponse is httpResponse = HTTPSend(cMaRequête)
       jsResult est un JSON = cMaRéponse.Contenu
+      
       
       RETOUR cMaRéponse
      type : 458752
