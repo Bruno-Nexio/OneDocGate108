@@ -18,6 +18,8 @@ REQ_getFicleunikByRdcleunik.WDR
 REQ_updateAppointment.WDR
 REQ_deleteAppointment.WDR
 REQ_insertInt_Doctolib.WDR
+REQ_insertInsuranceCardNumber.WDR
+REQ_insertCommentAndSummary.WDR
 OneDocGate108.wdy
 Themes\WD\220 Material Design Blue Grey\Material Design Blue Grey.wdy
 Themes\WD\220 Material Design Blue Grey\MATERIAL DESIGN BLUE GREY_BG_SHEET.PNG
