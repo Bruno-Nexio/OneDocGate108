@@ -73,7 +73,7 @@ window :
       -
         code : |1-
          /*
-         Scripte synchronisation OneDoc vers Winlogie avec gestion du lastInsertId dans la base de registre<§cs:10§>
+         Script synchronisation OneDoc vers Winlogie avec gestion du lastInsertId dans la base de registre<§cs:10§>
          */
          
          // ON RECUPERE LE CHANGEID DE LA BASE DE REGISTRE
@@ -110,7 +110,6 @@ window :
          
          						/* On va chercher les détails de l'évènement à partir du eventId et d'abord on va gérer le patient
          						On récupère le "events"<§cs:10§>
-         						<§cs:10§>
          						*/
          
          						route = "/calendars/" + member.calendarId + "/events/" + member.eventId
@@ -129,7 +128,6 @@ window :
          									Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
          									return
          								else
-         
          									// -------------------------------- GESTION DU PATIENT
          
          									switch REQ_checkIfPatientExists.FICLEUNIK
@@ -164,8 +162,8 @@ window :
          														IF HExecuteQuery(REQ_insertInsuranceCardNumber, hCheckIntegrity + hCheckDuplicates) = False THEN
          															Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
          															RETURN
-         														ELSE
-         															fic_cleunik = SQL.IDAuto
+         														//ELSE
+         														//	fic_cleunik = SQL.IDAuto
          														END
          												END
          											end
@@ -173,7 +171,6 @@ window :
          										case <> 0: // LE PATIENT EXISTE ET ON RECUPERE SON FICLEUNIK
          
          											fic_cleunik = REQ_checkIfPatientExists.FICLEUNIK
-         
          									end
          
          									// ----------------------------------- PUIS INSERTION DU RDV MAIS ON VERIFIE SI LE RDV N'EST PAS PRESENT DANS externalEventLinks
@@ -204,9 +201,10 @@ window :
          
          												SWITCH REQ_checkIfAppointmentExists.RDCLEUNIK
          													CASE 0: //  LE RDV N'EXISTE PAS
-         														
+         
+         														// On controle si le FICLEUNIK est <> 0
          														// ------------------------------- IL N'EXISTE PAS DONC ON INSERT LE RDV
-         														REQ_insertAppointment.FICLEUNIK		= fic_cleunik_created
+         														REQ_insertAppointment.FICLEUNIK		= fic_cleunik
          														REQ_insertAppointment.NOM			= Upper(jsResult.patient.lastName)
          														REQ_insertAppointment.PRENOM		= Upper(jsResult.patient.firstName)
          														REQ_insertAppointment.RAISRDV		= "OneDoc"
