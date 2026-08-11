@@ -242,7 +242,7 @@ window :
          
          															// ON INSERT LA CONCATENATION "Comment" et "Summary" DANS CLSCOURT LIAISON "INIC"
          															REQ_insertCommentAndSummary.typcom		= "CommentRDV"
-         															REQ_insertCommentAndSummary.comcourt	= jsResult.comment + " - " + jsResult.summary
+         															REQ_insertCommentAndSummary.comcourt	= jsResult.summary + " - " + jsResult.comment
          															REQ_insertCommentAndSummary.UNIC		= UNIC
          
          															IF HExecuteQuery(REQ_insertCommentAndSummary) = False THEN
