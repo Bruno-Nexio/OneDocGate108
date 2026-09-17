@@ -39,8 +39,8 @@ window :
         code : |1+
          
          cMaRequête est un httpRequête
-         cMaRequête.URL						= uri + "/events/last-change-id"
-         cMaRequête.Entête["Authorization"]	= "Basic " + authorization
+         cMaRequête.URL						= guri + "/events/last-change-id"
+         cMaRequête.Entête["Authorization"]	= "Basic " + gauthorization
          cMaRéponse est un httpRéponse = HTTPEnvoie(cMaRequête)
          SI ErreurDétectée ALORS
          	Erreur(ErreurInfo(errComplet))
@@ -81,7 +81,7 @@ window :
          sValeurLue		est une chaîne
          
          
-         // Ecriture dans la clé "changeId" de la valeur "mon test" dans "variable chaîne"
+         // Ecriture dans la clé "changeId" de la valeur dans "changeId"
          SWITCH SAI_afterChangeId
          	CASE "":
          		sValeurLue = RegistreLit(sCheminRegistre,"changeId")
@@ -92,9 +92,10 @@ window :
          SAI_changeId = sValeurLue
          
          cMaRequête is httpRequest
-         cMaRequête.URL						= uri + "/events/changes?afterChangeId=" + sValeurLue
-         cMaRequête.Header["Authorization"]	= "Basic " + authorization
-         cMaRéponse is httpResponse = HTTPSend(cMaRequête)
+         cMaRequête.URL						= guri + "/events/changes?afterChangeId=" + sValeurLue
+         cMaRequête.Header["Authorization"]	= "Basic " + gauthorization
+         cMaRequête.ProcédureTrace 			= ProcTrace
+         cMaRéponse is httpResponse 			= HTTPSend(cMaRequête)
          
          if ErrorOccurred then
          	Error(ErrorInfo(errFullDetails))
@@ -426,10 +427,10 @@ window :
       -
         code : |1+
          cMaRequête est un httpRequête
-         cMaRequête.URL = uri + "/calendars/" + SAI_calendarId + "/events?fromDateTime=2020-06-01T00:00:00&untilDateTime=2020-06-30T23:59:00.00" + SAI_afterChangeId
-         cMaRequête.URL = uri + "/calendars/" + SAI_calendarId + "/events?fromDateTime=" + SAI_fromDateTime + "&untilDateTime=" + SAI_untilDateTime
+         cMaRequête.URL = guri + "/calendars/" + SAI_calendarId + "/events?fromDateTime=2020-06-01T00:00:00&untilDateTime=2020-06-30T23:59:00.00" + SAI_afterChangeId
+         cMaRequête.URL = guri + "/calendars/" + SAI_calendarId + "/events?fromDateTime=" + SAI_fromDateTime + "&untilDateTime=" + SAI_untilDateTime
          cMaRequête.Méthode = httpGet
-         cMaRequête.Entête["Authorization"]	= "Basic " + authorization // WINLOGIE
+         cMaRequête.Entête["Authorization"]	= "Basic " + gauthorization // WINLOGIE
          cMaRequête.ContentType = "application/json"
          cMaRequête.Entête["Accept-Encoding"] = "gzip"
          //cMaRequête.ProcédureTrace = ProcTrace
@@ -576,7 +577,7 @@ window :
      height : 24
      visible : 0
      accelerator_key : 65535
-     tab_order : 10
+     tab_order : 11
     style : {}
     type : 4
     code_elements :
@@ -621,9 +622,9 @@ window :
          jedi = ChaîneConstruit(jedi, demos)
          
          cMaRequête est un httpRequête
-         cMaRequête.URL							= uri + "/calendars/18/events"
+         cMaRequête.URL							= guri + "/calendars/18/events"
          cMaRequête.Méthode						= httpPost
-         cMaRequête.Entête["Authorization"]		= "Basic " + authorization // WINLOGIE
+         cMaRequête.Entête["Authorization"]		= "Basic " + gauthorization // WINLOGIE
          cMaRequête.ContentType					= "application/json"
          cMaRequête.Contenu						= chaineVersUTF8(jedi)
          
@@ -659,7 +660,7 @@ window :
      visible : 0
      state : 1
      accelerator_key : 65535
-     tab_order : 14
+     tab_order : 16
     style : {}
     type : 4
     code_elements :
@@ -704,9 +705,9 @@ window :
          jedi		= ChaîneConstruit(jedi, demos)
          
          cMaRequête est un httpRequête
-         cMaRequête.URL							= uri + "/calendars/18/events/"
+         cMaRequête.URL							= guri + "/calendars/18/events/"
          cMaRequête.Méthode						= httpPut
-         cMaRequête.Entête["Authorization"]		= "Basic " + authorization // WINLOGIE
+         cMaRequête.Entête["Authorization"]		= "Basic " + gauthorization // WINLOGIE
          cMaRequête.ContentType					= "application/json"
          cMaRequête.Contenu						= ChaîneVersUTF8(jedi)
          
@@ -741,7 +742,7 @@ window :
      height : 24
      visible : 0
      accelerator_key : 65535
-     tab_order : 15
+     tab_order : 17
     style : {}
     type : 4
     code_elements :
@@ -752,9 +753,9 @@ window :
          eventId is string = "6809e080ea212be4be400ca6"
          
          cMaRequête is httpRequest
-         cMaRequête.URL							= uri + "/calendars/18/events/" + eventId
+         cMaRequête.URL							= guri + "/calendars/18/events/" + eventId
          cMaRequête.Method						= httpGet
-         cMaRequête.Header["Authorization"]		= "Basic " + authorization // WINLOGIE
+         cMaRequête.Header["Authorization"]		= "Basic " + gauthorization // WINLOGIE
          cMaRequête.ContentType					= "application/json"
          cMaRequête.Header["Accept-Encoding"]	= "identity"
          //cMaRequête.ProcédureTrace = ProcTrace
@@ -869,7 +870,7 @@ window :
      height : 24
      visible : 0
      accelerator_key : 65535
-     tab_order : 13
+     tab_order : 15
     style : {}
     type : 4
     code_elements :
@@ -878,9 +879,9 @@ window :
       -
         code : |1+
          cMaRequête is httpRequest
-         cMaRequête.URL							= uri + "/calendars/18/events/68131c0a5de07023688bd74d"
+         cMaRequête.URL							= guri + "/calendars/18/events/68131c0a5de07023688bd74d"
          cMaRequête.Method						= httpGet
-         cMaRequête.Header["Authorization"]		= "Basic " + authorization // WINLOGIE
+         cMaRequête.Header["Authorization"]		= "Basic " + gauthorization // WINLOGIE
          cMaRequête.ContentType					= "application/json"
          cMaRequête.Header["Accept-Encoding"]	= "identity"
          //cMaRequête.ProcédureTrace = ProcTrace
@@ -926,7 +927,7 @@ window :
      height : 24
      visible : 0
      accelerator_key : 65535
-     tab_order : 11
+     tab_order : 12
     style : {}
     type : 4
     code_elements :
@@ -973,7 +974,7 @@ window :
      height : 24
      visible : 0
      accelerator_key : 65535
-     tab_order : 12
+     tab_order : 13
     style : {}
     type : 4
     code_elements :
@@ -1060,7 +1061,7 @@ window :
      height : 24
      visible : 0
      accelerator_key : 65535
-     tab_order : 9
+     tab_order : 10
     style : {}
     type : 4
     code_elements :
@@ -1091,8 +1092,8 @@ window :
     identifier : 0x2941719d03724625
     internal_properties : HgAAAB4AAABlNny2feXKNhcCsipiV7mHeyLAAALfCno6t5F1lmgf7l3VkX8/kZGOJAB3EQud9sXmrKSdb7+swqzodoLebxuRflCVCrbJMwtZb/G/y/z7/4Ph2p66te4M3Vg+jyqbSSWYJrNu20ru2zoKt2a/yYtCyqPiET3V6rc8Lix0yPnhDLSZn/IN86q9yHJ96OXw5h+4Ocdd416Xzl4yNxPBwzx/vl1MNFBbe1YWlNuLvRCP4rnaQjP5RZMCf2rWMUJ3tgYemaXP5lWFbZiTtTLxKfZNU/YFkajKNrT8cBn7kN9lgOYMxpsUr9oDSCb0pTX/SFeAg71EsNrR0awAoInjIZw7/oD/HguzItmd+kSGikgwuJob4MEREE3f1/5Kc+LckyaYxx5VLo20UIdiB2Kf6CQ7qxcP3ceWbSq1JUR7ihXbaiB+UwzZ+RpD6uyjj1guMPFm+mZoE9ZEYSDHls8WZpA=
     properties :
-     x : 149
-     y : 192
+     x : -376
+     y : 548
      width : 849
      height : 551
      tab_stop : 0
@@ -1142,7 +1143,6 @@ window :
      y : 201
      width : 102
      height : 24
-     visible : 0
      accelerator_key : 65535
      tab_order : 8
     style : {}
@@ -1157,6 +1157,673 @@ window :
       -
         type : 161
         enabled : false
+  -
+    name : CELL_Connection
+    identifier : 0x2aab812316a35d36
+    internal_properties : HgAAAB4AAADWCPEA6LQGfMfDcFEZO4/9oQlyCqzlPkprJEZOqmEsRK2iphb8pVnEGwzZ1yTjGv3vI8M6KOblClg5wWU7h8yuBwR1yhYT1Nvgt8Zt3YgO+iLhmYsKGMe47oTV8p06/9rQRB8ponwbtKnELjdQ5Wm7u7D7n1aqgipQof8UbIkc8cb2LQ4eHnK9gLQTwXZ44h+FM432GcRNvnkEbSVqCOycglD/audNDCdRcHBJ22Ryf3pwnd6KX+ceO+cYADisgONr2hqiMmEgflddzN5WGfiaNLcqcV4ihAMjUT/7JaE/3iIKcCzMHCuKeVmJwfzeqVDO/Q+2Tg+KwFkTblDFdK/D06eg2Pb62uq7i+reLLhQ1tmUKdVaL8l8gQ6sxaw7efLIC9q4yxLQ8TVYWGg5EJ7VXzfAUTVgRG9Q+F0klPPwHUFeBeMEbX66cqAAJeFPVuTecbCnuX1sgV4VGsg008vZjzh9R//34C98elWpzQ==
+    properties :
+     x : 519
+     y : 203
+     width : 470
+     height : 201
+     tab_order : 9
+    style : {}
+    controls :
+     -
+       name : LIB_Connection
+       identifier : 0x2aab821116edfe2a
+       internal_properties : HgAAAB4AAACNHa4ZMEPN/p5QkLQ3YqJA9ByxwKl1pz8ji6hDLT2rdQKNGCxcpXFUA/SgZiDmZiQ+EQ3vWic+llUpjlZo1ip7ytn2D9E9C5hTnnjdpDxJzLGrbY3FlHiWpp9QsTlXXFoU71xNPbGfHk3C1oJTWiHs7yvhgWBCG1CKFXNGX9J8rCmy+htPicifmKAC6AwsrM9wh7YmXgEFJgnwbGOQditbyVf9bOzxNUC46f4qOdu6yBkkB31uegtfp6sHHm3HwgQc/oAPoGDrZYFDzkeMCCfKLWYd/uj6M+joBK4KnCxmsDfwHOj7AxyljQUJq9wWnCnjIkXZ5qedtFe9qoekYS+n0pgzOEdk1gbBInQXF5qzas4VabHACHedfi4kz/1Y0TrsYtzMQB5CgqP7E+/Yo5nHjR14w6iQsrcUbrOZWoMmBYcaOV22zrUeytigckXM+NAKX5fmGotiAxgUhfkNuP+/r52U17N1Ljs6IJUYB1oD0e5mN93p0RY=
+       properties :
+        x : 13
+        y : 11
+        width : 139
+        height : 20
+        tab_stop : 0
+        take_focus : 0
+       style : {}
+       type : 3
+       code_elements :
+        type_code : 2
+        p_codes : []
+     -
+       name : SAI_URI
+       identifier : 0x2aab841b180af3c3
+       internal_properties : HgAAAB4AAACiTQL+77jfuV0pRoGqHJBXduvzzgJtohFeCazG5QbJOlcGqWL62av5k54FajjOgJaFsys+QZKk2Ol8WmepAMf4GePHbd5+eli95lVqp6HgkRQUShRxCghQT+ccG687Pu9tv6vgk/TstkJPFj7zFxTqjJs0nP3DiBKrkuKoZKFSS3JJHFNHktSJYUZXbQYWPJPUu1AlwjItY5fYa62GB8q7zlw9Nq/Y/+goux2KTaacgR04WBH9+dcl+BGmWqC0XtRrOm0p1e4vLXRd+fBOH4cWm2jrGR520HI0mp/6WPX+blhYSuHkziaKDwBTHQnpq23S8iMPVJMp0ncftxNQbVO4zNafOEH30eOZLk5ICz5YNKFvyZY7biAl3rzSL/nyEBpsaxVuxBcYWVfltUiCp1SRqrvxukhy/usN0BwxPQEy3gRiHBvko5nUotONiOA3l7d0/WTU91k+lHm8/TJqcuI+eqqbdeP2dwgIZI6e4PNHASLlpcVmOj/QWAHnqjlgzfdGuEk5oDmFs5qUNMYT04EyuB4cD3pm+m59KhcUiLwmEDt7frFsf8GyfY2Z5/DiiQ0JibL+ndtpri2/nsjrmD6FjnO0OvULXIVYNAsTM5fkjuIHxuG8X//Ly0azRsnRo6Lo8JzHGguhl4li0UZoBdWjn2CRo9zDZoQ1gm+I3CCFcVjE31ELv1/wAZOTQSe+gG/HxGdR0crBsl4rbkFkTYzsmahQy50rcXOQGuYGL5RFRxedrSLbvqS3c8WL9GpTu7ZK3AmMo7QxXw/u+0u+bLyf9FwGbBbVijDwCWl+y/CaCtlZsTqcAhW5PDt3mKPrI9Xup6mZhwFX7ZRWyoiZw4ZNDx4+GnpTm7YuM2pQ+RllMLAby0dfrkUO98lZb14IvYz1ihg/nD+QYkmc4cKLouJQH9nagzgbDm0RY5RD1wjSj2JPju2eMqBpVpQcqsXttChOvE1HigJaAAxjcqXKHpxcm7VGtWq/np0pKBthriTKMwVIawhyGBmOcLcbp0yGH5ZoQpjJQj6qTyG9EU9N6mxh0H8md+MF8s48hbp2SNvMoqPjxVyBFpm0Du98/KpvOST1aPz4IKxfA5koQmALQUsT7C3fO683dl0/5q5KEQ7hMBRGaT7+hmm3ZNsbqa4WswDINKnQ/a07I1N7/utS6hsA7VKh/KIeO0SNiq7II+hT5Ai84nCdk2l+cnEmgBDSYKTW8KyEgIG5gv6KGq5PkTF/lMPxKcmIaRZUtxbJI3Zh3E2iS6KMLfeCx5Rjdx6LO2D/wQ2sZAse0pd7o65ZJWYXw97waW/ybT9V5/Z36eylATVlsuGFN1EKomPOnasOWd6RXPnP27Jaf0epcdo4
+       properties :
+        x : 18
+        y : 37
+        width : 356
+        height : 23
+        accelerator_key : 65535
+        tab_order : 0
+       style : {}
+       type : 2
+       code_elements :
+        type_code : 3
+        p_codes :
+         -
+           type : 276
+           enabled : false
+         -
+           type : 277
+           enabled : false
+         -
+           type : 278
+           enabled : false
+         -
+           type : 338
+           enabled : false
+         -
+           type : 339
+           enabled : false
+     -
+       name : SAI_Username
+       identifier : 0x2aab84581835e557
+       internal_properties : HgAAAB4AAACu7Jt7QIrWgYRmeG3ZXE4aTNSRWTXzbmMyHqVSUi0Jex5qReAF8OUAuFTNIWDLZgTtsVsw1pGGTw9pD+VuAdgMHN51pZT0vhRAG9zB8hS+LgmI9G5kHtYlRlIe1+jx9LAJQhXYE80c8taYKPYr915xhIlzqZOjsp7jlXoqDe/F469Htd2FF9O5JShlHOdI1eYRoC/x8TUjOG93cBzu7JtMikd3W/dFLzr4X9zc3b6bp+efsvrRu+Pl9mmTl1OReYQCAFznAFedhRoxea/PW4ZXrwKYlYjfKCYH90JC5EXFT8lYIhSwCBTHYQeURtq3c7va3A1aoAj8vne8iOr8EkwoXrVP5RLp/WtLR07b6apq7RxMdhp83KiZHTswt1+YTDtqGjPMSdSgNmSjriXSL8R0rAY6AvIObSvdLm5F1FwGpBD1yyTEMAZIKhQB6qxpdVu04qoQDCr1JDjMHSUseceg4VAX6WFOmxsj93N5r+WICY+GCLO/qjieHo3OxIaUZc2HhZPhqhqg85OBmIa+Qhj2I4mL/7RPO0q5Gl2wn18KP/XK7S2O0KJZp5GBqdRy0PF99z3UxDRNYrYUQRbuAZyhv3kizcFKdlB+e1pgCD2jJ95eN787tmaVWuRzBpB+LuNds9p+QIto13MmE5kzd8CN1evVTIEqhf5ar2MLz71JaW7va7ic6wcdoYOEBjzg6/nPT+fkYpxTVf5dI1bxl7HkWyXOUvTXCVzMkkNvqpJKWVt61QXaapyy26+aW9drHBasc209+i4LAjliahZ1GovDAkc+hw3pugPyReCJjmI/SMGsE8MHdg2E5iMQgTSz5FdWnMv6HgFrfk7Ou9GsO4NrU1kSMVMpqX8ic089uPEOBrSQn/6iqNffY1+CjK00jDaZZX4+jZlahxcUDM0IvF3617b++t8HNsR31Vt2eBBf03zcFFQ11JJgBJJrlQ4LjRDADWUkrbzUpSQBkYSHrAsoSai4uHsrbqLvVjJQ+aBDWbm5fVlLMF1zyA/uFnOq/p4qc6QQKcLydt8NllAckkGBjnjiWCoP1F3KOfG5CYE1VmEsqdsMMOt5linfF2tZUBx3uXLtEQRjAi3o6wWin+6pgEjzNKDJwLIFeOnZckSsXqh3f7WDgOuY/hfQctcmNrCqVf1nUPWfDosdfeIZ3CzEp6dNI6mk+UXfjr9JCHpM0uxNQI9md4lvXtGPnSUUpTDAaTYFCa+nCyAioRVk02otvBhH6AYsgU3QxVMGlr6injEd1atpk/W3n94JH9NNdy3kjZwoDLaYaQEpTyhsJWA7aiwuRIwE/nCZnnQt4QOCjo/t29esYbu1WbH/AxmFixpHiUJj1UY6jCx0VKw7U9U/i68=
+       properties :
+        x : 18
+        y : 66
+        width : 356
+        height : 23
+        accelerator_key : 65535
+        tab_order : 1
+       style : {}
+       type : 2
+       code_elements :
+        type_code : 3
+        p_codes :
+         -
+           type : 276
+           enabled : false
+         -
+           type : 277
+           enabled : false
+         -
+           type : 278
+           enabled : false
+         -
+           type : 338
+           enabled : false
+         -
+           type : 339
+           enabled : false
+     -
+       name : SAI_Password
+       identifier : 0x2aab8504184d821a
+       internal_properties : HgAAAB4AAACR2tFXjBVruSKem56hnfpdxC/V7Jbt+Y3ZAQ2zYYFojUaBFSO3b3WvseXbwZznT65FvoGIZ37+5KnHuB2Y2ZV8DQkQwQVhSoCvg/AFiujPowmmzAaVSz/kQ0OLzRh6apy0mdr1MGQDi2TXEt1lFZg95CPf9woDqb+woePthoiQErEXpl7o9WtU7PLquwRVw21lhK2p5RHx8gSdGZ2SBy8sNU4qMCnDZKFp9YCFMfHLEqIYYQfOUcNUGR6O+dLiVBy7bU8K0SD4APUWI8GxnJMlCqNo0jNLQsXcRy3YAEkkPiib6irAd3riOLV4RiYWNfyCMKF7dxDcoBOr2pHTLc67+XkyqM53EN68tPtPUP1eRvht/DAO8aMp/rtt0XXYqxEhRgFNVgXOgNjdNjYaHvUeqkfSp9/yfNYjeso/ewk2XEr9Ew9LeHkhodZbpAbbhrsVqPgpdglS4ipFS6pNi4D7b9W7zQN2MJDHq+ngu8oM9VQ0qv+VvalaET/7iZDgKcuel83gDGLlYu2fiTjSkENcSJy0LC8kbWv7HpN14ZAsxZDb8UgWdffGJw5P70FrpLUlRpAxes2eFlNk3eZx1VtxpqbLkVgq5cit3nxZUuwUVBM4DTgFoCgSVmg6CCL8YPsvesOQhnX33z2OzDH7AFQ4Mkp9AtbuWwCAKwuFBIHAECwoK4f/PDcb3JWWewNN7EQFJg1dH2sFbSV7jXcYNDCRRcg0e+H+4Wb3ngsU7UOlolMtcSqvsUJGUjXaoPYo0+N4rle2VW+ZSjpCED1iWVy+ShZs/ILQ4AfLlVSCMQuQk6GdLUy204GGeeXoPmdEawyGS83rNdbFdi08VywhmpzWwYTY2HZiX/sTeUG+px7bJaZNxSu5xav5InP0h9bfQbX/AKqVToyU5xIabmZPkQDzSzG6jUyGyJzAQalTnQ/2EFojMoc+995+a/g5dsUwepf2+BXDSDX80yPtDY3uae5RcUeUL+ooZH7u7sCx0rtMLP++dVRsM9kFO92QB4zVXTO8MuQzzEMQOizryKOJGdxSQKP+HWua3O9tZ2VS/MJQl28bhbITncFxK7mvmAaKlXPL0j4C1B1ngGrQ+0Q1oHW+QL2zYX2IEFDStNWopU2j6/Dezba2OXXYVWfgy6aTr4Mq6tfeBWSNUrLR5c9ue59l67w/AqBRH4mGHnve9WnT5+qa2DrNPIeDh4F/HsxBAl/yIGDcOtp5409SWSLbUFOINOd9xQO7D3FzQTHXca+pK1ssifQ6phEtgl9ILW1n9wEhl/OySNYFlfJ/bEeTigzTNHC27VjUD5eE03hRCbBeAS3a9qVKHCAi7teYEU/PswZEX5BaquvO6NWKcERcOC5y3aecaw==
+       properties :
+        x : 18
+        y : 95
+        width : 356
+        height : 23
+        accelerator_key : 65535
+        tab_order : 2
+       style : {}
+       type : 2
+       code_elements :
+        type_code : 3
+        p_codes :
+         -
+           type : 276
+           enabled : false
+         -
+           type : 277
+           enabled : false
+         -
+           type : 278
+           enabled : false
+         -
+           type : 338
+           enabled : false
+         -
+           type : 339
+           enabled : false
+     -
+       name : BTN_Save
+       identifier : 0x2aab927b19bc1ad3
+       internal_properties : HgAAAB4AAABvf6pPkNBenK4PAzq1G9Dw1EUZBrDk1NbjmL+9LqdEDvOZzZtwWJ0IWvHFavzH22Xgr3sNx4Ym9XxNqHDxfOA+Pj/YWUIGsQ19QtWaPqEO8iGqqo4xrYMioatfw9tU1C4q9u5EvEeOIoWOchRKfscnkSFF64IWgg/vXYml3Wk6duroox0v+GxWZZ+7j5Gtybu3CPeYM9EhbeRDdk1DP0SDg8jL76JT2Y4IUefddgKhuijVZlOZNkwcWbmY3QYvt0Mk8+6DuzbZeALdxJHeQ/m30kOdHOmYWLvqmy2CDVjzJFPqLi4VxCGyu92MUea8q72xKlHBMF6seu8itsCTerHu/GE2qlz7ohmLHTzUjDZX4N9jnAUOwENlERSncAvQ4OeE/JTHoVU4XQNEfvpoSWtq0NECPe8GeBGXrV/hCiNTCj6PUuS7UNLBQqgWta4VXqTn5vrSOyW7KlVxTrTXwS7XLRV+YF9eCvilpswh+8UbKOjQZ8WlNs4QLQJdOuNo45v/gFvuuaGGqLxkBDKZ78PYO+XyJs8FSRAVJZimr/imLTEoY6qJsCvndOjo8GxbJ1m5l1LJ9aH5CpMT7Hd8V51bbgL9SXwGtdfdKNJq55TX1tJl4PsWWzQXpyh5MAHxpwQ+DLz4c2HweTfeATZ03MilEQPNRJA1a9rzKtXsyjaTChw5jJ2Tl2UsmvXVce8Oao042ZEyfcfpssLndwkj4CuHfq54Xc419rUeC6HXtOJdS9+WhIDP+4tXYRRd8gJyCpi7bHAYpx8MItVSV9Yqj0EJ39Wh5rMNvV7ZeZg/zO1Kqx7Ji9XM1ON+CR+WMuscHsZEFgfzXI7t+oy9ZVvaht+JwZadkWVFO523XhGt5Y0kvK58LKKVuLKopEKy2tUu3Jh0OI1wjMce1whDwsebwwwqjG9XyMczdA==
+       properties :
+        x : 374
+        y : 162
+        width : 80
+        height : 24
+        accelerator_key : 65535
+        tab_order : 5
+       style : {}
+       type : 4
+       code_elements :
+        type_code : 4
+        p_codes :
+         -
+           code : |1+
+            sFichierINI est une chaîne = fRepExe() + ["\"] + "settings.ini"
+            
+            // URI
+            INIEcrit("nexapi", "URI", SAI_URI, sFichierINI)
+            
+            // Création username:password
+            sUserPassword	est une chaîne	= SAI_Username + ":" + SAI_Password
+            
+            bufAuth	est un Buffer	= ChaîneVersUTF8(sUserPassword)
+            sBase64	est une chaîne	= Encode(bufAuth, encodeBASE64)
+            
+            // Encode peut ajouter des retours à la ligne
+            sBase64	= Remplace(sBase64, CR, "")
+            
+            // Authorization HTTP Basic
+            sAuthorization	est une chaîne	= sBase64
+            
+            INIEcrit("nexapi", "AUTHORIZATION", sAuthorization, sFichierINI)
+            
+            ToastAffiche("Configuration enregistrée")
+           type : 18
+         -
+           type : 161
+           enabled : false
+     -
+       name : BTN_Reload
+       identifier : 0x2aaba65a0172bd27
+       internal_properties : HgAAAB4AAABgFiCIIkUDbENWNWcwhbVqh2XkcmcXdK9rmi9sdAAPzXuGs6ZQ+ivCNk+HjQbBnX1vKbU5L1HKMrLem+yNiYr+kSC4hRz8lm4qRgNidfHstWVQfMVER0VbT+v/HZfhqsmgQavIK7TR5uPr33ZjMRXaWE9YwHmn5hyajyogisn7RxM0M8T2/zlLYg9cy9AVTFnuuK4/et47D9CKEDhXf6hrTG/lC5FR3Ya1P6z41jINcsdGEyVcwoKcxh5unOsKGxP4IwOE4SVKn5Lk24T9nhrHNLImV/q8PV42BntPDeWuGmcWT9kNBEEWts9J4JUUX0bv5ER2KHgrZDxz4iQ7vOlJ9GpV9kMqEDHdvg9/1slK0pzs82RUeimpsX5/L+MhbNrwx/K0+7H/wMgzAuhXfk8YVM0hW51upN5I5qqtzuyp18z+2crCWsrynEeD5DgCgwWVN/iOM9uvhaLk+6PZBFzjZC5zbZBGnbo+yYsnQyCb8qeNmPRIJIFCbNe20IM9mWlY947ZaJlNhk//C+i1HgXYUOavffLP7oC6QN/+aVEsuyQPrk1QUvgtbSv3MA4Mp00GxlUyIgEwdrjs0f9+siMBa7kglJuGLE10mSd+BfMLylekS4RDl6FTnJN48u1CPd6BbSn7ytk7jVrf5vRou+bBtPIIgdmTnPboOcAYyOstzunQF/i6mxwwORJGY1uXgsFBnvK1hOPmovOKfsMXiZNj7TPRkAUbHWnNsPqjOn/bKYzPoQ9iRchxHClOq5UiK19ncADiFZQs4atsXXs5ZVZCJTkZZI2mGOJ2TrEke1UF7knws0G/WeW/8d4kxXzGNIQl5SpdSz6W0+oGi8CdfYg+lWvPwobPSEwoi66eSHUOa6oNd8bDaW/l0mgU4Kd6PabZsNPGfm3u6LBVxxje72OuS0MVX/mt+BrA
+       properties :
+        x : 288
+        y : 162
+        width : 80
+        height : 24
+        accelerator_key : 65535
+        tab_order : 4
+       style : {}
+       type : 4
+       code_elements :
+        type_code : 4
+        p_codes :
+         -
+           code : |1+
+            ChargeSettings()
+            ToastAffiche("Configuration rechargée")
+           type : 18
+         -
+           type : 161
+           enabled : false
+     -
+       name : BTN_TestConnection
+       identifier : 0x2aaba7af01a7f0b2
+       internal_properties : HgAAAB4AAAAZSeTxtgUgFhNN820pgkepzl1297xabujp/HUQuRbHN3g2EKwBH4FODcmIeNNm/wAPHshXjBmbLtDijY2/CsSRH6I2YSUb7lLyf+ohtar/GRIkW1lAa0xkgg44L8WOv2VhVNpQOKclm3dQuFfrFeA6A3SUH8iNTqS/UOPbNCNQjRE3MNELbh1I9FlOWI7kBkit09xCXS6e51sQBrPZ6BOqhMheixxHPKz/l/J8zTFUw3dzfbSIHNvzLaCGUeO2v+RBgY/moPrThRKfUNkn11eLO6FC5gkPJVnX/eQWgCnA4A44s3wZdBLkFEhOjbQGo5ydKZ+syYK/KdcQSWOZCK3swc22C1iRJYvtUgoLnVViAjiP1CW2BqiuFsfjyLK9Mn02cBb/sMx89UBQtpg7T3uDHgJ7N95vcEmFF1YUYMdXF9t/42vLolSqQ2lyYgzsmQe5YTuuAs+l44JPC37d5OhIGrjlfBhv0BsyE6Q+seb5JG0IcFBk7Uqrro0UIyCsVO7ewuRCgJ7npg6gYT/EP3KrrO8s3F2xIax5PUCfFlKSP2bogU6NNGzr/ugqsiUMVoQKWsfsIC29gju3gWMc54jMJkK144qvHIBZq4zOBTVOdt6452ZhPng36EB8kymkxrH4zJtzeNZ9whbYefscVoTlNS/NoAXZet42DCZRUvwKbZ8Umm03DdO6B2VAE4Yzy6GQjAUF6/lLeuimwzlWm9gX6N4dJQUKbo9crMQA9wRfcH6HB3Cn3caHjmy3QvS34TImXQiXToe6U71usRE/zpNrU4qt5OnRBEliSyrEbdCpRb5i+CRf7r/U440AvBkEvAbS8ivq8gbb5j/zaiatc4sBiURD4sw6ep4F2qFe/MFG48bMzghrDs4Eyr7Gau43D1c193iNk6nvLAHsiPk+I+orzjmBHn1Fgg==
+       properties :
+        x : 202
+        y : 162
+        width : 80
+        height : 24
+        accelerator_key : 65535
+        tab_order : 3
+       style : {}
+       type : 4
+       code_elements :
+        type_code : 4
+        p_codes :
+         -
+           code : |1-
+            // =========================================================
+            // TEST CONNEXION NEXAPI
+            // =========================================================
+            
+            // ---------------------------------------------------------
+            // 1. Vérification des champs
+            // ---------------------------------------------------------
+            
+            SI SAI_URI = "" ALORS
+            	Erreur("Veuillez saisir l'URI de NEXAPI.")
+            	RepriseSaisie(SAI_URI)
+            	RETOUR
+            FIN
+            
+            SI SAI_Username = "" ALORS
+            	Erreur("Veuillez saisir le nom d'utilisateur.")
+            	RepriseSaisie(SAI_Username)
+            	RETOUR
+            FIN
+            
+            SI SAI_Password = "" ALORS
+            	Erreur("Veuillez saisir le mot de passe.")
+            	RepriseSaisie(SAI_Password)
+            	RETOUR
+            FIN
+            
+            
+            // ---------------------------------------------------------
+            // 2. Construction du Basic Auth
+            // ---------------------------------------------------------
+            
+            sUserPassword	est une chaîne	= SAI_Username + ":" + SAI_Password
+            
+            bufAuth			est un Buffer	= ChaîneVersUTF8(sUserPassword)
+            
+            sBase64			est une chaîne	= Encode(bufAuth, encodeBASE64)
+            
+            // Encode() peut ajouter un CR
+            sBase64 = Remplace(sBase64, CR, "")
+            
+            sAuthorization	est une chaîne	= "Basic " + sBase64
+            
+            
+            // ---------------------------------------------------------
+            // 3. Construction de l'URL
+            // ---------------------------------------------------------
+            
+            sURI			est une chaîne	= SAI_URI
+            
+            // Supprime le "/" final éventuel
+            SI Droite(sURI, 1) = "/" ALORS
+            	sURI = Gauche(sURI, Taille(sURI) - 1)
+            FIN
+            
+            sURL	est une chaîne	= sURI + "/auth/check"
+            
+            
+            // ---------------------------------------------------------
+            // 4. Construction de la requête HTTP
+            // ---------------------------------------------------------
+            
+            reqTest	est une httpRequête
+            repTest	est une httpRéponse
+            
+            reqTest..URL						= sURL
+            reqTest..Méthode					= httpGet
+            
+            reqTest..Entête["Authorization"]	= sAuthorization
+            reqTest..Entête["Accept"]			= "application/json"
+            
+            
+            // ---------------------------------------------------------
+            // 5. Envoi de la requête
+            // ---------------------------------------------------------
+            
+            repTest								= HTTPSend(reqTest)
+            
+            SI ErreurDétectée ALORS
+            
+            	ToastAffiche(...
+            	"Impossible de contacter NEXAPI." + RC + RC + ...
+            	"URL : " + sURL + RC + RC + ...
+            	ErreurInfo(errComplet))
+            
+            	RETOUR
+            
+            FIN
+            
+            
+            // ---------------------------------------------------------
+            // 6. Analyse de la réponse
+            // ---------------------------------------------------------
+            
+            // ---------------------------------------------------------
+            // Résultat
+            // ---------------------------------------------------------
+            
+            // ---------------------------------------------------------
+            // Result
+            // ---------------------------------------------------------
+            
+            SWITCH repTest..StatusCode
+            
+            	CASE 200
+            
+            		// Read JSON response
+            		jsResponse is JSON = StringToJSON(repTest..Content)
+            
+            		IF jsResponse.authenticated = True THEN
+            
+            			ToastAffiche(...
+            			"NEXAPI connection successful." + CR + CR + ...
+            			"Authentication valid." + CR + ...
+            			"Username: " + jsResponse.username)
+            
+            		ELSE
+            
+            			ToastAffiche(...
+            			"The server returned HTTP 200," + CR + ...
+            			"but authentication is not valid.")
+            
+            		END
+            
+            
+            	CASE 401
+            
+            		// Read server error message
+            		jsError is JSON = StringToJSON(repTest..Content)
+            
+            		ToastAffiche(...
+            		"NEXAPI authentication failed." + CR + CR + ...
+            		"Please check the username and password." + CR + CR + ...
+            		"Server: " + jsError.message)
+            
+            
+            	OTHER CASE
+            
+            		ToastAffiche(...
+            		"An error occurred while testing NEXAPI." + CR + CR + ...
+            		"HTTP: " + repTest..StatusCode + CR + ...
+            		"Response: " + repTest..Content)
+            
+            END
+           type : 18
+         -
+           type : 161
+           enabled : false
+    type : 145
+    code_elements :
+     type_code : 60
+     p_codes : []
+  -
+    name : CELL_Database
+    identifier : 0x2aabe2490210da13
+    internal_properties : HgAAAB4AAACYQEXyAhnpCc4E9FH8A2E/T+rdmhDj9yPFPoysCN9NtZeFaMa6zEFzDSNnWL0KpQKu9ImMNoIfq5sQgRC/BxTqX3C/04zzDKMm6w4pPJwaaNqg6V50wJNu1Z5A3lEW1L5HdyR09rBXvQtKvrGzYX019634FFLEzc1ExrZJnoqwLaXUuO1RpQYh7KK0Ss2h8ppS9voTiNlY3ONRV9FlfbbyU34wsPkTUc8CHxSg3SkHX4ODqaNhdXmrtmcuxVf5IWcQWjJcXhy7S+tZlbj9totvxvvbedJz9mDMkoxwdPlHStjtN6xsNeJfPH1D6XxxOARrmoFoL66G7iExl8j/aJk5zfF10AORrqvtMyqyW1OI8v/VkQQqJIlRUmGMvrmau0k0gL/QlrWMMl3cOZ0IBDGRkESGf+sdQkPAW4Nj09T82A6WbuKKbQSAT9vOHEq8V//eorSKN8pT9De6bktseqp1+oVFwZ3oYFIy6g==
+    properties :
+     x : 519
+     y : 418
+     width : 472
+     height : 236
+     tab_order : 14
+    style : {}
+    controls :
+     -
+       name : LIB_Connection
+       identifier : 0x2aabe2ba024e936c
+       internal_properties : HgAAAB4AAADhjj30EoqPS7Z3BMUDdpZigVauFvsgF9Sgy3BYWi6iCDxx86sE4Ajer2I12oTpRSOQTw3A4XfK92TZvIk4oYpCZKP6XiU+gxpgZHSqJ3DgBp5YxQprLWKuFbA5eu1XbRGcGa07QjLe7bar44ALKuQezaT8/wx1ZEBm/pyQ0X1lyGrl5mZ7AasysrRHnINJ07fKgirewnqZFyxKtz9Zm/rV4nVSRG9uWH3nykRgeQWqimrVJ2lK8yhcaNjIiutUaV6x+FhYsHLWxyfOqbH/07GQYapcieBRroDQ4RpYHAzRrgMDwLQ/9YP/8cgdvNbACIUuUWbd04e316nW52ZvfOZ9cx74v0RHx4h2tJg+IO4ZAors3/y/IyuwAi59VgjhsWteWrKxVYO90dyRZf6VT4KkI9+sau1tgZBgm2v20FPE2EV82CSwX+CJJj37KIeYYBZcCa86IFA7rHV21U3kQtthSE1yMHtQLJaYTh1rgwn7ERdL1JM=
+       properties :
+        x : 13
+        y : 19
+        width : 139
+        height : 20
+        tab_stop : 0
+        take_focus : 0
+       style : {}
+       type : 3
+       code_elements :
+        type_code : 2
+        p_codes : []
+     -
+       name : SAI_DB_Server
+       identifier : 0x2aabe32202d327b8
+       internal_properties : HgAAAB4AAACpaVc1K7i4WlpW7/R7tWdqxprzxdhqt773/qpFxoPind0EKnwZrBrOUV8+DKVjkZtyhpmVjEnFrBxZJSY7HxFdFzDMCdyl67T0EVhD3v8ZFAK1hyMhpko8t/AlcPUnXJIUz/kV5x1QbiMthcLd2xi+FEYOB3d75WGUqrqRKI2Fx9zpULlwlKHoR/vFLBlHQJnh04FLyrxKUMtIKvsOCeB3fL0X972J1hzH91wh4vto4h7N2vt0jo1emLIPctl1GKdcswsCkG2N7vIuiJg4PQgWJQoQJiOvRH3d3vW0LDaBrJwXH4erMmxvFFYz63osSkMLGf4sFEP/6ifvHi/+DfEsxpqs+NIj2Hg1vGV3Bi0daWr2yydBZg7KOI7vosPME5qAFj/YuC5jvCForjsf/SjP4MdTG1cElfrJtv/nLY53djSWZDpBt5o0oEBeqxJGtAa7o3/Bp6wsNVgl3YHuS0KPTUJOLbVf0ORV2r4RTCb5MYkIWmt102ob9hq1uCtoGW0KrSDmVEhAgysmTQeOieMXgsiSyP8DlrHcYVwK+tV+mEgczNh6Xi0tmlB7vtnPIrYE2R7uKJw4xBrIyek0la4aJxgPvPkvTplFjgdhBtZk1YQLKzwbWn6lBaXd6rO4SY09r2X4xij6MkVRD0F0DtKgqeA8dmTFJHTWaeVmkdkauEEaaxqlEbFtgNSTPP4zqW1zXrksP874JyGRpeI2OyaJIXe0bNqhSxBv5jaZNElZ5JwVfqrFEBwfwzpV8W5loK2XYTjv70x0eiUDUZO0cofjidtYPQvXSn9OXw4qLAP0DALs3Xx0CEHnijjXqFVkqRfjoCoY7+T+TBSv9wgvgLZLsqW6ARUQBqblWdtIv60rknkGG+v65nNTqN02zWJfZNmQSDc5hx/Ae4yko1Ro5Xe0XqoSntI6RjH3LHqP3mjTMsR6L5qm+7sSdCOUig/TuBBs0CjR4FRKoJswr6DP8WQIKoej0NCzEo+xiYdzlGX1RN7VlIj1n+FtXJn2yvLP6wTAT3qX0Pz8+ARLUraSzwzGcyBF8Ttkx/AH/nFYV/0T3Ag4+PIaEQUQc8JgVn1NrGE1XY2xAIQUTzyvvBWWbByHzSjbQilInG/jmZfh/Z9ME6Tw5ahZCKGYp7VwGzt1I0Io5jZmnmYlj4U+JODqzNl693Y2sYn7jw6qhRH4Nl7UqjMYkW3UoYUqfEa8xeLJI0OgXfKU2pnWu3xHg5i6yMt0cnYzUvglVU/JLKkZ0YvQoDd3Vbgh9WCJaVfuNevCbUaEjPy0TakzrJ2B9GUzVTPvMfzAX4SN4OM1Fserkd0SCWZndK1cWf2fIfX2j75pr3EtXNfSfdSJ7nziYTfW7/Bp0iPJ/tHncxu75c1ekORhQc4U0/TuWTM1xbEyY/MYBvL1tpoH7niKLz6GqJs6m7EYwyMbQbP0oniWdu4r4Kp3GKRZZ5FSkppIYdhvkUIXRoQoofG/aEdRW8Ita0tnf36lmJQvIeG9pGQlQl/N6/APU97V2Fb9se014bX0uktl6f15dFe3srh2VrScnbBNba8QzGiUzXxG2j/du5nvp2vggpzJYvSJfB+UZeOKCY3x85eVxXZrdKIJ745chX8Q9eCkkzUVtmizubxOGkb5/As6r9Ttr7zxPpBAT+kXN06qSwR3d4kI7oOOTB9zZV2OFRJk65HD05h8oJI8xoccmrJrfl2flihHwL1k8pAvo+jdPW55ma9DJlDpzE2IABfhtz/1Zh1i7aPalxeh5HwoTVP/ELb0OKQ2uDOAt4yVofHMUPKPst6rt5HVpOZWySgkrxikvg6JrAnbueHYBBrFUQVhpAwhvcTfwP/cfoaYS3rz1PMZv/6eodhVeKJScRkUOd01rcyDKjnLANErOjH3DHFndQJI8SjvyuwyqTr8vGREk66BoKg=
+       properties :
+        x : 18
+        y : 50
+        width : 356
+        height : 23
+        accelerator_key : 65535
+        tab_order : 0
+       style : {}
+       type : 2
+       code_elements :
+        type_code : 3
+        p_codes :
+         -
+           type : 276
+           enabled : false
+         -
+           type : 277
+           enabled : false
+         -
+           type : 278
+           enabled : false
+         -
+           type : 338
+           enabled : false
+         -
+           type : 339
+           enabled : false
+     -
+       name : SAI_DB_Database
+       identifier : 0x2aabe36202da21a8
+       internal_properties : HgAAAB4AAAAA+anbRIJurS0UcJIOckOML+fnLpx+/S15AS5/PR14KPYk54l/kOfPikPMHddgYlI6wMLE9ljp4maPnJ9wCfvzhidKzGHsskFsT/d3k+vsMPKefeyjM8Rw8ey8UU3dHFcst+8AcoqHb4eTgBs7ngb9dquSl0nAUKYOLeaI9N5acQbBiuPRdqwKCaGnqCO0vZp9V8hH/qcDBRsuzDQReDUcfJFSdJJtCBFAyl85AsMysPLPjXZr84fUuyI6y/Stp8tJGgturQe6WEJS2buWoXC/3l8EfOvWu+geePBuznG3R/Em6axiO9QRzK5UK19zRFG0J9H6pMxcHopukDQv35ivGk1Q6hTYMSZRYWc96FcUeIzytom1o20mZYDsAoHy9QDva79mmctxu0jqYCfvj3KhE9jQP9cRbMRF+oo9mw+GB5FvfwXw20L0SlRjnn/W6qz0kk0KUXTmY54+Pgl7dsJxH2sgh2cWWzFjjssk9LuYg9w9Z4crCF9pd6SLhu8BvqzMvjzptdWBEa+9xLeyTgAu3O/muBhNLQ70AsGJ4LnEKzjXvLh02Xrj7iyr1SYcXb4uOOuAjQyAWB7s8tFsnPBZp3db4WkNeJVc1mG8TB/zCcmGFo3sxzPxhJw1Vd+d8JufTQF8Sa5+24d+9LAtdOc2p/yeyVkTW5hpW5OiHgrVe+OT2O2qmocw9k5n0G6VtSzZSGpaWB1YUVh1SBbEJAeZ3WJj7OcF2P4T2K39b/eVgQITWAyBtl7v3eSvDga3c9YJEvj13ZWSbG7gWUhVwur1raHSCnK9MneIzJouIBhvf2hnRIVniw6785Eta8Rb1gvBOF62GJExyIRUTOSYfjTHK+Q2l81Pp1ryfB1J3f3F2X0IxkEqXxbRSLm+0RnD3rBnu8wAIm/GzJjS8ir9qLuQhRssiZP8GQ5igggDg1fRJBOultPQGDdfjS5o8DI4ghFU0EYeN83onrgO2n6m2DD1WHuvFS845JG6adjlbULlk2LXqsW4EsHNweeXTk9a4R+i5/wq9Yn41C2L4VD7yKKHOyplNtavP+hgaPrEDIrLveSKOs3DmCey0PALAnpmMM6HZenwbXOMp4frG4+hYbzAG3ifC2Q12r0aKaqt6OBmCCrgNSO670WMWil1WQhKV9eQNC4zqUEv2coCZ7ql/alh88jC1M6iuQgZhVLof7/OOTlA6ZyF9ik+V3g5cWeulZAuBdphFZBes3PfPvjrH++/3rTzT1vEjwmcqHbhyuDsHb8ZbfEcgkJL/EsP4ygpd7MibAi5bBYLNDq/yxsY4tU064zM9BMCzI/QAMi9EhSCouR3Sg4fqNOF9PcvZTtWG0R79FFJvutbwGGQNEf1Amx+tM8rHVY6lf0EFx4gQ2VzduCUISUBcpmLbKcFtT7NWi8lOKBe+6VOY1VGYftJNo2VaQP5vnrPDsRvSNvhhSsf6aIh2cbJebJAAAD8Y2MA2PlezfFEz+qh21vnxDfSBLq61ogDzsyO2PhGqq5LkPuXtLCRvA/c7H/nSkVNHGaApVBh0rdw6WWqOmeo7rwCvKkvkjw4gv+X/mMUSVDpMk5uZchn8iP++ycMlgXlwfyK7/rfdVYskxlJjwG47gWNUrZlH895ezPswYQflEPpU0y6wAR3IdOKuZg4ULlS5Qu9z/dB549VvZJsSga57vWtQtpbOdlBhj33khSfiIQcaw0V/QOTbDsgzzvyf6bct/PKf81DrZ1QQV/LXpJ+cTn0yN/2Up/cTLABb79ekLkMmLDzraQclMe/B7/MyjjIfyh7oi/l6sj8cv6VJL/I3jzhjrZlyvTh1Yhgq5NBzOupeEnUpDRuJi7QOrFerdUQa14154eSYtqVnQemrETnYg5Nuu45tfap/Deg8CMJa3WVesieFNoHqEnW0fxT6Wy7BxevXyCpEmue/+Q=
+       properties :
+        x : 18
+        y : 79
+        width : 356
+        height : 23
+        accelerator_key : 65535
+        tab_order : 1
+       style : {}
+       type : 2
+       code_elements :
+        type_code : 3
+        p_codes :
+         -
+           type : 276
+           enabled : false
+         -
+           type : 277
+           enabled : false
+         -
+           type : 278
+           enabled : false
+         -
+           type : 338
+           enabled : false
+         -
+           type : 339
+           enabled : false
+     -
+       name : SAI_DB_Login
+       identifier : 0x2aabe38302e3a242
+       internal_properties : HgAAAB4AAAAd/BPaRXGsBbdu7dzGM5g/9TD6wmhBRVhcS8wyIr3HQ0QJT6TcaNDKrd6WkT+UzTpxzL+UzMe606bFIU8c4cDXvhHIY7q3FMhK8Qe2k9V7fPKaphaXvL7W8d/JgQMxcVMP1sI3SlDeHbPrb7IARntAzqxVB/H1g2PfQXUR3lV7wIxHp3VhcsgSIVAleloC6tTfcUWYxHnN+In5YGwfz/No3YTvII5gh25mKJppP38yi5pPUok4EsAmL+y0q3PF6NwJzU0Dj9BLzhfc2WEnsKmWUN+B074f50zvFjXBXrX5zQU3Jbs5DjNroo+SYLLBlFPHWsdrZ1Ugpgg0c9U7G5brT4geeRxW+RNuENU4JkeVxw3qnFFhdAI7+UXnlsDGp2OjpL/vH2a5SGPNPF3S5QYwcdlsYX16FSPFPsOoURs0cH99gmXs+LvdMTPGjI3Ph20b8hPIFbr5o8IbRYCLT/gm8ee0D9ggwMlb+krPGWnH68FGCtDDHLs+VGZyZu+E+7vNjFnwsdkYvQgVh8eXkPGoNL0URh3I0XNYY+IUC7+qJn8PWTk5wqJdyE2/H4jhaQBsr/R3z91nldVzr4UN3ve8wcD0Nd46Ff7VEtSqYSybMW+mC9/ckscXMrCM0MUitbKdCWBOP17I6IaO33zvU9L0NAioEh5oGWvQ23zuQBpefXu3amTUmGI9foGdyKf/8YdMnKSsBFEnNmuZnc2YmnkKWEMPvmk/zIq9k2mSTr2GfRN219NMozsubg+u64TKe+n/qX/tHWQLKjowQGlZllIt80KsuE40AVCrud63TvzLqs6i5zi+Bos0C8Ytoi38SXpvVCeg/PEatgNigy7NzQYRgFG97wVY1hW6U0u8TuU7FpYKJKuGTP3IsoFVi/NFuyecJHFNdwAKHHr2nYkvtWuN86jKvkbpdyWyPGAOr1wx3U3j4dFAItnB/bl87dLv8lD/4uS75wJJnV4yQSQsx8se4cAdiKUx/dRYNV9ZzZ9yCn94KBpsp0QyJ9t+rDcX/ND1FnaRkf94sI6G32WWmnqTQUy6ZltH/xSt20p5O+KLkS4Q3+POdBcGh0kHz484NBbTZbiM/sHwr46M2fIO3/CYR6gS9XFDBsXj4LSu8VoagNpMeh25PYH04VZfasVUbd0c3GVxiDFHXanfEceuc4NrmdqdNg+8m8a4ImLnSptEX3f6/D7cHm8ojGe9jmJI406ER4tjAPyUhdSuQAOwiz/LyAqEmf7oheOHQRzcJTqSQ6mn1B81Xiyhozjh+NntGS0KKGEBD1h/1Kuy4xJVKLUo6T6RBBp2ciHV/3reX1a+AsaVcWge2NlnGyyHHlKQZ1R3LD69SVO9xt53yIAwlJTi4ikoI4foGx8pZmD75DHflhTECvXk4CMBZzBpEM2veA1vNh060gNsrQYFU9z27NF15w3sagFnesxUB90kYtEb6QYB0iCEYc7AV11GJlDE8pMWgZAoyvStS0R2frxFfC56tFLMmFNAuu7FB9Z+YdtXyKov5xEJHMfbfa45cZvqrXSfTO44OHHKbv5ZBGl9rpMhzrQPGKynyEHFUMR+o3KeAZx/eamt1wNM0+hlSFvyrSjtxwsIdvMD5apv4gaomHb5ueViPZ401XToV8Fg4m5KDGhHaGkD49jcBby6UNJXdV2hI2YxDPKQQhsI6jg8Tg4T+1d2hiw1CiBIs9Lr1hetAYdbM5GxmQdaxu8iXDjkZTtF4yw8phFV/HNV+3ixtO/qqquJ/tsti3cHN3UN+e6n5WQY+y9S5btk4bWCvIGvYE2TVAcGx/Cb1o59gH3q5DDn8CbANxkGh5NAkVXeC3BBM3RDTo+FWSWORutZiKxOWH17wPmXieaZLXOKX5kDGnpVHdfkaCTi0/mZQrYNKxY/Pzu/P9xMNXA5WskDPKRloE9rDQDX
+       properties :
+        x : 18
+        y : 108
+        width : 356
+        height : 23
+        accelerator_key : 65535
+        tab_order : 2
+       style : {}
+       type : 2
+       code_elements :
+        type_code : 3
+        p_codes :
+         -
+           type : 276
+           enabled : false
+         -
+           type : 277
+           enabled : false
+         -
+           type : 278
+           enabled : false
+         -
+           type : 338
+           enabled : false
+         -
+           type : 339
+           enabled : false
+     -
+       name : SAI_DB_Password
+       identifier : 0x2aabe3b002f454d9
+       internal_properties : HgAAAB4AAABCNrKJ40Bh8nArtzmPFPW0Xd/Nm1TVtN77mfUSUelsVL9rMyCaJttN6XAjyQj5aPJpaMb0rsw0AvUvtidoYH+Jnk4j1KTdlgnNy0IKmHi0yNMLOv+oDXRHVO0WYG3kex96nh365mcy1JYYuISLE4hxmrRlfMrYJnI5mIvZdPTOQHFotPksuPIaeb0PJBzrwbjTSTOONhNL9CxUAQeQ+ZR6bqpxEwZWbIE3pW4u0p5I8C3fLll/uqtbM9GPfepOsAOfajhAG2rRNFaORyk8t086qG3FxHVhr4My6mneThlpVKF95dXLO8UMUJvo9MXItYUQDPKRKFx0SCRhlaUqGq2MU8z0PhNZdzd00f3z4mecw2lqc3zO1ihR37auOezM/xUoHYT7qs1/oG7+OGzVXb5HfmrmPJwqo4QYe3idIunJ1tx9gDj5abTZIEL6/m7KtLQKZZCcZKo1uBoGhT6C9rW9pZfA3vHSiXFCPbNv5posiPV65onmNY42QI+ZqFEMWojeSZJBs7d2LX7w3CgJJXcZ36BjNKv1thVtF69LtoPpjmlX9gT28WWN7w+UiCg4sHmsnFD06pOfJA3uMyKF1E0P7eiLkzr+zOkhgPsxV4DkCACvGJROtTkrd0Zn3wF8wdkNtxkVxE9jzlpBwDqtJwo5JqSfICa3ZH5sAInJdIohMn3E75e5C1D3mwTRy24QsWVaE/aGKz/1u8y9ZHS5nEHGvk862fRLF6/a0ERQQBZ8AHcU/GAFC7ESBmaRtGpnFoESraoZwggRxmU4Cu2NLKkQmmRPqY5sumYCrTe0CGeuTK1bK1DOT15rHokXo8C4F307eSUtE7nsqVz/OaFLB3uDbxiX8EDx0OhO+04hP6prQTyCH9RParV+T4r8QeLcJr9788nkglcYV2Qqf+8T+f5WU66yS/veHFC3Lbsi0O7pnfHMxNH5WSp2L1XyaYdTiiFM7ASf6ZTqZM03LAk7IK/9lTdN8IpuZ8pCeeae+s8Hh4BEesKRZvWYFGNpecwM567uGRaLqUzPTWw6W5Eo1XdRwepKM5f92P3rQ94JF3ODLIaktP+lKTSRCfkKPlZkKB7EaNOw+CMUcwdTfOlTbACLM7qSgJGYttUKyaSrsMObLaimXOeaF0WW6Fup/a8OYi8OhPCQe+qeSJQNLMyaO9Hw6LmHn/pJAtjNP+lE4VzzR1L7pPrEote6xNCDjkwSV9bGLvkIxSv0JeZVdZ5zZEmxXv4CzrgHRYQ14QoOt+QCqNWYEhi9fW+mDMuh30UdcWLCAg6qrnwddA6bCwq3xs2I5ZjXjqSOoBfiY8ODGvOVcAjfUNqzMK9k4t88e80B/x4bUbFtPUS9M/GIYaFBYfhoTvelKBvpLpwxuxq7YQfLZt6hj+tKWHVZxRiQ8dCACZfVzt+rs06YakQtSrtzUIBkuwJpzIpG2mpTidhltLQMDl5xN7yBAXyXEvKxSgJCKVYB9yto3nuvjPs/Filh1OZ022WFkkl6dY2xnTx4gzPvRE1453iXXZg1wwajP5MONfgW0aM5W2Lt18C404mRJ+DYKOc9CnmcaYwroj+0ofzs/aJLkUbRr7RTKvWOYBAOnYdH0kQS2oUwrG5H6mScr30TMnMF5xG0xTlwDTWHrRfRm3iFXhNl1PQJu9Nzycsr1EQoa/x7XJfhXsuAc4NIh4UNPeGB7laUbK2jdDIc6g99tGSH1TfncQAlGuWOy2H/wGwshVYmp6Q5zqMKw2ztAtnkC5Jh1AtxUVHsD+oBuUMAiQ0Xt0/rZ7dVgzjh2OWEiJoaDU9fezMup1SLOLdhny2np6jOeYngez4hpvQuvEUOAJH2tCtGwBd/apEQnQfLdVMY5Q5jotxWnMcub6Uu+4YO1fSywVtf2omkrdNShFU2DvQX45ErXH0t7/3S+Q==
+       properties :
+        x : 18
+        y : 137
+        width : 356
+        height : 23
+        accelerator_key : 65535
+        tab_order : 3
+       style : {}
+       type : 2
+       code_elements :
+        type_code : 3
+        p_codes :
+         -
+           type : 276
+           enabled : false
+         -
+           type : 277
+           enabled : false
+         -
+           type : 278
+           enabled : false
+         -
+           type : 338
+           enabled : false
+         -
+           type : 339
+           enabled : false
+     -
+       name : BTN_SaveDatabase
+       identifier : 0x2aabe565049cfe0c
+       internal_properties : HgAAAB4AAADWllE8AaHN0dPHR9VKBqufz+BMr+19G2tkY2HiBcgJs0BeouZDN4oD3f4yt7uAKHa13DD4QvUDpCOa5Y2sOc1bGwSVlH0NVkiw/7J3LVI7y3oDMzHg/Dw5QFvy4GMufMRO+uS4sGmceDNShtJywOu5cTFrl77YSL3xsVGAtSGCTmIAuw0nWEz+JbeTF3F96Ts3ONdwc4mZ3XxjNj1bh3x7W/BjL9pj+eYYSY9V1rJBSliFBjvp3oSc0VkY/a4HP/s8S3ZzM0ZpoMK1XNnOc3lnYlONFGlgMFviu90yNRCbLBvy1v5thBGK66XEqQaMq01hGhHJwGbUuidCRvAL0imW5Ak+irR7IsHL1eRMTLYHUO8D/O1uWCs16ST34OP4qF9clBxHKTWotePMBoIYKZuaoGESxf9+sBG/HX9hAutrIvYXqkQjACJZUhA+XV4FLpTXdjo6i40DSg2xbiCjHXKzMUESRFMafmw5CriNRxFP5GzMW9nZ4jLUkaY5Vq8ktzfTbF/ize3qbMB44F7lC8f034EGGuNxjRTpWYRyuzTqSeXk9569PH/7yLz07Hg3yzXds0bdCX39rmdX+PNY4zE3ss4xHWDSKQuBnA6WI0CrIkYxJC8K9wgrm1wVXJ1tK8AyCLCM5+0U/Qvy3aKwOEwh5e8RCOQhL17HfnEIVqIn5jC1UEH3Q/lA/mlBvWuK/lm8ZSWWIWM9RlZL00XPLF+zMjr8UZJhKsmSvx0zAJ4x91OSmHSD9z/rRQiZ81Mn6TPsk38PdoxB22KtipvjwIjU8PSQ/aoeXoMyAB9QlYrfhqNWGMC/4YZDcpgHkfKdRyX9v5j6U+8cS13OfpJJT4xcSg9mwPyWSoogx7IMTC79Y7/9nTnkIUmBfWujGWS/Qb9dxTLTP0jJfJ2se76N+lf3+97GWTCKzQ==
+       properties :
+        x : 374
+        y : 196
+        width : 80
+        height : 24
+        accelerator_key : 65535
+        tab_order : 5
+       style : {}
+       type : 4
+       code_elements :
+        type_code : 4
+        p_codes :
+         -
+           code : |1+
+            // =========================================================
+            // SAVE DATABASE SETTINGS
+            // =========================================================
+            
+            sINIFile is string = fCurrentDir() + "\settings.ini"
+            
+            
+            // ---------------------------------------------------------
+            // 1. Check fields
+            // ---------------------------------------------------------
+            
+            IF NoSpace(SAI_DB_Server) = "" THEN
+            	Error("The database server is required.")
+            	ReturnToCapture(SAI_DB_Server)
+            	RETURN
+            END
+            
+            IF NoSpace(SAI_DB_Database) = "" THEN
+            	Error("The database name is required.")
+            	ReturnToCapture(SAI_DB_Database)
+            	RETURN
+            END
+            
+            IF NoSpace(SAI_DB_Login) = "" THEN
+            	Error("The database username is required.")
+            	ReturnToCapture(SAI_DB_Login)
+            	RETURN
+            END
+            
+            //IF SAI_DB_Password = "" THEN
+            //	Error("The database password is required.")
+            //	ReturnToCapture(SAI_DB_Password)
+            //	RETURN
+            //END
+            
+            
+            // ---------------------------------------------------------
+            // 2. Save settings.ini
+            // ---------------------------------------------------------
+            
+            INIWrite("DATABASE", "SERVER", SAI_DB_Server, sINIFile)
+            INIWrite("DATABASE", "BDD", SAI_DB_Database, sINIFile)
+            INIWrite("DATABASE", "LOGIN", SAI_DB_Login, sINIFile)
+            INIWrite("DATABASE", "PASSWORD",SAI_DB_Password, sINIFile)
+            
+            
+            // ---------------------------------------------------------
+            // 3. Update current connection
+            // ---------------------------------------------------------
+            
+            gMyConnect..User		= SAI_DB_Login
+            gMyConnect..Password	= SAI_DB_Password
+            gMyConnect..Server		= SAI_DB_Server
+            gMyConnect..Database	= SAI_DB_Database
+            
+            HChangeConnection("*", gMyConnect)
+            
+            
+            // ---------------------------------------------------------
+            // 4. Restore file directories
+            // ---------------------------------------------------------
+            
+            HChangeRep(FIC_ADM, "Commun")
+            HChangeRep(Int_Doctolib, "Commun")
+            HChangeRep(ASSURCH, "Commun")
+            
+            
+            // ---------------------------------------------------------
+            // 5. Confirmation
+            // ---------------------------------------------------------
+            
+            Info("Database settings saved successfully.")
+           type : 18
+         -
+           type : 161
+           enabled : false
+     -
+       name : BTN_TestDatabaseConnection
+       identifier : 0x2aabf43005e3c927
+       internal_properties : HgAAAB4AAABb2gFUQnYuOHo36tjwdJmUim6vCp1A/Qxp5JUu7aT8d4iqS+Jlw5RjQHTfasOKlBKZP33XQ3SyDNUnVkkqaXQil7oxtl6Fj76R7nRdSIb5dl7vp10arsNFruU1eEIrH022BtPW5Duaww1ehmXR8TFP5bDwtOvhhnOBnd72UwB5Z5cWwMjmocmFnNtJdGa7SU66cjtijfMGM11S5tfwIUk57zwCod6y7T0zVZ2zKzj2FDa9+vTQFJ3ilfnjQH8GD15meHuaH7I3qJOa125BstYhx0YUsxSMfpsXSE9qlD/uuCbYGsLkAJyKKbjp1mWKFrTPleQkbNnjQo82l9TASrDZPLme5T/ggmLPIx5MZ7Mo1l/dlOtZlPiZmObgByeaGzbY+NMs81QzbjylbmGt7gnFxIQl4cpyK6COdL4DIZQRJk/ubwwPvYBnW/cjwE6zYl52de4p4zCj9FnjGD6zQP00wWaqmTlWo7XJXd4jW4byA57PFcqr8mWh9ekFNkUxfnBbD0vLNwnbCcYP3LZ/HnIdcUwoQ4OnqJmFElTuXXfHhE3nV1MrMLSG7EPSskw09OLxuCImUXOMxbe0+C9ioBAo1ouVXuL+ojQTXz6Krdk2SzRA+naCGRXgYc9jGqGQTouYg3Sd6fktmk9JERKyMwseHSonnwKxtN35YzcO0gsY8eyaKEQ7EbBTeFbdbXEfgZ76orWzRzdMQVYITY9/GzbKVgEm/F6DWzA+LCMhbPdyVL2rDMOB53S6o5mD3cv2WUtBzRCjIeeToTmDp5LkkCBGEZy5oQUd9Cf7yGeMP2tGpkrkDXrqvk5L0pekxrkzT4ciKY28Ovx+QYJ/B6lKE4ByXUIMVTKC5/Gk6LqRzfsR7JdxcRjc50DQ79oZPRAQhkjU+JvtMOUR+sz4VyFVI4e3rlTRzUKwTNE=
+       properties :
+        x : 202
+        y : 196
+        width : 80
+        height : 24
+        accelerator_key : 65535
+        tab_order : 4
+       style : {}
+       type : 4
+       code_elements :
+        type_code : 4
+        p_codes :
+         -
+           code : |1+
+            TestDatabaseConnection()
+           type : 18
+         -
+           type : 161
+           enabled : false
+     -
+       name : BTN_SansNom1
+       identifier : 0x2aac36ee129d7ee9
+       internal_properties : HgAAAB4AAAAzoPYnT/TW6dl4m6zAYZOsmGCEiUuCM3NTTBFKpfuVYLnlAcVrlbXY5TB3fcnBhssTZIA8YOK6VJoEKegHPRhJ8UHk/+iLx2tEPSjxQMT6RTxIgWbDehWBVOpE1BDWvo8bxSWk8RKEoosDiJ3dQT1To3PwWpfhEYJA65vJfnvJt2sw0Db43ca7VLCoCVhdOFsFj+Q82GiwP10Q/Lrd7ihj1iXhgaiAg3QCIvhJe7znKOHUC20gQQzmzK3MWypD92WOcgma0TmiEedaVPVSlbH1ljksBUH8OEq27DRq3HMsCmu5B1rvCRuwLek9VegJ+jU3fZAMcLfTNj+fi/3twgUKOHGx4VNvePSdA73Ct9j/xWl52/m1XOC/BOAQpEx/cNdgeQpaGL/ECXBmKKUXyGjRIK9h/4mbsV9h61oMDRQQTG9p4Yezy0y6zTKtjWolBuBDS2SDM/trfQqxs9pVub0EQTpWcMKXAA1DWA8N6bZg++JMWilZSengdR9UuYuYE37Rvf/eHwpRI8IuE4/ZeT4Ed4UkddV3vhQbrDAzfGiyOqBp1cjUIxKNcH3GE48FLTIx42Z/OS1731wTGrYCWnWzpA19uy6vGIJ7DeHkY+GNEYc6+l5oVKX1BwEp8B75qjY/nretEjKGZ9Fuqjdr4orUHAlQ3VL67IPV5WCdIeXJkUvTYig9Ep6HHoO0B3qkoy2W9LU5sVmwZivm0y8Fc8jirpom6EY3jSGWhEOpV7DqvqSaIqSrPT8dIGzSzd+t3+nH6cvnSCyDT7EuBYqVLB+7LDrVDM1druh9xwq6RfjxfFmCpQ8nYEWp5J14h6HdQF7z6nEX149okKel7Ef5rh8wAZ02wClPg44tuMb5YBwJrwlU8j7oR2lV7OEAss1aRgkR0NNMDzN6I3q9L3yGO7ez/RkmwQ==
+       properties :
+        x : 52
+        y : 200
+        width : 80
+        height : 24
+        accelerator_key : 65535
+        tab_order : 6
+       style : {}
+       type : 4
+       code_elements :
+        type_code : 4
+        p_codes :
+         -
+           code : |1+
+            MyQuery est une Requête SQL =
+            [
+            	SELECT COUNT(FICLEUNIK) AS NbEnregistrements<§cs:3§>
+            	FROM FIC_ADM<§cs:3§>
+            ]
+            
+            IF HExecuteQuery(MyQuery) = False THEN
+            	Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+            	RETURN
+            END
+            
+            HReadFirst(MyQuery)
+            
+            IF NOT HOut(MyQuery) THEN
+            	Trace(MyQuery.NbEnregistrements)
+            END
+           type : 18
+         -
+           type : 161
+           enabled : false
+    type : 145
+    code_elements :
+     type_code : 60
+     p_codes : []
  menu :
   name : _Menu
   identifier : 0x292573e513b5f221
@@ -1176,6 +1843,8 @@ window :
    -
      code : |1+
       PROCEDURE MaFenêtre()
+      
+      	ChargeSettings()
    -
      code : |1+
       
@@ -1246,8 +1915,8 @@ window :
       procédure getRequest(_route)
       
       cMaRequête is httpRequest
-      cMaRequête.URL						= uri + _route
-      cMaRequête.Header["Authorization"]	= "Basic " + authorization
+      cMaRequête.URL						= guri + _route
+      cMaRequête.Header["Authorization"]	= "Basic " + gauthorization
       
       cMaRéponse is httpResponse = HTTPSend(cMaRequête)
       jsResult est un JSON = cMaRéponse.Contenu
@@ -1274,8 +1943,8 @@ window :
       
       cMaRequête is httpRequest
       cMaRequête.Méthode					= httpPost
-      cMaRequête.URL						= uri + _route
-      cMaRequête.Header["Authorization"]	= "Basic " + authorization
+      cMaRequête.URL						= guri + _route
+      cMaRequête.Header["Authorization"]	= "Basic " + gauthorization
       cMaRequête.ContentType				= typeMimeJSON
       cMaRequête.Contenu					= ChaîneVersUTF8(body)
       //cMaRequête.ProcédureTrace			= ProcTrace
@@ -1301,8 +1970,8 @@ window :
       procédure deleteRequest(_route)
       cMaRequête is httpRequest
       cMaRequête.Méthode					= httpDelete
-      cMaRequête.URL						= uri + _route
-      cMaRequête.Header["Authorization"]	= "Basic " + authorization
+      cMaRequête.URL						= guri + _route
+      cMaRequête.Header["Authorization"]	= "Basic " + gauthorization
       
       cMaRéponse	is httpResponse	= HTTPSend(cMaRequête)
       jsResult	est un JSON		= cMaRéponse.Contenu
@@ -1324,6 +1993,200 @@ window :
       
       procédure clickChanges()
       	ExécuteTraitement(BTN_changes,trtClic)
+     type : 458752
+   -
+     name : ChargeSettings
+     procedure_id : 1921798986521409873
+     type_code : 14
+     code : |1+
+      PROCÉDURE ChargeSettings()
+      
+      sFichierINI est une chaîne = fRepExe() + ["\"] + "settings.ini"
+      
+      // URI
+      SAI_URI = INILit("nexapi", "URI", "", sFichierINI)
+      guri = SAI_URI
+      
+      // Authorization
+      sAuthorization est une chaîne = INILit("nexapi", "AUTHORIZATION", "", sFichierINI)
+      gauthorization = sAuthorization
+      
+      SAI_Username	= ""
+      SAI_Password	= ""
+      
+      SI sAuthorization <> "" ALORS
+      
+      	// Retire "Basic " si présent
+      	SI Gauche(sAuthorization, 6) = "Basic " ALORS
+      		sAuthorization = Milieu(sAuthorization, 7)
+      	FIN
+      
+      	// Décodage Base64
+      	bufAuth			est un Buffer	= Décode(sAuthorization, encodeBASE64)
+      	sUserPassword	est une chaîne	= UTF8VersChaîne(bufAuth)
+      
+      	// Séparation username:password
+      	nPos			est un entier	= Position(sUserPassword, ":")
+      
+      	SI nPos > 0 ALORS
+      		SAI_Username	= Gauche(sUserPassword, nPos - 1)
+      		SAI_Password	= Milieu(sUserPassword, nPos + 1)
+      	SINON
+      		SAI_Username = sUserPassword
+      	FIN
+      
+      FIN
+      
+      // =========================================================
+      // DATABASE
+      // =========================================================
+      
+      SAI_DB_Server	= INIRead("DATABASE", "SERVER", "", sFichierINI)
+      SAI_DB_Database	= INIRead("DATABASE", "BDD", "", sFichierINI)
+      SAI_DB_Login	= INIRead("DATABASE", "LOGIN", "", sFichierINI)
+      SAI_DB_Password	= INIRead("DATABASE", "PASSWORD", "", sFichierINI)
+     type : 458752
+   -
+     name : TestDatabaseConnection
+     procedure_id : 1921882287391664499
+     type_code : 14
+     code : |1+
+      PROCEDURE TestDatabaseConnection()
+      
+      // =========================================================
+      // 1. Check fields
+      // =========================================================
+      
+      IF NoSpace(SAI_DB_Server) = "" THEN
+      	Error("The database server is required.")
+      	ReturnToCapture(SAI_DB_Server)
+      	RETURN
+      END
+      
+      IF NoSpace(SAI_DB_Database) = "" THEN
+      	Error("The database name is required.")
+      	ReturnToCapture(SAI_DB_Database)
+      	RETURN
+      END
+      
+      IF NoSpace(SAI_DB_Login) = "" THEN
+      	Error("The database username is required.")
+      	ReturnToCapture(SAI_DB_Login)
+      	RETURN
+      END
+      
+      //IF SAI_DB_Password = "" THEN
+      //	Error("The database password is required.")
+      //	ReturnToCapture(SAI_DB_Password)
+      //	RETURN
+      //END
+      
+      
+      // =========================================================
+      // 2. Temporary connection
+      // =========================================================
+      
+      cnxTest is Connection
+      
+      cnxTest..User			= SAI_DB_Login
+      cnxTest..Password		= SAI_DB_Password
+      cnxTest..Server			= SAI_DB_Server
+      cnxTest..Database		= ""
+      cnxTest..Provider		= hAccessHFClientServer
+      cnxTest..Access			= hOReadWrite
+      cnxTest..ExtendedInfo	= "Infos étendues"
+      cnxTest..CursorOptions	= hClientCursor
+      cnxTest..Compression	= False
+      
+      
+      // =========================================================
+      // 3. Connect to HFSQL server
+      // =========================================================
+      
+      IF NOT HOpenConnection(cnxTest) THEN
+      
+      	ToastAffiche(...
+      	"Unable to connect to the HFSQL server." + CR + CR + ...
+      	"Server: " + SAI_DB_Server + CR + ...
+      	"Username: " + SAI_DB_Login + CR + CR + ...
+      	"Technical details:" + CR + ...
+      	HErrorInfo())
+      
+      	RETURN
+      
+      END
+      
+      
+      // =========================================================
+      // 4. Get database list
+      // =========================================================
+      
+      sListDatabase is string = HListDatabase(cnxTest, hLstNormal)
+      
+      IF ErrorOccurred THEN
+      
+      	sError is string = HErrorInfo()
+      
+      	HCloseConnection(cnxTest)
+      
+      	ToastAffiche(...
+      	"Unable to retrieve the database list." + CR + CR + ...
+      	"Server: " + SAI_DB_Server + CR + CR + ...
+      	"Technical details:" + CR + ...
+      	sError)
+      
+      	RETURN
+      
+      END
+      
+      // =========================================================
+      // 5. Search requested database
+      // =========================================================
+      
+      bFound		is boolean	= False
+      sDatabase	is string
+      
+      FOR EACH STRING sDatabase OF sListDatabase SEPARATED BY TAB
+      
+      	IF Upper(NoSpace(sDatabase)) = Upper(NoSpace(SAI_DB_Database)) THEN
+      		bFound = True
+      		BREAK
+      	END
+      
+      END
+      
+      
+      // =========================================================
+      // 6. Database not found
+      // =========================================================
+      
+      IF NOT bFound THEN
+      
+      	HCloseConnection(cnxTest)
+      
+      	ToastAffiche(...
+      	"HFSQL server connection successful," + CR + ...
+      	"but the database was not found." + CR + CR + ...
+      	"Server: " + SAI_DB_Server + CR + ...
+      	"Database: " + SAI_DB_Database)
+      
+      	RETURN
+      
+      END
+      
+      
+      // =========================================================
+      // 7. Success
+      // =========================================================
+      
+      HCloseConnection(cnxTest)
+      
+      ToastAffiche(...
+      "Database connection successful." + CR + CR + ...
+      "Server: " + SAI_DB_Server + CR + ...
+      "Database: " + SAI_DB_Database + CR + ...
+      "Username: " + SAI_DB_Login)
+      
      type : 458752
   procedure_templates : []
   property_templates : []
