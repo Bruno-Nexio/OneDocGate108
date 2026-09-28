@@ -94,7 +94,7 @@ window :
          cMaRequête is httpRequest
          cMaRequête.URL						= guri + "/events/changes?afterChangeId=" + sValeurLue
          cMaRequête.Header["Authorization"]	= "Basic " + gauthorization
-         cMaRequête.ProcédureTrace 			= ProcTrace
+         //cMaRequête.ProcédureTrace 			= ProcTrace
          cMaRéponse is httpResponse 			= HTTPSend(cMaRequête)
          
          if ErrorOccurred then
@@ -292,7 +292,8 @@ window :
          						end
          					case "updated":
          
-         //						 UPDATE UN RDV QUI VIENT DE ONEDOC. 1- ON VA CHERCHER LA CORRELATION eventId -> externalId
+         //						UPDATE UN RDV QUI VIENT DE ONEDOC. 1- ON VA CHERCHER LA CORRELATION eventId -> externalId
+         
          						route = "/calendars/" + member.calendarId + "/external-event-links/eventId/" + member.eventId
          						resp is httpResponse = getRequest(route)
          
@@ -310,10 +311,12 @@ window :
          								HChangeDir("RDV", "Prat" + member.calendarId)
          
          								REQ_getFicleunikByRdcleunik.RDCLEUNIK = rdcleunik
+         
          								IF HExecuteQuery(REQ_getFicleunikByRdcleunik) = False THEN
          									Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
          									RETURN
          								ELSE
+         									UNICOLD is string   = REQ_getFicleunikByRdcleunik.UNIC
          									UNIC	is string	= NumToString(Val(REQ_getFicleunikByRdcleunik.FICLEUNIK),"010d")+Left(Replace(jsResult.startDateTime,["-","T",":"],""),12)
          									HDEB	is Time		= StringToTime(Right(jsResult.startDateTime,8))
          									HFIN	is Time		= StringToTime(Right(jsResult.endDateTime,8))
@@ -331,8 +334,17 @@ window :
          										Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
          										RETURN
          									ELSE
+         										REQ_updateInt_Doctolib.NEWUNIC = UNIC
+         										REQ_updateInt_Doctolib.OLDUNIC = UNICOLD
+         										REQ_updateInt_Doctolib.CLEINTERV = member.calendarId
+         
+         										IF HExecuteQuery(REQ_updateInt_Doctolib) = False THEN
+         											Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
+         											RETURN
+         										ELSE
+         											// SYSLOG
+         										END
          										//Trace("Update")
-         										// SYSLOG
          									END
          								END
          							CASE 404:
