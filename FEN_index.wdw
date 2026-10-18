@@ -73,46 +73,46 @@ window :
       -
         code : |1-
          /*
-         Script synchronisation OneDoc vers Winlogie avec gestion du lastInsertId dans la base de registre<§cs:10§>
+         Script synchronisation OneDoc vers Winlogie avec gestion du changeId dans un fichier<§cs:10§>
          */
          
-         // ON RECUPERE LE CHANGEID DE LA BASE DE REGISTRE
-         bTestLecture est un booléen
-         sValeurLue		est une chaîne
+         // Par défaut, on récupère le dernier changeId dans le fichier.
+         // SAI_afterChangeId permet de forcer une valeur uniquement pour les tests.
          
-         nAfterChangeId est un entier sur 8 octets = LitChangeId()
+         nAfterChangeId est un entier sur 8 octets
          
-         SI PAS SauveChangeId(3) ALORS
-         	//SysLog("Impossible d'enregistrer le changeId " + member.changeId)
-         	Trace("Le Id est 3")
-         	RETOUR
+         SI SAI_afterChangeId = "" ALORS
+         	nAfterChangeId = LitChangeId()
+         	Trace("[TEST DOWN] changeId lu dans le fichier : " + nAfterChangeId)
+         SINON
+         	nAfterChangeId = Val(SAI_afterChangeId)
+         	Trace("[TEST DOWN] changeId forcé par SAI_afterChangeId : " + nAfterChangeId)
          FIN
          
-         // Ecriture dans la clé "changeId" de la valeur dans "changeId"
-         SWITCH SAI_afterChangeId
-         	CASE "":
-         		sValeurLue = RegistreLit(sCheminRegistre,"changeId")
-         	OTHER CASE
-         		sValeurLue = SAI_afterChangeId
-         END
-         
-         SAI_changeId = sValeurLue
+         SAI_changeId = nAfterChangeId
          
          cMaRequête is httpRequest
-         cMaRequête.URL						= guri + "/events/changes?afterChangeId=" + sValeurLue
+         cMaRequête.URL						= guri + "/events/changes?afterChangeId=" + nAfterChangeId
          cMaRequête.Header["Authorization"]	= "Basic " + gauthorization
+         Trace("[TEST DOWN] GET " + cMaRequête.URL)
          //cMaRequête.ProcédureTrace 			= ProcTrace
          cMaRéponse is httpResponse 			= HTTPSend(cMaRequête)
          
          if ErrorOccurred then
+         	Trace("[TEST DOWN] Erreur HTTP : " + ErrorInfo(errFullDetails))
          	Error(ErrorInfo(errFullDetails))
          else
+         	Trace("[TEST DOWN] Statut HTTP : " + cMaRéponse.StatusCode)
          	switch cMaRéponse.StatusCode
          		case 200
          			js is JSON = cMaRéponse.Content
          			LIB_Debug = js
          			// ON BOUCLE SUR LE TABLEAU RETOUR LE member.calendarId DONNE LE PRATICIEN
          			FOR EACH member of js
+         				Trace("[TEST DOWN] Traitement changeId=" + member.changeId + ...
+         					" | action=" + member.action + ...
+         					" | calendarId=" + member.calendarId + ...
+         					" | eventId=" + member.eventId)
          				switch member.action
          					case "created":
          
@@ -384,9 +384,15 @@ window :
          								END
          						END
          				end
-         				// ON INSERT LE DERNIER CHANGEID DANS LA BASE DE REGISTRE
+         				// ON ENREGISTRE LE DERNIER CHANGEID TRAITE DANS LE FICHIER
          				changeId = member.changeId
-         				RegistreEcrit(sCheminRegistre,"changeId",changeId,registreTypeEntier)
+         				SI PAS SauveChangeId(Val(changeId)) ALORS
+         					Trace("[TEST DOWN] ECHEC sauvegarde changeId=" + changeId)
+         					Erreur("Impossible d'enregistrer le changeId " + changeId)
+         					RETOUR
+         				FIN
+         				Trace("[TEST DOWN] changeId sauvegardé : " + changeId)
+         				SAI_changeId = changeId
          			end
          
          		other case
@@ -2194,22 +2200,25 @@ window :
      code : |1+
       PROCÉDURE LitChangeId() : entier sur 8 octets
       
-      	Trace("Hello")
+      	Trace("[TEST DOWN] Lecture du fichier : " + gsFichierChangeId)
       
       	SI PAS fRépertoireExiste(gsRepEtatOneDoc) ALORS
       		fRepCrée(gsRepEtatOneDoc)
       	FIN
       
       	SI PAS fFichierExiste(gsFichierChangeId) ALORS
+      		Trace("[TEST DOWN] Fichier absent, démarrage avec changeId=0")
       		RENVOYER 0
       	FIN
       
       	sChangeId est une chaîne = SansEspace(fChargeTexte(gsFichierChangeId))
       
       	SI sChangeId = "" ALORS
+      		Trace("[TEST DOWN] Fichier vide, démarrage avec changeId=0")
       		RENVOYER 0
       	FIN
       
+      Trace("[TEST DOWN] Valeur trouvée dans le fichier : " + sChangeId)
       RENVOYER Val(sChangeId)
       
      type : 458752
@@ -2222,11 +2231,15 @@ window :
       
       SI PAS fRépertoireExiste(gsRepEtatOneDoc) ALORS
       	SI PAS fRepCrée(gsRepEtatOneDoc) ALORS
+      		Trace("[TEST DOWN] Impossible de créer le répertoire : " + gsRepEtatOneDoc)
       		RENVOYER Faux
       	FIN
       FIN
       
-      RENVOYER fSauveTexte(gsFichierChangeId, nChangeId)
+      Trace("[TEST DOWN] Ecriture du changeId " + nChangeId + " dans " + gsFichierChangeId)
+      bSauvegarde est un booléen = fSauveTexte(gsFichierChangeId, nChangeId)
+      Trace("[TEST DOWN] Résultat écriture fichier : " + bSauvegarde)
+      RENVOYER bSauvegarde
       
      type : 458752
   procedure_templates : []
