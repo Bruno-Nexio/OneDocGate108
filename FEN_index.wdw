@@ -1948,24 +1948,24 @@ window :
       
       /*
       Synchronisation descendante : OneDoc vers Winlogie.<§cs:10§>
-      
-      Cette procédure contient le traitement métier et ne dépend d'aucun champ de fenêtre.
-      Elle pourra donc être appelée aussi bien depuis l'application de test que depuis le
-      futur service Windows.
-      
-      Paramètre :
-      - nAfterChangeIdForce = -1 : la procédure reprend automatiquement au dernier changeId
-        enregistré dans le fichier changeId.txt ;
-      - nAfterChangeIdForce >= 0 : la valeur fournie est utilisée comme point de départ.
-        Cette possibilité sert principalement aux tests et aux reprises manuelles.
-      
-      Valeur de retour :
-      - Vrai : la requête et tous les changements parcourus ont été traités ;
-      - Faux : une erreur HTTP, HFSQL ou une erreur d'écriture du changeId est survenue.
-      
-      Principe important : le changeId d'un élément est enregistré uniquement à la fin de
-      son traitement. En cas d'erreur avant cette sauvegarde, le même changement sera donc
-      redemandé lors de la prochaine exécution au lieu d'être perdu.
+      <§cs:10§>
+      Cette procédure contient le traitement métier et ne dépend d'aucun champ de fenêtre.<§cs:10§>
+      Elle pourra donc être appelée aussi bien depuis l'application de test que depuis le<§cs:10§>
+      futur service Windows.<§cs:10§>
+      <§cs:10§>
+      Paramètre :<§cs:10§>
+      - nAfterChangeIdForce = -1 : la procédure reprend automatiquement au dernier changeId<§cs:10§>
+        enregistré dans le fichier changeId.txt ;<§cs:10§>
+      - nAfterChangeIdForce >= 0 : la valeur fournie est utilisée comme point de départ.<§cs:10§>
+        Cette possibilité sert principalement aux tests et aux reprises manuelles.<§cs:10§>
+      <§cs:10§>
+      Valeur de retour :<§cs:10§>
+      - Vrai : la requête et tous les changements parcourus ont été traités ;<§cs:10§>
+      - Faux : une erreur HTTP, HFSQL ou une erreur d'écriture du changeId est survenue.<§cs:10§>
+      <§cs:10§>
+      Principe important : le changeId d'un élément est enregistré uniquement à la fin de<§cs:10§>
+      son traitement. En cas d'erreur avant cette sauvegarde, le même changement sera donc<§cs:10§>
+      redemandé lors de la prochaine exécution au lieu d'être perdu.<§cs:10§>
       */
       
       // Par défaut, on récupère le dernier changeId dans le fichier.
@@ -1977,6 +1977,7 @@ window :
       // En fonctionnement normal, le service appellera cette procédure sans paramètre et
       // utilisera donc la valeur persistée dans C:\ProgramData. Une valeur forcée permet de
       // rejouer volontairement les changements à partir d'un identifiant précis.
+      
       SI nAfterChangeIdForce < 0 ALORS
       	nAfterChangeId = LitChangeId()
       	Trace("[TEST DOWN] changeId lu dans le fichier : " + nAfterChangeId)
@@ -1989,6 +1990,7 @@ window :
       // L'API renvoie tous les changements dont le changeId est strictement supérieur au
       // curseur fourni, triés dans l'ordre croissant. L'en-tête Authorization n'est jamais
       // écrit dans les traces afin de ne pas exposer les identifiants Basic Auth.
+      
       cMaRequête is httpRequest
       cMaRequête.URL						= guri + "/events/changes?afterChangeId=" + nAfterChangeId
       cMaRequête.Header["Authorization"]	= "Basic " + gauthorization
@@ -1999,6 +2001,7 @@ window :
       // Une erreur de transport signifie qu'aucune réponse HTTP exploitable n'a été reçue.
       // On arrête immédiatement le batch et on conserve l'ancien changeId pour permettre
       // une nouvelle tentative lors du prochain passage.
+      
       if ErrorOccurred then
       	Trace("[TEST DOWN] Erreur HTTP : " + ErrorInfo(errFullDetails))
       	RENVOYER Faux
@@ -2006,14 +2009,18 @@ window :
       	Trace("[TEST DOWN] Statut HTTP : " + cMaRéponse.StatusCode)
       	switch cMaRéponse.StatusCode
       		case 200
+      
       			// La réponse est un tableau JSON. Chaque élément décrit une action à appliquer
       			// dans Winlogie : création, modification ou suppression d'un rendez-vous.
+      
       			Trace("[TEST DOWN] Données reçues : " + cMaRéponse.Content)
       			js is JSON = cMaRéponse.Content
       			// ON BOUCLE SUR LE TABLEAU RETOUR LE member.calendarId DONNE LE PRATICIEN
       			FOR EACH member of js
+      
       				// Les changements sont traités séquentiellement. Ce choix garantit que le
       				// changeId sauvegardé correspond toujours au dernier élément réellement traité.
+      
       				Trace("[TEST DOWN] Traitement changeId=" + member.changeId + ...
       					" | action=" + member.action + ...
       					" | calendarId=" + member.calendarId + ...
@@ -2023,9 +2030,9 @@ window :
       
       						/*
       						CREATION D'UN RENDEZ-VOUS<§cs:10§>
-      						Le changement ne contient que les identifiants techniques. On commence donc
-      						par demander le détail complet de l'événement à l'API. Ce détail contient les
-      						informations du patient, les horaires et les informations du rendez-vous.
+      						Le changement ne contient que les identifiants techniques. On commence donc<§cs:10§>
+      						par demander le détail complet de l'événement à l'API. Ce détail contient les<§cs:10§>
+      						informations du patient, les horaires et les informations du rendez-vous.<§cs:10§>
       						*/
       
       						route = "/calendars/" + member.calendarId + "/events/" + member.eventId
@@ -2049,6 +2056,7 @@ window :
       									Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
       									RENVOYER Faux
       								else
+      
       									// La requête renvoie FICLEUNIK=0 lorsqu'aucun patient correspondant n'a été trouvé.
       
       									switch REQ_checkIfPatientExists.FICLEUNIK
@@ -2058,6 +2066,7 @@ window :
       											// Conversion des données OneDoc vers les rubriques Winlogie.
       											// Les noms et prénoms sont normalisés en majuscules et le genre OneDoc est
       											// converti vers les valeurs M/F utilisées dans FIC_ADM.
+      
       											REQ_createPatient.titre		= jsResult.patient.gender = "male"? "Monsieur" else "Madame"
       											REQ_createPatient.nom		= Upper(jsResult.patient.lastName)
       											REQ_createPatient.prenom	= Upper(jsResult.patient.firstName)
@@ -2081,6 +2090,7 @@ window :
       
       												// La carte d'assurance est enregistrée uniquement lorsqu'un numéro a été
       												// fourni. Elle est liée au patient grâce au FICLEUNIK créé ci-dessus.
+      
       												SWITCH jsResult.patient.insuranceCardNumber
       													CASE <> "":
       
@@ -2106,15 +2116,18 @@ window :
       									// Une réponse 200 signifie qu'un externalEventLink existe déjà pour cet eventId.
       									// Une réponse 404 signifie que l'événement OneDoc n'a pas encore été associé
       									// à un rendez-vous Winlogie et que l'insertion peut commencer.
-      									Trace(member.eventId)
+      
       									route = "/calendars/" + member.calendarId + "/external-event-links/eventId/" + member.eventId
       									resp is httpResponse = getRequest(route)
       									Trace("[TEST DOWN][DB] Recherche corrélation, statut Corrélation HTTP=" + resp.StatusCode)
       
       									SWITCH resp.StatusCode
-      										CASE 404: // NEGATIF
+      										CASE 404:
+      
+      											// NEGATIF
       											// Les fichiers RDV et CLSCOURT sont séparés par praticien. calendarId
       											// correspond ici au numéro de praticien Winlogie et détermine les répertoires.
+      
       											Prat is int	= member.calendarId
       											HChangeDir("RDV", "Prat" + Prat)
       											HChangeDir("CLSCOURT","Prat" + Prat)
@@ -2145,6 +2158,7 @@ window :
       
       														// Préparation des valeurs attendues par le fichier RDV. L'identifiant généré
       														// par Winlogie après l'insertion deviendra l'externalId transmis à l'API.
+      
       														REQ_insertAppointment.FICLEUNIK		= fic_cleunik
       														REQ_insertAppointment.NOM			= Upper(jsResult.patient.lastName)
       														REQ_insertAppointment.PRENOM		= Upper(jsResult.patient.firstName)
@@ -2170,6 +2184,7 @@ window :
       															// SQL.IDAuto contient le RDCLEUNIK généré par l'insertion du rendez-vous.
       															// La table Int_Doctolib mémorise ensuite la relation interne entre UNIC,
       															// praticien et état d'absence pour les traitements Winlogie ultérieurs.
+      
       															insertedID is int = SQL.IDAuto
       															Trace("[TEST DOWN][DB] RDV inséré, RDCLEUNIK=" + insertedID + " | UNIC=" + UNIC)
       															REQ_insertInt_Doctolib.unic		= UNIC
@@ -2187,6 +2202,7 @@ window :
       
       															// Le résumé et le commentaire OneDoc sont regroupés dans CLSCOURT.
       															// La liaison avec le rendez-vous est réalisée par la valeur UNIC.
+      
       															REQ_insertCommentAndSummary.typcom		= "CommentRDV"
       															REQ_insertCommentAndSummary.comcourt	= jsResult.summary + " - " + jsResult.comment
       															REQ_insertCommentAndSummary.UNIC		= UNIC
@@ -2203,6 +2219,7 @@ window :
       															// Dernière étape de la création : publication de la corrélation dans l'API.
       															// eventId identifie l'événement OneDoc ; externalId contient le RDCLEUNIK
       															// créé par Winlogie. Cette relation permettra les updates et suppressions.
+      
       															link is string = [
       																{
       																"externalId": "%1",
@@ -2304,10 +2321,12 @@ window :
       						END
       
       					case "deleted":
+      
       						// SUPPRESSION D'UN RENDEZ-VOUS
       						// La corrélation fournit le RDCLEUNIK à supprimer dans Winlogie. Une fois
       						// la suppression locale réussie, le lien distant est lui aussi supprimé afin
       						// de conserver les deux systèmes dans un état cohérent.
+      
       						route = "/calendars/" + member.calendarId + "/external-event-links/eventId/" + member.eventId
       						resp is httpResponse = getRequest(route)
       
@@ -2331,6 +2350,7 @@ window :
       								END
       						END
       				end
+      
       				// Point de validation du changement courant.
       				// Cette écriture est volontairement placée après le SWITCH de l'action : tant
       				// que toutes les opérations du changement ne sont pas terminées, le curseur
@@ -2338,6 +2358,7 @@ window :
       				// IMPORTANT : chaque branche HTTP ou HFSQL en échec doit impérativement faire
       				// RENVOYER Faux avant ce point. Sinon le changeId serait validé malgré un
       				// traitement incomplet et le changement ne serait pas rejoué automatiquement.
+      
       				changeId = member.changeId
       				SI PAS SauveChangeId(Val(changeId)) ALORS
       					Trace("[TEST DOWN] ECHEC sauvegarde changeId=" + changeId)
@@ -2354,6 +2375,7 @@ window :
       // Si l'exécution atteint ce point, aucune branche n'a demandé d'arrêt anticipé.
       // Les statuts HTTP inattendus devront progressivement être transformés en retours
       // Faux afin que cette valeur signifie réellement que tout le batch a été validé.
+      
       RENVOYER Vrai
       
      type : 458752
