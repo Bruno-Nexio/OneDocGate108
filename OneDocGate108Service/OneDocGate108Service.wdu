@@ -1,0 +1,14 @@
+OneDocGate108Service.wdp
+Logik.wdd
+REQ_createPatient.WDR
+REQ_checkIfAppointmentExists.WDR
+REQ_checkIfPatientExists.WDR
+REQ_deleteAppointment.WDR
+REQ_getFicleunikByRdcleunik.WDR
+REQ_insertAppointment.WDR
+REQ_insertCommentAndSummary.WDR
+REQ_insertInsuranceCardNumber.WDR
+REQ_insertInt_Doctolib.WDR
+REQ_updateAppointment.WDR
+REQ_updateInt_Doctolib.WDR
+COL_Service.wdg

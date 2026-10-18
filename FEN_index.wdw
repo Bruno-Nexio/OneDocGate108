@@ -2036,9 +2036,10 @@ window :
       						*/
       
       						route = "/calendars/" + member.calendarId + "/events/" + member.eventId
-      						jsResult is JSON = getRequest(route).Content
+      						respEventCreate is httpResponse = getRequest(route)
+      						jsResult is JSON = respEventCreate.Content
       
-      						switch getRequest(route).StatusCode
+      						switch respEventCreate.StatusCode
       							case 200
       
       								// Recherche du patient dans FIC_ADM.
@@ -2085,7 +2086,6 @@ window :
       												RENVOYER Faux
       											else
       												fic_cleunik = SQL.IDAuto
-      												fic_cleunik_created = fic_cleunik
       												Trace("[TEST DOWN][DB] Patient inséré, FICLEUNIK=" + fic_cleunik)
       
       												// La carte d'assurance est enregistrée uniquement lorsqu'un numéro a été
@@ -2133,7 +2133,7 @@ window :
       											HChangeDir("CLSCOURT","Prat" + Prat)
       
       
-      											UNIC	is string	= NumToString(Val(fic_cleunik_created),"010d")+Left(Replace(jsResult.startDateTime,["-","T",":"],""),12)
+      											UNIC	is string	= NumToString(Val(fic_cleunik),"010d")+Left(Replace(jsResult.startDateTime,["-","T",":"],""),12)
       											HDEB	is Time		= StringToTime(Right(jsResult.startDateTime,8))
       											HFIN	is Time		= StringToTime(Right(jsResult.endDateTime,8))
       											CADATE	is Date		= StringDelete(jsResult.startDateTime,"-")
@@ -2256,7 +2256,7 @@ window :
       							case 404
       
       								//Trace( "Not Found")
-      								
+      
       						end
       					case "updated":
       
@@ -2279,6 +2279,7 @@ window :
       
       								// Le calendrier détermine le répertoire RDV du praticien concerné.
       								// L'UNIC doit être recalculé si la date ou l'heure du rendez-vous a changé.
+      
       								HChangeDir("RDV", "Prat" + member.calendarId)
       
       								REQ_getFicleunikByRdcleunik.RDCLEUNIK = rdcleunik
@@ -2319,6 +2320,7 @@ window :
       									END
       								END
       							CASE 404:
+      
       								//Trace( "Pas de corrélation")
       						END
       

@@ -1,0 +1,9 @@
+[DATABASE]
+LOGIN=
+PASSWORD=
+SERVER=
+BDD=
+
+[NEXAPI]
+URI=https://onedoc-dev.nexapi.ch
+AUTHORIZATION=

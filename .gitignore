@@ -17,6 +17,12 @@ Sauvegarde
 *.wdcoverage
 *.wpf
 HstDuree.log
+settings.ini
+!settings.ini.example
+OneDocGate108Service/Exe/
+OneDocGate108Service/InstallService_Service 64 bits/
+OneDocGate108Service/Historique/
+OneDocGate108Service/*.wdf
 #
 #WEBDEV
 *\res
