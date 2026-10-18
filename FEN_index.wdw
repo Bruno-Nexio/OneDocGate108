@@ -2186,7 +2186,29 @@ window :
       															// La table Int_Doctolib mémorise ensuite la relation interne entre UNIC,
       															// praticien et état d'absence pour les traitements Winlogie ultérieurs.
       
-      															insertedID is int = SQL.IDAuto
+      															//insertedID is int = SQL.IDAuto
+      															// Relire le rendez-vous inséré avec son UNIC
+      															REQ_checkIfAppointmentExists.UNIC = UNIC
+      
+      															IF HExecuteQuery(REQ_checkIfAppointmentExists, hQueryDefault) = False THEN
+      																Trace("[TEST DOWN][DB] ECHEC relecture RDV : " + HErrorInfo())
+      																RENVOYER Faux
+      															END
+      
+      															HReadFirst(REQ_checkIfAppointmentExists)
+      
+      															IF HOut(REQ_checkIfAppointmentExists) THEN
+      																Trace("[TEST DOWN][DB] RDV introuvable après insertion | UNIC=" + UNIC)
+      																RENVOYER Faux
+      															END
+      
+      															insertedID is int = REQ_checkIfAppointmentExists.RDCLEUNIK
+      															Trace("[TEST DOWN][DB] RDV relu, RDCLEUNIK=" + insertedID + " | UNIC=" + UNIC)
+      
+      															IF insertedID <= 0 THEN
+      																Trace("[TEST DOWN][DB] RDCLEUNIK invalide après relecture | UNIC=" + UNIC)
+      																RENVOYER Faux
+      															END
       															Trace("[TEST DOWN][DB] RDV inséré, RDCLEUNIK=" + insertedID + " | UNIC=" + UNIC)
       															REQ_insertInt_Doctolib.unic		= UNIC
       															REQ_insertInt_Doctolib.cleinterv = Prat
