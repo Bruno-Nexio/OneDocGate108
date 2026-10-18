@@ -1973,6 +1973,7 @@ window :
       
       nAfterChangeId est un entier sur 8 octets
       
+      
       // Détermination du point de reprise.
       // En fonctionnement normal, le service appellera cette procédure sans paramètre et
       // utilisera donc la valeur persistée dans C:\ProgramData. Une valeur forcée permet de
@@ -2379,6 +2380,51 @@ window :
       // Si l'exécution atteint ce point, aucune branche n'a demandé d'arrêt anticipé.
       // Les statuts HTTP inattendus devront progressivement être transformés en retours
       // Faux afin que cette valeur signifie réellement que tout le batch a été validé.
+      
+      RENVOYER Vrai
+      
+     type : 458752
+   -
+     name : LogService
+     procedure_id : 1933498503186078290
+     type_code : 14
+     code : |1+
+      PROCÉDURE LogService(sNiveau est une chaîne, sMessage est une chaîne) : booléen
+      
+      sRepLogs est une chaîne = ...
+      ComplèteRep(SysRep(srCommonAppData)) + "OneDocGate108Down\logs\"
+      
+      SI PAS fRépertoireExiste(sRepLogs) ALORS
+      	SI PAS fRepCrée(sRepLogs) ALORS
+      		Trace("[LOG][ERREUR] Impossible de créer le répertoire : " + sRepLogs)
+      		RENVOYER Faux
+      	FIN
+      FIN
+      
+      sNomFichier est une chaîne = ...
+      sRepLogs + "service-" + DateVersChaîne(DateSys(), "AAAA-MM-JJ") + ".log"
+      
+      nFichier est un entier = fOuvre(...
+      sNomFichier, ...
+      foCréationSiInexistant + foEcriture + foAjout)
+      
+      SI nFichier = -1 ALORS
+      	Trace("[LOG][ERREUR] Impossible d'ouvrir : " + sNomFichier)
+      	RENVOYER Faux
+      FIN
+      
+      sMessageNettoye	est une chaîne	= Remplace(sMessage, [RC, Caract(13), Caract(10)], " ")
+      
+      sLigne			est une chaîne	= ...
+      DateVersChaîne(DateSys(), "AAAA-MM-JJ") + "T" + ...
+      HeureVersChaîne(HeureSys(), "HH:MM:SS") + ...
+      " [" + sNiveau + "] " + sMessageNettoye
+      
+      fEcritLigne(nFichier, sLigne)
+      fFerme(nFichier)
+      
+      // La trace reste pratique pendant le développement dans WinDev.
+      Trace(sLigne)
       
       RENVOYER Vrai
       
