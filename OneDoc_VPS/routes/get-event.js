@@ -1,0 +1,73 @@
+// get-event.js
+
+/**
+ * Encapsulates the routes
+ * @param {FastifyInstance} fastify  Encapsulated Fastify Instance
+ * @param {Object} options plugin options, refer to https://fastify.dev/docs/latest/Reference/Plugins/#plugin-options
+ */
+
+
+module.exports = async function routes (fastify, options) {
+
+    fastify.get('/calendars/:calendarId/events/:eventId', {
+      schema: {
+        params: {
+  	   type: "object",
+           properties: {
+              calendarId: { type: "integer"  },   // Vérifie que c'est un entier
+              eventId: { type: "string", minLength: 24, maxLength: 24 }    // Vérifie que c'est un entier
+           },
+             required: ["calendarId", "eventId"]
+             }
+          }
+    }, async (request, reply) => {
+
+       const { calendarId, eventId } = request.params
+
+ try {
+
+       // Convertir les IDs en nombres (au cas où)
+      const calId = parseInt(calendarId)
+      const evId = eventId
+
+      // Récupérer l'événement depuis MongoDB
+      const event = await fastify.mongo.db.collection('events').findOne({
+        calendarId: calId,
+        _id: new ObjectId(eventId)
+      })
+
+      if (!event) {
+        return reply.code(404).send({
+          code: 4040,
+          message: "Event not found"
+        })
+      }
+
+     // Valider les dates
+      const startDate = new Date(event.startDateTime)
+      const endDate = new Date(event.endDateTime)
+
+      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        return reply.code(400).send({
+          code: 2035,
+          message: "Invalid date"
+        })
+      }
+
+      // Formater la réponse
+      return {
+        id: event._id.toString(),
+        startDateTime: event.startDateTime.toISOString().slice(0,19),
+        endDateTime: event.endDateTime.toISOString().slice(0,19),
+        description: event.comment
+      }
+
+     } catch (error) {
+      fastify.log.error(error)
+      return reply.code(500).send({
+        code: 5000,
+        message: "Internal server error"
+      })
+    }
+    })
+};

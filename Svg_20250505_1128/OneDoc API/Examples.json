@@ -1,0 +1,32 @@
+Exemple event with patient:
+{
+  "id": "9127301",
+  "startDateTime": "2020-06-28T11:30:00",
+  "endDateTime": "2020-06-28T12:00:00",
+  "description": "Mal au dos depuis 2 jours...",
+  "patient": {
+    "id": "dsadasdasd",
+    "firstName": "Alex",
+    "lastName": "Test",
+    "gender": "male",
+    "birthDate": "2020-01-07",
+    "email": "alex.test@onedoc.ch",
+    "mobilePhoneNumber": "+41764157550"
+  }
+}
+
+Exemple change on patient (merge):
+{
+  "changeId": 123,
+  "action": "merge",
+  "patient": {
+    "id": "dsadasdasd",
+    "firstName": "Alex",
+    "lastName": "Test",
+    "gender": "male",
+    "birthDate": "2020-01-07",
+    "email": "alex.test@onedoc.ch",
+    "mobilePhoneNumber": "+41764157550"
+  },
+  deletedPatientId: "asdasdasd"
+}

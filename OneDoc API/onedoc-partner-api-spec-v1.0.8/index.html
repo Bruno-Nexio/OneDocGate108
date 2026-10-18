@@ -1,0 +1,1926 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Partner API Spec - OneDoc sync v1.0.8</title>
+
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" media="screen" rel="stylesheet">
+    <link href="slate/css/print.css" media="print" rel="stylesheet">
+    <link href="slate/css/screen.css" media="screen" rel="stylesheet">
+    <script src="slate/js/lib/jquery.min.js"></script>
+    <script src="slate/js/lib/jquery.highlight.js"></script>
+    <script src="slate/js/lib/energize.js"></script>
+    <script src="slate/js/lib/imagesloaded.min.js"></script>
+    <script src="slate/js/lib/lunr.min.js"></script>
+    <script src="slate/js/app/lang.js"></script>
+    <script src="slate/js/app/toc.js"></script>
+    
+    
+    <script type="text/javascript">
+      function adjustLanguageSelectorWidth() {
+        const elem = $('.dark-box > .lang-selector');
+        elem.width(elem.parent().width());
+      }
+      $(function() {
+        loadToc($('#toc'), '.toc-link', '.toc-list-h2, .toc-list-h3, .toc-list-h4, .toc-list-h5, .toc-list-h6', 10);
+        setupLanguages($('body').data('languages'));
+        $('.content').imagesLoaded( function() {
+          recacheHeights();
+          refreshToc();
+        });
+        $(window).resize(function() {
+          adjustLanguageSelectorWidth();
+        });
+        adjustLanguageSelectorWidth();
+      });
+      window.onpopstate = function() {
+        activateLanguage(getLanguageFromQueryString());
+      };
+    </script>
+    <!-- slate; content for the head element from source/includes/head.ejs -->
+<meta name="theme-color" content="#F3F7F9">
+
+  </head>
+
+  <body data-languages="[&quot;http&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="slate/img/navbar.png" alt="Navigation">
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="slate/img/logo.png" alt="Logo" class="logo">
+      
+        <div class="lang-selector">
+          
+            
+              <a href="#" data-language-name="http">HTTP</a>
+            
+          
+        </div>
+      
+      
+
+      
+
+      <div id="toc" class="toc-list-h1">
+	  	<ul class="toc-list-h1">
+        
+          <li>
+            <a href="#partner-api-spec-onedoc-sync" class="toc-h1 toc-link" data-title="Partner API Spec - OneDoc sync v1.0.8">Partner API Spec - OneDoc sync v1.0.8</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#formats" class="toc-h2 toc-link" data-title="">Formats</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+            
+          </li>
+        
+          <li>
+            <a href="#partner-api-spec-onedoc-sync-calendars" class="toc-h1 toc-link" data-title="Calendars">Calendars</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#getcalendars" class="toc-h2 toc-link" data-title="">GetCalendars</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="#partner-api-spec-onedoc-sync-events" class="toc-h1 toc-link" data-title="Events">Events</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#getevents" class="toc-h2 toc-link" data-title="">GetEvents</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#createevent" class="toc-h2 toc-link" data-title="">CreateEvent</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#getevent" class="toc-h2 toc-link" data-title="">GetEvent</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#updateevent" class="toc-h2 toc-link" data-title="">UpdateEvent</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#deleteevent" class="toc-h2 toc-link" data-title="">DeleteEvent</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#geteventchanges" class="toc-h2 toc-link" data-title="">GetEventChanges</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#getlatesteventchangeid" class="toc-h2 toc-link" data-title="">GetLatestEventChangeId</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="#schemas" class="toc-h1 toc-link" data-title="Schemas">Schemas</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#tocS_Error" class="toc-h2 toc-link" data-title="">Error</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_Calendar" class="toc-h2 toc-link" data-title="">Calendar</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_Professional" class="toc-h2 toc-link" data-title="">Professional</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_Location" class="toc-h2 toc-link" data-title="">Location</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_Patient" class="toc-h2 toc-link" data-title="">Patient</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_Address" class="toc-h2 toc-link" data-title="">Address</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_Event" class="toc-h2 toc-link" data-title="">Event</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_CreateOrUpdateEvent" class="toc-h2 toc-link" data-title="">CreateOrUpdateEvent</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_AppointmentType" class="toc-h2 toc-link" data-title="">AppointmentType</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_EventChange" class="toc-h2 toc-link" data-title="">EventChange</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_EventChangeId" class="toc-h2 toc-link" data-title="">EventChangeId</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_Gender" class="toc-h2 toc-link" data-title="">Gender</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_Action" class="toc-h2 toc-link" data-title="">Action</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+		</ul>
+      </div>
+      
+        <ul class="toc-footer">
+          
+        </ul>
+      
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <!-- Generator: Widdershins v4.0.1 -->
+<h1 id="partner-api-spec-onedoc-sync">Partner API Spec - OneDoc sync v1.0.8</h1>
+<blockquote>
+<p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
+</blockquote>
+<p>This document specifies a few API endpoints that can be provided by Partner Software to enable event synchronization with the OneDoc online booking platform.</p>
+<h2 id="formats">Formats</h2>
+<p>All dates and datetimes are formatted according to the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO8601</a> standard:</p>
+<ul>
+<li>A <strong>date</strong> is formatted as <code>yyyy-MM-dd</code>, e.g. <code>2018-03-19</code></li>
+<li>A <strong>date with local time</strong> is formatted as <code>yyyy-MM-dd[T]HH:mm:ss</code>, e.g. <code>2018-03-19T10:30:00</code></li>
+<li>A <strong>timestamp</strong> is formatted as <code>yyyy-MM-dd[T]HH:mm:ss.SSS[Z]</code>, e.g. <code>2018-03-19T15:36:27.817Z</code> where <code>Z</code> denotes UTC time</li>
+</ul>
+<h1 id="authentication">Authentication</h1>
+<ul>
+<li>HTTP Authentication, scheme: basic</li>
+</ul>
+<h1 id="partner-api-spec-onedoc-sync-calendars">Calendars</h1>
+<h2 id="getcalendars">GetCalendars</h2>
+<p><a id="opIdGetCalendars"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="language-http"><code class="language-http"><span class="token request-line"><span class="token property">GET</span> /calendars HTTP/1.1</span><br><br><span class="token header-name keyword">Accept:</span> application/json<br></code></pre>
+<p><code>GET /calendars</code></p>
+<p>Return the list of calendars that are activated for a synchronization with OneDoc.</p>
+<aside class="notice">This endpoint is optional, it is usually not needed.</aside>
+<h3 id="getcalendars-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>activatedFromDateTime</td>
+<td>query</td>
+<td>string</td>
+<td>false</td>
+<td>Inclusive <code>activatedAt</code> lower bound</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">[</span><br>  <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"674"</span><span class="token punctuation">,</span><br>    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Calendar of Dr Max Muster"</span><span class="token punctuation">,</span><br>    <span class="token property">"professional"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>      <span class="token property">"gln"</span><span class="token operator">:</span> <span class="token string">"7601003278364"</span><span class="token punctuation">,</span><br>      <span class="token property">"firstName"</span><span class="token operator">:</span> <span class="token string">"Max"</span><span class="token punctuation">,</span><br>      <span class="token property">"lastName"</span><span class="token operator">:</span> <span class="token string">"Muster"</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token property">"location"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Praxis Muster"</span><span class="token punctuation">,</span><br>      <span class="token property">"address"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>        <span class="token property">"street"</span><span class="token operator">:</span> <span class="token string">"Avenue de Sécheron"</span><span class="token punctuation">,</span><br>        <span class="token property">"streetNumber"</span><span class="token operator">:</span> <span class="token string">"15"</span><span class="token punctuation">,</span><br>        <span class="token property">"zipCode"</span><span class="token operator">:</span> <span class="token string">"1202"</span><span class="token punctuation">,</span><br>        <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"Genève"</span><span class="token punctuation">,</span><br>        <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"CH"</span><br>      <span class="token punctuation">}</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token property">"activatedAt"</span><span class="token operator">:</span> <span class="token string">"2021-11-02T13:01:46.301Z"</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"1782"</span><span class="token punctuation">,</span><br>    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Calendar of Dr Emma Smith"</span><span class="token punctuation">,</span><br>    <span class="token property">"professional"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>      <span class="token property">"gln"</span><span class="token operator">:</span> <span class="token string">"7601008649915"</span><span class="token punctuation">,</span><br>      <span class="token property">"firstName"</span><span class="token operator">:</span> <span class="token string">"Emma"</span><span class="token punctuation">,</span><br>      <span class="token property">"lastName"</span><span class="token operator">:</span> <span class="token string">"Smith"</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token property">"location"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Praxis Muster"</span><span class="token punctuation">,</span><br>      <span class="token property">"address"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>        <span class="token property">"street"</span><span class="token operator">:</span> <span class="token string">"Avenue de Sécheron"</span><span class="token punctuation">,</span><br>        <span class="token property">"streetNumber"</span><span class="token operator">:</span> <span class="token string">"15"</span><span class="token punctuation">,</span><br>        <span class="token property">"zipCode"</span><span class="token operator">:</span> <span class="token string">"1202"</span><span class="token punctuation">,</span><br>        <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"Genève"</span><span class="token punctuation">,</span><br>        <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"CH"</span><br>      <span class="token punctuation">}</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token property">"activatedAt"</span><span class="token operator">:</span> <span class="token string">"2021-11-02T14:22:52.012Z"</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">]</span></code></pre>
+<h3 id="getcalendars-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Operation successful</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Invalid request (query parameter, body, etc.)</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>No authorization provided or invalid authorization</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
+<td>Not authorized to perform this operation</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="getcalendars-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>[<a href="#schemacalendar">Calendar</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» id</td>
+<td>integer(int32)</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Name of the calendar</td>
+</tr>
+<tr>
+<td>» professional</td>
+<td><a href="#schemaprofessional">Professional</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»» gln</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>GLN number</td>
+</tr>
+<tr>
+<td>»» firstName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>First name of the professional</td>
+</tr>
+<tr>
+<td>»» lastName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Last name of the professional</td>
+</tr>
+<tr>
+<td>» location</td>
+<td><a href="#schemalocation">Location</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»» name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Name of the location</td>
+</tr>
+<tr>
+<td>»» address</td>
+<td><a href="#schemaaddress">Address</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>»»» street</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Name of the street</td>
+</tr>
+<tr>
+<td>»»» streetNumber</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>House number</td>
+</tr>
+<tr>
+<td>»»» zipCode</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Postal code</td>
+</tr>
+<tr>
+<td>»»» city</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Name of the city</td>
+</tr>
+<tr>
+<td>»»» state</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Swiss canton code or free text</td>
+</tr>
+<tr>
+<td>»»» country</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>ISO 3166-1 Alpha-2 country code</td>
+</tr>
+<tr>
+<td>» activatedAt</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Timestamp at which this calendar was activated for synchronization with OneDoc</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+BasicAuth
+</aside>
+<h1 id="partner-api-spec-onedoc-sync-events">Events</h1>
+<p>OneDoc will proceed as follow to synchronize events.</p>
+<h3 id="from-onedoc-to-partner-software">From OneDoc to Partner Software</h3>
+<ul>
+<li>Event created on OneDoc =&gt; <code>CreateEvent</code></li>
+<li>Event updated on OneDoc =&gt; <code>UpdateEvent</code> (optional)</li>
+<li>Event cancelled on OneDoc =&gt; <code>DeleteEvent</code></li>
+</ul>
+<h3 id="from-partner-software-to-onedoc">From Partner Software to OneDoc</h3>
+<p><strong>Initial import phase</strong><br>
+This phase runs only once for every new syn activation:</p>
+<ul>
+<li>Initially retrieve the latest event change id, using <code>GetLatestEventChangeId</code> which will serve as the starting point for change handling</li>
+<li>Initially import all future events, month by month, using <code>GetEvents</code> for a given time window (e.g. 2 years)</li>
+</ul>
+<p><strong>Change handling</strong><br>
+This phase runs continuously until the sync is deactivated:</p>
+<ul>
+<li>Every ~30 seconds, retrieve changes and apply them to OneDoc using <code>GetEventChanges</code> and <code>GetEvent</code></li>
+<li>Every day, using <code>GetEvents</code>, fetch the next last day within the limit time window (e.g. today + 2 years) in order to import future recurrence instances to OneDoc</li>
+</ul>
+<h2 id="getevents">GetEvents</h2>
+<p><a id="opIdGetEvents"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="language-http"><code class="language-http"><span class="token request-line"><span class="token property">GET</span> /calendars/{calendarId}/events?fromDateTime=2020-04-01T00%3A00%3A00&amp;untilDateTime=2020-05-01T00%3A00%3A00 HTTP/1.1</span><br><br><span class="token header-name keyword">Accept:</span> application/json<br></code></pre>
+<p><code>GET /calendars/{calendarId}/events</code></p>
+<p>Return the list of events occurring within the provided datetime interval. Deleted events must not be returned.</p>
+<p>The filtering condition should be <code>startDateTime &gt;= fromDateTime &amp;&amp; startDateTime &lt; untilDateTime</code>.</p>
+<p>Pagination should not be needed as OneDoc will never query more than 1 month of events at a given time.</p>
+<aside class="notice">This endpoint must expand recurring events and return all their instances within the provided datetime interval</aside>
+<h3 id="getevents-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>calendarId</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>ID of the calendar from which events should be retrieved</td>
+</tr>
+<tr>
+<td>fromDateTime</td>
+<td>query</td>
+<td>string</td>
+<td>true</td>
+<td>Inclusive <code>startDateTime</code> lower bound</td>
+</tr>
+<tr>
+<td>untilDateTime</td>
+<td>query</td>
+<td>string</td>
+<td>true</td>
+<td>Exclusive <code>startDateTime</code> upper bound</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">[</span><br>  <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"9876312"</span><span class="token punctuation">,</span><br>    <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-04-20T09:30:00"</span><span class="token punctuation">,</span><br>    <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-04-20T10:00:00"</span><span class="token punctuation">,</span><br>    <span class="token property">"summary"</span><span class="token operator">:</span> <span class="token string">"Some private event"</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"7526201|2020-04-20T10:00:00"</span><span class="token punctuation">,</span><br>    <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-04-20T10:00:00"</span><span class="token punctuation">,</span><br>    <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-04-20T11:00:00"</span><span class="token punctuation">,</span><br>    <span class="token property">"summary"</span><span class="token operator">:</span> <span class="token string">"Pause"</span><span class="token punctuation">,</span><br>    <span class="token property">"recurrenceMasterId"</span><span class="token operator">:</span> <span class="token number">7526201</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"8986374"</span><span class="token punctuation">,</span><br>    <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-04-20T11:00:00"</span><span class="token punctuation">,</span><br>    <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-04-20T11:15:00"</span><span class="token punctuation">,</span><br>    <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Mal au dos depuis deux jours..."</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">]</span></code></pre>
+<h3 id="getevents-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Operation successful</td>
+<td>Inline</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Invalid request (query parameter, body, etc.)</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>No authorization provided or invalid authorization</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
+<td>Not authorized to perform this operation</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Resource not found</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="getevents-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>[<a href="#schemaevent">Event</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» id</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>ID of the event, unique across all recurrence instances. For example <em>“{ID}|{ORIGINAL_START_DATE_TIME}”</em> for recurrence instances.</td>
+</tr>
+<tr>
+<td>» startDateTime</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Event start date time (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>» endDateTime</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Event end date time (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>» summary</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Event summary</td>
+</tr>
+<tr>
+<td>» description</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Event description or comment</td>
+</tr>
+<tr>
+<td>» recurrenceMasterId</td>
+<td>integer</td>
+<td>false</td>
+<td>none</td>
+<td>ID of the recurrence master, if this is a recurring instance (the master is also considered to be an instance)</td>
+</tr>
+<tr>
+<td>» recurrenceStartDateTime</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>startDateTime of first recurrence instance (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>» recurrenceEndDateTime</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>startDateTime of last recurrence instance, if any (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>» recurrenceInstances</td>
+<td>[<a href="#schemaevent">Event</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>List of recurrence instances, whenever this recurring event is being expanded</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+BasicAuth
+</aside>
+<h2 id="createevent">CreateEvent</h2>
+<p><a id="opIdCreateEvent"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="language-http"><code class="language-http"><span class="token request-line"><span class="token property">POST</span> /calendars/{calendarId}/events HTTP/1.1</span><br><br><span class="token header-name keyword">Content-Type:</span> application/json<br><span class="token header-name keyword">Accept:</span> application/json<br></code></pre>
+<p><code>POST /calendars/{calendarId}/events</code></p>
+<p>Creates a new event and return it</p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-06-28T11:30:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-06-28T12:00:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"patient"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"c-7168231"</span><span class="token punctuation">,</span><br>    <span class="token property">"firstName"</span><span class="token operator">:</span> <span class="token string">"Barack"</span><span class="token punctuation">,</span><br>    <span class="token property">"lastName"</span><span class="token operator">:</span> <span class="token string">"Obama"</span><span class="token punctuation">,</span><br>    <span class="token property">"gender"</span><span class="token operator">:</span> <span class="token string">"female"</span><span class="token punctuation">,</span><br>    <span class="token property">"birthDate"</span><span class="token operator">:</span> <span class="token string">"1961-11-25"</span><span class="token punctuation">,</span><br>    <span class="token property">"email"</span><span class="token operator">:</span> <span class="token string">"barack.obama@gov.us"</span><span class="token punctuation">,</span><br>    <span class="token property">"mobilePhoneNumber"</span><span class="token operator">:</span> <span class="token string">"+41791234567"</span><span class="token punctuation">,</span><br>    <span class="token property">"insuranceCardNumber"</span><span class="token operator">:</span> <span class="token string">"80756015424001443900"</span><span class="token punctuation">,</span><br>    <span class="token property">"address"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>      <span class="token property">"street"</span><span class="token operator">:</span> <span class="token string">"Avenue de Sécheron"</span><span class="token punctuation">,</span><br>      <span class="token property">"streetNumber"</span><span class="token operator">:</span> <span class="token string">"15"</span><span class="token punctuation">,</span><br>      <span class="token property">"zipCode"</span><span class="token operator">:</span> <span class="token string">"1202"</span><span class="token punctuation">,</span><br>      <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"Genève"</span><span class="token punctuation">,</span><br>      <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"GE"</span><span class="token punctuation">,</span><br>      <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"CH"</span><br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token property">"appointmentType"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">7168231</span><span class="token punctuation">,</span><br>    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Première consultation"</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token property">"comment"</span><span class="token operator">:</span> <span class="token string">"Mal au dos depuis 2 jours..."</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="createevent-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>calendarId</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>ID of the calendar in which the event should be created</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemacreateorupdateevent">CreateOrUpdateEvent</a></td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>201 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"9127301"</span><span class="token punctuation">,</span><br>  <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-06-28T11:30:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-06-28T12:00:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Mal au dos depuis 2 jours..."</span><br><span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"code"</span><span class="token operator">:</span> <span class="token number">2035</span><span class="token punctuation">,</span><br>  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Invalid date"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="createevent-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">Created</a></td>
+<td>Resource successfully created</td>
+<td><a href="#schemaevent">Event</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Invalid request (query parameter, body, etc.)</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>No authorization provided or invalid authorization</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
+<td>Not authorized to perform this operation</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Resource not found</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+BasicAuth
+</aside>
+<h2 id="getevent">GetEvent</h2>
+<p><a id="opIdGetEvent"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="language-http"><code class="language-http"><span class="token request-line"><span class="token property">GET</span> /calendars/{calendarId}/events/{eventId} HTTP/1.1</span><br><br><span class="token header-name keyword">Accept:</span> application/json<br></code></pre>
+<p><code>GET /calendars/{calendarId}/events/{eventId}</code></p>
+<p>Return the information of the event associated to the given ID</p>
+<aside class="notice">If the event is a recurring event and that <code>expandRecurrenceFromDateTime</code> and <code>expandRecurrenceUntilDateTime</code> query parameters are supplied, the recurrence instances must be computed and returned in the <code>recurrenceInstances</code> attribute (unless the event is deleted).</aside>
+<h3 id="getevent-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>calendarId</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>ID of the calendar to which the event belongs</td>
+</tr>
+<tr>
+<td>eventId</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>ID of the event</td>
+</tr>
+<tr>
+<td>expandRecurrenceFromDateTime</td>
+<td>query</td>
+<td>string</td>
+<td>false</td>
+<td>Inclusive <code>startDateTime</code> lower bound</td>
+</tr>
+<tr>
+<td>expandRecurrenceUntilDateTime</td>
+<td>query</td>
+<td>string</td>
+<td>false</td>
+<td>Exclusive <code>startDateTime</code> upper bound</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>Operation successful</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"9127301"</span><span class="token punctuation">,</span><br>  <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-06-28T11:30:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-06-28T12:00:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Mal au dos depuis 2 jours..."</span><br><span class="token punctuation">}</span></code></pre>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"7821312"</span><span class="token punctuation">,</span><br>  <span class="token property">"recurrenceMasterId"</span><span class="token operator">:</span> <span class="token number">7821312</span><span class="token punctuation">,</span><br>  <span class="token property">"recurrenceStartDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-01-28T12:00:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"recurrenceEndDateTime"</span><span class="token operator">:</span> <span class="token string">"2021-01-30T12:00:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"recurrenceInstances"</span><span class="token operator">:</span> <span class="token punctuation">[</span><br>    <span class="token punctuation">{</span><br>      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"7821312|2020-01-28T12:00:00"</span><span class="token punctuation">,</span><br>      <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-01-28T12:00:00"</span><span class="token punctuation">,</span><br>      <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-01-28T13:00:00"</span><span class="token punctuation">,</span><br>      <span class="token property">"summary"</span><span class="token operator">:</span> <span class="token string">"Pause"</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">{</span><br>      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"7821312|2020-01-29T12:00:00"</span><span class="token punctuation">,</span><br>      <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-01-29T12:00:00"</span><span class="token punctuation">,</span><br>      <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-01-29T13:00:00"</span><span class="token punctuation">,</span><br>      <span class="token property">"summary"</span><span class="token operator">:</span> <span class="token string">"Pause"</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">{</span><br>      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"7821312|2020-01-30T12:00:00"</span><span class="token punctuation">,</span><br>      <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-01-30T12:00:00"</span><span class="token punctuation">,</span><br>      <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-01-30T13:00:00"</span><span class="token punctuation">,</span><br>      <span class="token property">"summary"</span><span class="token operator">:</span> <span class="token string">"Pause"</span><br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">]</span><br><span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"code"</span><span class="token operator">:</span> <span class="token number">2035</span><span class="token punctuation">,</span><br>  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Invalid date"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="getevent-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Operation successful</td>
+<td><a href="#schemaevent">Event</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Invalid request (query parameter, body, etc.)</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>No authorization provided or invalid authorization</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
+<td>Not authorized to perform this operation</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Resource not found</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+BasicAuth
+</aside>
+<h2 id="updateevent">UpdateEvent</h2>
+<p><a id="opIdUpdateEvent"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="language-http"><code class="language-http"><span class="token request-line"><span class="token property">PUT</span> /calendars/{calendarId}/events/{eventId} HTTP/1.1</span><br><br><span class="token header-name keyword">Content-Type:</span> application/json<br><span class="token header-name keyword">Accept:</span> application/json<br></code></pre>
+<p><code>PUT /calendars/{calendarId}/events/{eventId}</code></p>
+<p>Updates an existing event and return its information.</p>
+<aside class="notice">This endpoint is optional as currently patients cannot update their appointments on OneDoc</aside>
+<aside class="notice">Optional attributes can be cleared by passing the <code>null</code> value.</aside>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-06-28T11:30:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-06-28T12:00:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"patient"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"c-7168231"</span><span class="token punctuation">,</span><br>    <span class="token property">"firstName"</span><span class="token operator">:</span> <span class="token string">"Barack"</span><span class="token punctuation">,</span><br>    <span class="token property">"lastName"</span><span class="token operator">:</span> <span class="token string">"Obama"</span><span class="token punctuation">,</span><br>    <span class="token property">"gender"</span><span class="token operator">:</span> <span class="token string">"female"</span><span class="token punctuation">,</span><br>    <span class="token property">"birthDate"</span><span class="token operator">:</span> <span class="token string">"1961-11-25"</span><span class="token punctuation">,</span><br>    <span class="token property">"email"</span><span class="token operator">:</span> <span class="token string">"barack.obama@gov.us"</span><span class="token punctuation">,</span><br>    <span class="token property">"mobilePhoneNumber"</span><span class="token operator">:</span> <span class="token string">"+41791234567"</span><span class="token punctuation">,</span><br>    <span class="token property">"insuranceCardNumber"</span><span class="token operator">:</span> <span class="token string">"80756015424001443900"</span><span class="token punctuation">,</span><br>    <span class="token property">"address"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>      <span class="token property">"street"</span><span class="token operator">:</span> <span class="token string">"Avenue de Sécheron"</span><span class="token punctuation">,</span><br>      <span class="token property">"streetNumber"</span><span class="token operator">:</span> <span class="token string">"15"</span><span class="token punctuation">,</span><br>      <span class="token property">"zipCode"</span><span class="token operator">:</span> <span class="token string">"1202"</span><span class="token punctuation">,</span><br>      <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"Genève"</span><span class="token punctuation">,</span><br>      <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"GE"</span><span class="token punctuation">,</span><br>      <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"CH"</span><br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token property">"appointmentType"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">7168231</span><span class="token punctuation">,</span><br>    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Première consultation"</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token property">"comment"</span><span class="token operator">:</span> <span class="token string">"Mal au dos depuis 2 jours..."</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="updateevent-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>calendarId</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>ID of the calendar within to which the event belongs</td>
+</tr>
+<tr>
+<td>eventId</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>ID of the event</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemacreateorupdateevent">CreateOrUpdateEvent</a></td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"9127301"</span><span class="token punctuation">,</span><br>  <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-06-28T11:30:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-06-28T12:00:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Mal au dos depuis 2 jours..."</span><br><span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"code"</span><span class="token operator">:</span> <span class="token number">2035</span><span class="token punctuation">,</span><br>  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Invalid date"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="updateevent-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Operation successful</td>
+<td><a href="#schemaevent">Event</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Invalid request (query parameter, body, etc.)</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>No authorization provided or invalid authorization</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
+<td>Not authorized to perform this operation</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Resource not found</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+BasicAuth
+</aside>
+<h2 id="deleteevent">DeleteEvent</h2>
+<p><a id="opIdDeleteEvent"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="language-http"><code class="language-http"><span class="token request-line"><span class="token property">DELETE</span> /calendars/{calendarId}/events/{eventId} HTTP/1.1</span><br><br><span class="token header-name keyword">Accept:</span> application/json<br></code></pre>
+<p><code>DELETE /calendars/{calendarId}/events/{eventId}</code></p>
+<p>Cancel an existing event</p>
+<h3 id="deleteevent-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>calendarId</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>ID of the calendar to which the event belongs</td>
+</tr>
+<tr>
+<td>eventId</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>ID of the event</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>401 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"code"</span><span class="token operator">:</span> <span class="token number">2035</span><span class="token punctuation">,</span><br>  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Invalid date"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="deleteevent-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>204</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">No Content</a></td>
+<td>Operation successful, no content in response</td>
+<td>None</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>No authorization provided or invalid authorization</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
+<td>Not authorized to perform this operation</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Resource not found</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+BasicAuth
+</aside>
+<h2 id="geteventchanges">GetEventChanges</h2>
+<p><a id="opIdGetEventChanges"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="language-http"><code class="language-http"><span class="token request-line"><span class="token property">GET</span> /events/changes?afterChangeId=9974231 HTTP/1.1</span><br><br><span class="token header-name keyword">Accept:</span> application/json<br></code></pre>
+<p><code>GET /events/changes</code></p>
+<p>Return the IDs of all events whose <code>changeId &gt; afterChangeId</code>.</p>
+<p>A change should be generated when a <code>Event</code> is changed, specifically in the following cases:</p>
+<ul>
+<li>It is newly created</li>
+<li>It is updated</li>
+<li>It is cancelled/deleted</li>
+<li>Its recurrence rule is modified or one of its instance is overridden</li>
+<li>It is moved to another calendar</li>
+</ul>
+<p><strong>The changes must be returned in an ordered fashion: globally sorted by <code>changeId</code> in an ascending manner (earliest changes first). The ordering requirement also means that there should exist a <code>changeId</code> value that is smaller than all the others (minimum).</strong></p>
+<p>There should be a limit of changes returned at once, e.g. 100.</p>
+<aside class="notice">This endpoint would ideally return all event changes, i.e. accross all synchronized calendars. This would allow OneDoc to perform a single request to retrieve all event changes (<code>changeId</code> must be global). If this is not feasible, the <code>calendarId</code> parameter can be added to the endpoint's path but one request per calendar will have to be performed.</aside>
+<h3 id="geteventchanges-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>afterChangeId</td>
+<td>query</td>
+<td>integer</td>
+<td>true</td>
+<td>Exclusive lower bound for <code>changeId</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">[</span><br>  <span class="token punctuation">{</span><br>    <span class="token property">"changeId"</span><span class="token operator">:</span> <span class="token number">701</span><span class="token punctuation">,</span><br>    <span class="token property">"action"</span><span class="token operator">:</span> <span class="token string">"created"</span><span class="token punctuation">,</span><br>    <span class="token property">"calendarId"</span><span class="token operator">:</span> <span class="token number">46</span><span class="token punctuation">,</span><br>    <span class="token property">"eventId"</span><span class="token operator">:</span> <span class="token number">9817232</span><span class="token punctuation">,</span><br>    <span class="token property">"recurring"</span><span class="token operator">:</span> <span class="token boolean">false</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token punctuation">{</span><br>    <span class="token property">"changeId"</span><span class="token operator">:</span> <span class="token number">702</span><span class="token punctuation">,</span><br>    <span class="token property">"action"</span><span class="token operator">:</span> <span class="token string">"updated"</span><span class="token punctuation">,</span><br>    <span class="token property">"calendarId"</span><span class="token operator">:</span> <span class="token number">46</span><span class="token punctuation">,</span><br>    <span class="token property">"eventId"</span><span class="token operator">:</span> <span class="token number">7625192</span><span class="token punctuation">,</span><br>    <span class="token property">"recurring"</span><span class="token operator">:</span> <span class="token boolean">true</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token punctuation">{</span><br>    <span class="token property">"changeId"</span><span class="token operator">:</span> <span class="token number">703</span><span class="token punctuation">,</span><br>    <span class="token property">"action"</span><span class="token operator">:</span> <span class="token string">"deleted"</span><span class="token punctuation">,</span><br>    <span class="token property">"calendarId"</span><span class="token operator">:</span> <span class="token number">78</span><span class="token punctuation">,</span><br>    <span class="token property">"eventId"</span><span class="token operator">:</span> <span class="token number">1187231</span><span class="token punctuation">,</span><br>    <span class="token property">"recurring"</span><span class="token operator">:</span> <span class="token boolean">false</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">]</span></code></pre>
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"code"</span><span class="token operator">:</span> <span class="token number">2035</span><span class="token punctuation">,</span><br>  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Invalid date"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="geteventchanges-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Operation successful</td>
+<td>None</td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Invalid request (query parameter, body, etc.)</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>No authorization provided or invalid authorization</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
+<td>Not authorized to perform this operation</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Resource not found</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="geteventchanges-responseschema">Response Schema</h3>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+BasicAuth
+</aside>
+<h2 id="getlatesteventchangeid">GetLatestEventChangeId</h2>
+<p><a id="opIdGetLatestEventChangeId"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="language-http"><code class="language-http"><span class="token request-line"><span class="token property">GET</span> /events/last-change-id HTTP/1.1</span><br><br><span class="token header-name keyword">Accept:</span> application/json<br></code></pre>
+<p><code>GET /events/last-change-id</code></p>
+<p>Return the ID of the latest change.</p>
+<p>This endpoint is used only once during the initialization of a new synchronization to retrieve the current state. After the initial import of events, the change handling mechanism will continue from this latest change id instead of processing all changes from the very beginning.</p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"changeId"</span><span class="token operator">:</span> <span class="token number">703</span><br><span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"code"</span><span class="token operator">:</span> <span class="token number">2035</span><span class="token punctuation">,</span><br>  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Invalid date"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="getlatesteventchangeid-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Operation successful</td>
+<td><a href="#schemaeventchangeid">EventChangeId</a></td>
+</tr>
+<tr>
+<td>400</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td>Invalid request (query parameter, body, etc.)</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>No authorization provided or invalid authorization</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>403</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.3">Forbidden</a></td>
+<td>Not authorized to perform this operation</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+<tr>
+<td>404</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.5.4">Not Found</a></td>
+<td>Resource not found</td>
+<td><a href="#schemaerror">Error</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+BasicAuth
+</aside>
+<h1 id="schemas">Schemas</h1>
+<h2 id="tocS_Error">Error</h2>
+<!-- backwards compatibility -->
+<a id="schemaerror"></a>
+<a id="schema_Error"></a>
+<a id="tocSerror"></a>
+<a id="tocserror"></a>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"code"</span><span class="token operator">:</span> <span class="token number">2035</span><span class="token punctuation">,</span><br>  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Invalid date"</span><br><span class="token punctuation">}</span><br></code></pre>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>integer(int32)</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_Calendar">Calendar</h2>
+<!-- backwards compatibility -->
+<a id="schemacalendar"></a>
+<a id="schema_Calendar"></a>
+<a id="tocScalendar"></a>
+<a id="tocscalendar"></a>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">76</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Calendar of Dr Max Muster"</span><span class="token punctuation">,</span><br>  <span class="token property">"professional"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"gln"</span><span class="token operator">:</span> <span class="token string">"7601062578360"</span><span class="token punctuation">,</span><br>    <span class="token property">"firstName"</span><span class="token operator">:</span> <span class="token string">"Max"</span><span class="token punctuation">,</span><br>    <span class="token property">"lastName"</span><span class="token operator">:</span> <span class="token string">"Muster"</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token property">"location"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Muster Praxis"</span><span class="token punctuation">,</span><br>    <span class="token property">"address"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>      <span class="token property">"street"</span><span class="token operator">:</span> <span class="token string">"Avenue de Sécheron"</span><span class="token punctuation">,</span><br>      <span class="token property">"streetNumber"</span><span class="token operator">:</span> <span class="token string">"15"</span><span class="token punctuation">,</span><br>      <span class="token property">"zipCode"</span><span class="token operator">:</span> <span class="token string">"1202"</span><span class="token punctuation">,</span><br>      <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"Genève"</span><span class="token punctuation">,</span><br>      <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"GE"</span><span class="token punctuation">,</span><br>      <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"CH"</span><br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token property">"activatedAt"</span><span class="token operator">:</span> <span class="token string">"2022-02-27T09:33:41.761Z"</span><br><span class="token punctuation">}</span><br></code></pre>
+<h3 id="properties-1">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>integer(int32)</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Name of the calendar</td>
+</tr>
+<tr>
+<td>professional</td>
+<td><a href="#schemaprofessional">Professional</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>location</td>
+<td><a href="#schemalocation">Location</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>activatedAt</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Timestamp at which this calendar was activated for synchronization with OneDoc</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_Professional">Professional</h2>
+<!-- backwards compatibility -->
+<a id="schemaprofessional"></a>
+<a id="schema_Professional"></a>
+<a id="tocSprofessional"></a>
+<a id="tocsprofessional"></a>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"gln"</span><span class="token operator">:</span> <span class="token string">"7601062578360"</span><span class="token punctuation">,</span><br>  <span class="token property">"firstName"</span><span class="token operator">:</span> <span class="token string">"Max"</span><span class="token punctuation">,</span><br>  <span class="token property">"lastName"</span><span class="token operator">:</span> <span class="token string">"Muster"</span><br><span class="token punctuation">}</span><br></code></pre>
+<h3 id="properties-2">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gln</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>GLN number</td>
+</tr>
+<tr>
+<td>firstName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>First name of the professional</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Last name of the professional</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_Location">Location</h2>
+<!-- backwards compatibility -->
+<a id="schemalocation"></a>
+<a id="schema_Location"></a>
+<a id="tocSlocation"></a>
+<a id="tocslocation"></a>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Muster Praxis"</span><span class="token punctuation">,</span><br>  <span class="token property">"address"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"street"</span><span class="token operator">:</span> <span class="token string">"Avenue de Sécheron"</span><span class="token punctuation">,</span><br>    <span class="token property">"streetNumber"</span><span class="token operator">:</span> <span class="token string">"15"</span><span class="token punctuation">,</span><br>    <span class="token property">"zipCode"</span><span class="token operator">:</span> <span class="token string">"1202"</span><span class="token punctuation">,</span><br>    <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"Genève"</span><span class="token punctuation">,</span><br>    <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"GE"</span><span class="token punctuation">,</span><br>    <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"CH"</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span><br></code></pre>
+<h3 id="properties-3">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Name of the location</td>
+</tr>
+<tr>
+<td>address</td>
+<td><a href="#schemaaddress">Address</a></td>
+<td>true</td>
+<td>none</td>
+<td>Address of the location</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_Patient">Patient</h2>
+<!-- backwards compatibility -->
+<a id="schemapatient"></a>
+<a id="schema_Patient"></a>
+<a id="tocSpatient"></a>
+<a id="tocspatient"></a>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"c-7168231"</span><span class="token punctuation">,</span><br>  <span class="token property">"firstName"</span><span class="token operator">:</span> <span class="token string">"Barack"</span><span class="token punctuation">,</span><br>  <span class="token property">"lastName"</span><span class="token operator">:</span> <span class="token string">"Obama"</span><span class="token punctuation">,</span><br>  <span class="token property">"gender"</span><span class="token operator">:</span> <span class="token string">"female"</span><span class="token punctuation">,</span><br>  <span class="token property">"birthDate"</span><span class="token operator">:</span> <span class="token string">"1961-11-25"</span><span class="token punctuation">,</span><br>  <span class="token property">"email"</span><span class="token operator">:</span> <span class="token string">"barack.obama@gov.us"</span><span class="token punctuation">,</span><br>  <span class="token property">"mobilePhoneNumber"</span><span class="token operator">:</span> <span class="token string">"+41791234567"</span><span class="token punctuation">,</span><br>  <span class="token property">"insuranceCardNumber"</span><span class="token operator">:</span> <span class="token string">"80756015424001443900"</span><span class="token punctuation">,</span><br>  <span class="token property">"address"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"street"</span><span class="token operator">:</span> <span class="token string">"Avenue de Sécheron"</span><span class="token punctuation">,</span><br>    <span class="token property">"streetNumber"</span><span class="token operator">:</span> <span class="token string">"15"</span><span class="token punctuation">,</span><br>    <span class="token property">"zipCode"</span><span class="token operator">:</span> <span class="token string">"1202"</span><span class="token punctuation">,</span><br>    <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"Genève"</span><span class="token punctuation">,</span><br>    <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"GE"</span><span class="token punctuation">,</span><br>    <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"CH"</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span><br></code></pre>
+<h3 id="properties-4">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>OneDoc ID of the patient (format is not well defined)</td>
+</tr>
+<tr>
+<td>firstName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>gender</td>
+<td><a href="#schemagender">Gender</a></td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>birthDate</td>
+<td>string(date)</td>
+<td>false</td>
+<td>none</td>
+<td>ISO 8601 formatted date</td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>mobilePhoneNumber</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Mobile phone number of the patient (E.164 format)</td>
+</tr>
+<tr>
+<td>insuranceCardNumber</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Medical insurance card number</td>
+</tr>
+<tr>
+<td>address</td>
+<td><a href="#schemaaddress">Address</a></td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_Address">Address</h2>
+<!-- backwards compatibility -->
+<a id="schemaaddress"></a>
+<a id="schema_Address"></a>
+<a id="tocSaddress"></a>
+<a id="tocsaddress"></a>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"street"</span><span class="token operator">:</span> <span class="token string">"Avenue de Sécheron"</span><span class="token punctuation">,</span><br>  <span class="token property">"streetNumber"</span><span class="token operator">:</span> <span class="token string">"15"</span><span class="token punctuation">,</span><br>  <span class="token property">"zipCode"</span><span class="token operator">:</span> <span class="token string">"1202"</span><span class="token punctuation">,</span><br>  <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"Genève"</span><span class="token punctuation">,</span><br>  <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"GE"</span><span class="token punctuation">,</span><br>  <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"CH"</span><br><span class="token punctuation">}</span><br></code></pre>
+<h3 id="properties-5">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>street</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Name of the street</td>
+</tr>
+<tr>
+<td>streetNumber</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>House number</td>
+</tr>
+<tr>
+<td>zipCode</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Postal code</td>
+</tr>
+<tr>
+<td>city</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Name of the city</td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Swiss canton code or free text</td>
+</tr>
+<tr>
+<td>country</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>ISO 3166-1 Alpha-2 country code</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_Event">Event</h2>
+<!-- backwards compatibility -->
+<a id="schemaevent"></a>
+<a id="schema_Event"></a>
+<a id="tocSevent"></a>
+<a id="tocsevent"></a>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"9876312|2020-05-27T12:00:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-05-27T12:00:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-05-27T12:30:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"summary"</span><span class="token operator">:</span> <span class="token string">"Pause"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Mal au dos depuis 2 jours..."</span><span class="token punctuation">,</span><br>  <span class="token property">"recurrenceMasterId"</span><span class="token operator">:</span> <span class="token number">9876312</span><span class="token punctuation">,</span><br>  <span class="token property">"recurrenceStartDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-05-27T12:00:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"recurrenceEndDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-07-27T12:00:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"recurrenceInstances"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><br><span class="token punctuation">}</span><br></code></pre>
+<h3 id="properties-6">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>ID of the event, unique across all recurrence instances. For example <em>“{ID}|{ORIGINAL_START_DATE_TIME}”</em> for recurrence instances.</td>
+</tr>
+<tr>
+<td>startDateTime</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Event start date time (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>endDateTime</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Event end date time (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>summary</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Event summary</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Event description or comment</td>
+</tr>
+<tr>
+<td>recurrenceMasterId</td>
+<td>integer</td>
+<td>false</td>
+<td>none</td>
+<td>ID of the recurrence master, if this is a recurring instance (the master is also considered to be an instance)</td>
+</tr>
+<tr>
+<td>recurrenceStartDateTime</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>startDateTime of first recurrence instance (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>recurrenceEndDateTime</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>startDateTime of last recurrence instance, if any (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>recurrenceInstances</td>
+<td>[<a href="#schemaevent">Event</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>List of recurrence instances, whenever this recurring event is being expanded</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_CreateOrUpdateEvent">CreateOrUpdateEvent</h2>
+<!-- backwards compatibility -->
+<a id="schemacreateorupdateevent"></a>
+<a id="schema_CreateOrUpdateEvent"></a>
+<a id="tocScreateorupdateevent"></a>
+<a id="tocscreateorupdateevent"></a>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"startDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-06-28T11:30:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"endDateTime"</span><span class="token operator">:</span> <span class="token string">"2020-06-28T12:00:00"</span><span class="token punctuation">,</span><br>  <span class="token property">"patient"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"c-7168231"</span><span class="token punctuation">,</span><br>    <span class="token property">"firstName"</span><span class="token operator">:</span> <span class="token string">"Barack"</span><span class="token punctuation">,</span><br>    <span class="token property">"lastName"</span><span class="token operator">:</span> <span class="token string">"Obama"</span><span class="token punctuation">,</span><br>    <span class="token property">"gender"</span><span class="token operator">:</span> <span class="token string">"female"</span><span class="token punctuation">,</span><br>    <span class="token property">"birthDate"</span><span class="token operator">:</span> <span class="token string">"1961-11-25"</span><span class="token punctuation">,</span><br>    <span class="token property">"email"</span><span class="token operator">:</span> <span class="token string">"barack.obama@gov.us"</span><span class="token punctuation">,</span><br>    <span class="token property">"mobilePhoneNumber"</span><span class="token operator">:</span> <span class="token string">"+41791234567"</span><span class="token punctuation">,</span><br>    <span class="token property">"insuranceCardNumber"</span><span class="token operator">:</span> <span class="token string">"80756015424001443900"</span><span class="token punctuation">,</span><br>    <span class="token property">"address"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>      <span class="token property">"street"</span><span class="token operator">:</span> <span class="token string">"Avenue de Sécheron"</span><span class="token punctuation">,</span><br>      <span class="token property">"streetNumber"</span><span class="token operator">:</span> <span class="token string">"15"</span><span class="token punctuation">,</span><br>      <span class="token property">"zipCode"</span><span class="token operator">:</span> <span class="token string">"1202"</span><span class="token punctuation">,</span><br>      <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"Genève"</span><span class="token punctuation">,</span><br>      <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"GE"</span><span class="token punctuation">,</span><br>      <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"CH"</span><br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token property">"appointmentType"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">7168231</span><span class="token punctuation">,</span><br>    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Première consultation"</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token property">"comment"</span><span class="token operator">:</span> <span class="token string">"Mal au dos depuis 2 jours..."</span><br><span class="token punctuation">}</span><br></code></pre>
+<h3 id="properties-7">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>startDateTime</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Event start date time (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>endDateTime</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Event end date time (Europe/Zurich timezone)</td>
+</tr>
+<tr>
+<td>patient</td>
+<td><a href="#schemapatient">Patient</a></td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>appointmentType</td>
+<td><a href="#schemaappointmenttype">AppointmentType</a></td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>comment</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Event description or comment</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_AppointmentType">AppointmentType</h2>
+<!-- backwards compatibility -->
+<a id="schemaappointmenttype"></a>
+<a id="schema_AppointmentType"></a>
+<a id="tocSappointmenttype"></a>
+<a id="tocsappointmenttype"></a>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">7168231</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Première consultation"</span><br><span class="token punctuation">}</span><br></code></pre>
+<h3 id="properties-8">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>true</td>
+<td>none</td>
+<td>OneDoc ID of the appointment type</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_EventChange">EventChange</h2>
+<!-- backwards compatibility -->
+<a id="schemaeventchange"></a>
+<a id="schema_EventChange"></a>
+<a id="tocSeventchange"></a>
+<a id="tocseventchange"></a>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"changeId"</span><span class="token operator">:</span> <span class="token number">789021</span><span class="token punctuation">,</span><br>  <span class="token property">"action"</span><span class="token operator">:</span> <span class="token string">"updated"</span><span class="token punctuation">,</span><br>  <span class="token property">"calendarId"</span><span class="token operator">:</span> <span class="token number">6572</span><span class="token punctuation">,</span><br>  <span class="token property">"eventId"</span><span class="token operator">:</span> <span class="token number">98901238</span><span class="token punctuation">,</span><br>  <span class="token property">"recurring"</span><span class="token operator">:</span> <span class="token boolean">true</span><br><span class="token punctuation">}</span><br></code></pre>
+<p>The <code>action</code> is defined as latest action that took place.</p>
+<h3 id="properties-9">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>changeId</td>
+<td>integer</td>
+<td>true</td>
+<td>none</td>
+<td>ID of the change</td>
+</tr>
+<tr>
+<td>action</td>
+<td><a href="#schemaaction">Action</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>calendarId</td>
+<td>integer</td>
+<td>true</td>
+<td>none</td>
+<td>ID of the calendar the event belongs to.</td>
+</tr>
+<tr>
+<td>eventId</td>
+<td>integer</td>
+<td>true</td>
+<td>none</td>
+<td>ID of the event (for recurring events, this is the ID of the recurrence master).</td>
+</tr>
+<tr>
+<td>recurring</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Whether this event is a recurring event.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_EventChangeId">EventChangeId</h2>
+<!-- backwards compatibility -->
+<a id="schemaeventchangeid"></a>
+<a id="schema_EventChangeId"></a>
+<a id="tocSeventchangeid"></a>
+<a id="tocseventchangeid"></a>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"changeId"</span><span class="token operator">:</span> <span class="token number">789021</span><br><span class="token punctuation">}</span><br></code></pre>
+<h3 id="properties-10">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>changeId</td>
+<td>integer</td>
+<td>true</td>
+<td>none</td>
+<td>ID of the change</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_Gender">Gender</h2>
+<!-- backwards compatibility -->
+<a id="schemagender"></a>
+<a id="schema_Gender"></a>
+<a id="tocSgender"></a>
+<a id="tocsgender"></a>
+<pre class="language-json"><code class="language-json"><span class="token string">"female"</span><br></code></pre>
+<h3 id="properties-11">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values">Enumerated Values</h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>male</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>female</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_Action">Action</h2>
+<!-- backwards compatibility -->
+<a id="schemaaction"></a>
+<a id="schema_Action"></a>
+<a id="tocSaction"></a>
+<a id="tocsaction"></a>
+<pre class="language-json"><code class="language-json"><span class="token string">"updated"</span><br></code></pre>
+<h3 id="properties-12">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values-1">Enumerated Values</h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>created</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>updated</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>deleted</td>
+</tr>
+</tbody>
+</table>
+
+      </div>
+      <div class="dark-box">
+        
+          <div class="lang-selector">
+            
+              
+                <a href="#" data-language-name="http">HTTP</a>
+              
+            
+          </div>
+        
+      </div>
+    </div>
+  </body>
+</html>
