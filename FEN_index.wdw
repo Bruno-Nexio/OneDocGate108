@@ -589,7 +589,7 @@ window :
      height : 24
      visible : 0
      accelerator_key : 65535
-     tab_order : 10
+     tab_order : 11
     style : {}
     type : 4
     code_elements :
@@ -672,7 +672,7 @@ window :
      visible : 0
      state : 1
      accelerator_key : 65535
-     tab_order : 15
+     tab_order : 16
     style : {}
     type : 4
     code_elements :
@@ -754,7 +754,7 @@ window :
      height : 24
      visible : 0
      accelerator_key : 65535
-     tab_order : 16
+     tab_order : 17
     style : {}
     type : 4
     code_elements :
@@ -882,7 +882,7 @@ window :
      height : 24
      visible : 0
      accelerator_key : 65535
-     tab_order : 14
+     tab_order : 15
     style : {}
     type : 4
     code_elements :
@@ -939,7 +939,7 @@ window :
      height : 24
      visible : 0
      accelerator_key : 65535
-     tab_order : 11
+     tab_order : 12
     style : {}
     type : 4
     code_elements :
@@ -986,7 +986,7 @@ window :
      height : 24
      visible : 0
      accelerator_key : 65535
-     tab_order : 12
+     tab_order : 13
     style : {}
     type : 4
     code_elements :
@@ -1497,7 +1497,7 @@ window :
      y : 418
      width : 472
      height : 236
-     tab_order : 13
+     tab_order : 14
     style : {}
     controls :
      -
@@ -1816,6 +1816,25 @@ window :
     code_elements :
      type_code : 2
      p_codes : []
+  -
+    name : BTN_SansNom1
+    identifier : 0x2ad46c76017fed4b
+    internal_properties : HgAAAB4AAABDB2nAN5P/qeRSqF9C10UbpWJU2ZWCW3uv78EJ79ls6qtmvcta4iZS/gD5Oh8IFwX2ddJy6+PpMhb+IMjXubIolg89SWiD1WHYv057RPQTGvfU29EwMGmUmQhV/wvMWe+jXHHWZET5t9lPFmzuLDflq7EZJ4f2qLFjz0woEjbi7vgKbtgbdrd3JUix4uEUG5VRSYy5Kf3++TktzFQ0OwS4B5BTwnN2nRP86MUITz8umwRbN1RaGpuagcBZutFoUzhx5OnycOv8JJKo7ZQpcyD4njDak6d1ZdS+XBsFNlMGBMgHbDZSJboFNokttmwhizzX3LrYHbv5fHyfPgrvoLlL32Jdo/t2/1GsLTeEY/BFGVTAg0P5BSBUamuXuW6FG+yOWKxOMHyYfAQJlyhiyQleqlC0k5WhSrJiGDjqrFFuHxrmHahEc22Ep1BWjDM9LNb/iOLLzLm0HCv3eXu+1gAWkUCQH7MgCf1Ux8SIGwLUDrJL0y3ViJz4bJlHCx/+DLpOHYabtkayTKgdM4+HMpw5BcHzxBte2YMf27/dWImOc/I6jK0oiuJScXuIDSAH9Kj9z99eN3kjA45/MnWSTSsuE9TvrLPwuk5s+tb56CtoRcpkgcaOIoU8UqhK6KeSICPHsmwqb8DESgBMDOO4pZJnd3w5y1x+CdNDo1nq6Y6Iu0Zf42YrutDeQQF0jnF2xPtmuPlqEFBTfokEEL5Y9JKutGzR7CRIUOXSXJzJwIIDJ4kmoFHTa/Lu0HszBJfTo+nWa+Q1PgbTeYNbAb8N9MptxXkDcmIRu8UMi44SQxXAtcz3pSSnKLR6G1WITz4Dqo4O/5nKl6biJvOTAnWa8O2hoWODKuhFwk+Ek/el+3Otlg/0JRWEInad5vILdns+l/mHvcsyBuQEJh0Z7pgurtyLR66+
+    properties :
+     x : 22
+     y : 241
+     width : 80
+     height : 24
+     accelerator_key : 65535
+     tab_order : 10
+    style : {}
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        type : 161
+        enabled : false
  menu :
   name : _Menu
   identifier : 0x292573e513b5f221
