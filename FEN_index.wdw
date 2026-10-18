@@ -234,7 +234,32 @@ window :
          														ELSE
          
          															// ON INSERT LE RDV DANS INT_DOCTOLIB
-         															insertedID is int = SQL.IDAuto
+         															//insertedID is int = SQL.IDAuto
+         															// Relire le RDV inséré grâce à son UNIC
+         															REQ_checkIfAppointmentExists.UNIC = UNIC
+         
+         															IF HExecuteQuery(REQ_checkIfAppointmentExists, hQueryDefault) = False THEN
+         																Error("Impossible de relire le RDV inséré" + RC + HErrorInfo())
+         																RETURN
+         															END
+         
+         															HReadFirst(REQ_checkIfAppointmentExists)
+         
+         															IF HOut(REQ_checkIfAppointmentExists) THEN
+         																Error("RDV introuvable après insertion" + RC + "UNIC=" + UNIC)
+         																RETURN
+         															END
+         
+         															insertedID is int = REQ_checkIfAppointmentExists.RDCLEUNIK
+         
+         															Trace("[TEST DOWN][DB] RDV relu, RDCLEUNIK=" + insertedID + ...
+         															" | UNIC=" + UNIC)
+         
+         															IF insertedID <= 0 THEN
+         																Error("RDCLEUNIK invalide après insertion" + RC + "UNIC=" + UNIC)
+         																RETURN
+         															END
+         
          															REQ_insertInt_Doctolib.unic		= UNIC
          															REQ_insertInt_Doctolib.cleinterv = Prat
          															REQ_insertInt_Doctolib.absence	= 3
@@ -263,6 +288,7 @@ window :
          															END
          
          															// PUIS ON INSERT LA CORRELATION eventId -> rdcleunik (externalId)
+         
          															link is string = [
          																{
          																"externalId": "%1",
