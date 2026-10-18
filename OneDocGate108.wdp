@@ -19,8 +19,8 @@ project :
     type : 1
     generation_name : OneDocGate108.exe
     version :
-     generation_version : 56
-     internal_generation_version : 56
+     generation_version : 57
+     internal_generation_version : 57
     language : 1
     64bits : true
     code_elements :
@@ -103,8 +103,8 @@ project :
      type : 5
    -
      name : REQ_updateInt_Doctolib
-     identifier : 0x4ad5377b006dfe22
-     internal_properties : HgAAAB4AAADCuDpuXQoiPZjD0TWjO3l/4rUB4eg/cFSO11jfFGauQrY0EvxgWONE6V1HsXFvC/3HTw==
+     identifier : 0x4aba37ad010c4e83
+     internal_properties : HgAAAB4AAAC+pJaKOWZOYWxct81INhEg6Iun/8YiiIS2mcm2dhT4GDzi4e0eI6r1TfHr1V2Tb2Grqw==
      physical_name : .\REQ_updateInt_Doctolib.WDR
      type : 5
   other_elements : []
@@ -145,8 +145,6 @@ project :
       HChangeConnection("*",gMyConnect)
       REQ is Data Source
       
-      
-      
       HChangeRep(FIC_ADM,"Commun")
       HChangeRep(Int_Doctolib, "Commun")
       HChangeRep(ASSURCH, "Commun")
@@ -158,6 +156,12 @@ project :
       changeId est une chaine
       fic_cleunik is int
       fic_cleunik_created is int
+      
+      gsRepEtatOneDoc est une chaîne = ...
+      ComplèteRep(SysRep(srCommonAppData)) + "OneDocGate108Down\state\"
+      
+      gsFichierChangeId est une chaîne = ...
+      gsRepEtatOneDoc + "changeId.txt"
       
       // CREATE THE REGISTRY KEY FOR THE LASTCHANGEID
       sCheminRegistre	is string
