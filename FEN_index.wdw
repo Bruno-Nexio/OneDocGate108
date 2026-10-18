@@ -1925,24 +1925,43 @@ window :
      code : |1+
       PROCÉDURE SynchroniseChanges()
       
+      nAfterChangeIdForce est un entier sur 8 octets = -1
+      
+      SI SAI_afterChangeId <> "" ALORS
+      	nAfterChangeIdForce = Val(SAI_afterChangeId)
+      FIN
+      
+      SI PAS SynchroniseChangesSansDependances(nAfterChangeIdForce) ALORS
+      	Erreur("La synchronisation descendante a échoué. Consultez les traces.")
+      	RETOUR
+      FIN
+      
+      SAI_changeId = LitChangeId()
+      
+     type : 458752
+   -
+     name : SynchroniseChangesSansDependances
+     procedure_id : 1933295123456789013
+     type_code : 14
+     code : |1+
+      PROCÉDURE SynchroniseChangesSansDependances(nAfterChangeIdForce est un entier sur 8 octets = -1) : booléen
+      
       /*
       Script synchronisation OneDoc vers Winlogie avec gestion du changeId dans un fichier<§cs:10§>
       */
       
       // Par défaut, on récupère le dernier changeId dans le fichier.
-      // SAI_afterChangeId permet de forcer une valeur uniquement pour les tests.
+      // Une valeur positive ou nulle permet de forcer le curseur pour les tests.
       
       nAfterChangeId est un entier sur 8 octets
       
-      SI SAI_afterChangeId = "" ALORS
+      SI nAfterChangeIdForce < 0 ALORS
       	nAfterChangeId = LitChangeId()
       	Trace("[TEST DOWN] changeId lu dans le fichier : " + nAfterChangeId)
       SINON
-      	nAfterChangeId = Val(SAI_afterChangeId)
-      	Trace("[TEST DOWN] changeId forcé par SAI_afterChangeId : " + nAfterChangeId)
+      	nAfterChangeId = nAfterChangeIdForce
+      	Trace("[TEST DOWN] changeId forcé par paramètre : " + nAfterChangeId)
       FIN
-      
-      SAI_changeId = nAfterChangeId
       
       cMaRequête is httpRequest
       cMaRequête.URL						= guri + "/events/changes?afterChangeId=" + nAfterChangeId
@@ -1953,14 +1972,13 @@ window :
       
       if ErrorOccurred then
       	Trace("[TEST DOWN] Erreur HTTP : " + ErrorInfo(errFullDetails))
-      	Error(ErrorInfo(errFullDetails))
+      	RENVOYER Faux
       else
       	Trace("[TEST DOWN] Statut HTTP : " + cMaRéponse.StatusCode)
       	switch cMaRéponse.StatusCode
       		case 200
       			Trace("[TEST DOWN] Données reçues : " + cMaRéponse.Content)
       			js is JSON = cMaRéponse.Content
-      			LIB_Debug = js
       			// ON BOUCLE SUR LE TABLEAU RETOUR LE member.calendarId DONNE LE PRATICIEN
       			FOR EACH member of js
       				Trace("[TEST DOWN] Traitement changeId=" + member.changeId + ...
@@ -1989,8 +2007,8 @@ window :
       
       								if HExecuteQuery(REQ_checkIfPatientExists) = False then
       									Trace("[TEST DOWN][DB] ECHEC recherche patient : " + HErrorInfo())
-      									Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-      									return
+      									Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
+      									RENVOYER Faux
       								else
       									// -------------------------------- GESTION DU PATIENT
       
@@ -2013,8 +2031,8 @@ window :
       
       											if HExecuteQuery(REQ_createPatient, hCheckIntegrity + hCheckDuplicates) = False then
       												Trace("[TEST DOWN][DB] ECHEC insertion patient : " + HErrorInfo())
-      												Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-      												return
+      												Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
+      												RENVOYER Faux
       											else
       												fic_cleunik = SQL.IDAuto
       												fic_cleunik_created = fic_cleunik
@@ -2028,8 +2046,8 @@ window :
       														REQ_insertInsuranceCardNumber.FICLEUNIK = fic_cleunik
       														IF HExecuteQuery(REQ_insertInsuranceCardNumber, hCheckIntegrity + hCheckDuplicates) = False THEN
       															Trace("[TEST DOWN][DB] ECHEC insertion carte assurance : " + HErrorInfo())
-      															Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-      															RETURN
+      															Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
+      															RENVOYER Faux
       														ELSE
       															Trace("[TEST DOWN][DB] Carte assurance insérée pour FICLEUNIK=" + fic_cleunik)
       														END
@@ -2067,8 +2085,8 @@ window :
       
       											IF HExecuteQuery(REQ_checkIfAppointmentExists) = False THEN
       												Trace("[TEST DOWN][DB] ECHEC recherche RDV : " + HErrorInfo())
-      												Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-      												RETURN
+      												Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
+      												RENVOYER Faux
       											ELSE
       
       												SWITCH REQ_checkIfAppointmentExists.RDCLEUNIK
@@ -2095,8 +2113,8 @@ window :
       
       														IF HExecuteQuery(REQ_insertAppointment, hCheckDuplicates) = False THEN
       															Trace("[TEST DOWN][DB] ECHEC insertion RDV : " + HErrorInfo())
-      															Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-      															RETURN
+      															Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
+      															RENVOYER Faux
       														ELSE
       
       															// ON INSERT LE RDV DANS INT_DOCTOLIB
@@ -2108,8 +2126,8 @@ window :
       
       															IF HExecuteQuery(REQ_insertInt_Doctolib) = False THEN
       																Trace("[TEST DOWN][DB] ECHEC insertion Int_Doctolib : " + HErrorInfo())
-      																Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-      																RETURN
+      																Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
+      																RENVOYER Faux
       															ELSE
       																Trace("[TEST DOWN][DB] Int_Doctolib inséré, UNIC=" + UNIC + " | Prat=" + Prat)
       
@@ -2122,8 +2140,8 @@ window :
       
       															IF HExecuteQuery(REQ_insertCommentAndSummary) = False THEN
       																Trace("[TEST DOWN][DB] ECHEC insertion CLSCOURT : " + HErrorInfo())
-      																Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-      																RETURN
+      																Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
+      																RENVOYER Faux
       															ELSE
       																Trace("[TEST DOWN][DB] CLSCOURT inséré, UNIC=" + UNIC)
       
@@ -2189,8 +2207,8 @@ window :
       								REQ_getFicleunikByRdcleunik.RDCLEUNIK = rdcleunik
       
       								IF HExecuteQuery(REQ_getFicleunikByRdcleunik) = False THEN
-      									Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-      									RETURN
+      									Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
+      									RENVOYER Faux
       								ELSE
       									UNICOLD is string   = REQ_getFicleunikByRdcleunik.UNIC
       									UNIC	is string	= NumToString(Val(REQ_getFicleunikByRdcleunik.FICLEUNIK),"010d")+Left(Replace(jsResult.startDateTime,["-","T",":"],""),12)
@@ -2207,16 +2225,16 @@ window :
       									REQ_updateAppointment.RDCLEUNIK = rdcleunik
       
       									IF HExecuteQuery(REQ_updateAppointment) = False THEN
-      										Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-      										RETURN
+      										Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
+      										RENVOYER Faux
       									ELSE
       										REQ_updateInt_Doctolib.NEWUNIC = UNIC
       										REQ_updateInt_Doctolib.OLDUNIC = UNICOLD
       										REQ_updateInt_Doctolib.CLEINTERV = member.calendarId
       
       										IF HExecuteQuery(REQ_updateInt_Doctolib) = False THEN
-      											Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-      											RETURN
+      											Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
+      											RENVOYER Faux
       										ELSE
       											// SYSLOG
       										END
@@ -2238,8 +2256,8 @@ window :
       								jsResult IS jsON = resp.Contenu
       								REQ_deleteAppointment.RDCLEUNIK = jsResult.externalId
       								IF HExecuteQuery(REQ_deleteAppointment) = False THEN
-      									Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-      									RETURN
+      									Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
+      									RENVOYER Faux
       								ELSE
       
       									route = "/calendars/" + member.calendarId + "/external-event-links/eventId/" + member.eventId
@@ -2257,16 +2275,17 @@ window :
       				changeId = member.changeId
       				SI PAS SauveChangeId(Val(changeId)) ALORS
       					Trace("[TEST DOWN] ECHEC sauvegarde changeId=" + changeId)
-      					Erreur("Impossible d'enregistrer le changeId " + changeId)
-      					RETOUR
+      					Trace("[TEST DOWN] Impossible d'enregistrer le changeId " + changeId)
+      					RENVOYER Faux
       				FIN
       				Trace("[TEST DOWN] changeId sauvegardé : " + changeId)
-      				SAI_changeId = changeId
       			end
       
       		other case
       	end
       end
+      
+      RENVOYER Vrai
       
      type : 458752
   procedure_templates : []
