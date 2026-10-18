@@ -145,8 +145,6 @@ project :
       HChangeConnection("*",gMyConnect)
       REQ is Data Source
       
-      
-      
       HChangeRep(FIC_ADM,"Commun")
       HChangeRep(Int_Doctolib, "Commun")
       HChangeRep(ASSURCH, "Commun")
@@ -158,6 +156,12 @@ project :
       changeId est une chaine
       fic_cleunik is int
       fic_cleunik_created is int
+      
+      gsRepEtatOneDoc est une chaîne = ...
+      ComplèteRep(SysRep(srCommonAppData)) + "OneDocGate108Down\state\"
+      
+      gsFichierChangeId est une chaîne = ...
+      gsRepEtatOneDoc + "changeId.txt"
       
       // CREATE THE REGISTRY KEY FOR THE LASTCHANGEID
       sCheminRegistre	is string
