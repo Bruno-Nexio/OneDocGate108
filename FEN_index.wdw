@@ -432,137 +432,9 @@ window :
         type : 161
         enabled : false
   -
-    name : BTN_SansNom3
-    identifier : 0x281885ef0151331a
-    internal_properties : HgAAAB4AAABya7EhFtkNPRsYoy+TP36E4+7WyxDY+YSn40xIMFdInWCNu01783GY/It49wMAyB7WGXrEvV/iVyi30BfNEQJKbCwsPKNjTZFwI5Wfd4X5J4jxnGGpec2K36042WgaihqODaLNuUL9GQb85oAM3MHW8m9bm2Qlu3w1PpID6XGhRyRX3ZmDSWq481/5YY7emsNwFdXd8eWeG9DADDIaJ9INeTP1UgsGmR1wMs/ewxIXa38XNhMXMsGR18NLHkyiMf5GZZjbvKX9zeaIIr858Lx0wnMnK48uKD/islhR9pIyMBs2nlb9XneN4bT8trE1XUEgSj9aM/t7Q5woRGMKpXEHhOCg0mVoo7jACpfSDM3OVAXw3evMiIhnHru4s8qyn3DrWJ0bZi+xmSSAzqSyg1gTMYIw6sfVVBEGUarWrGFxvuxPy2ByThkm0RldYZVwbSfwpsYw+6Yk+khPxQbKxpFm3SoQULHzrwxggFrMCbUn2pSM+j7BMbbMkPCqppS4ekthPymh0D9GDkWdvVnTumeb5TQEsVUfP8+7x8eQqnAH0y/TRjbUM2+aB8sxgJ0LoHNl5I5uFVxyev0tm+Oh6/WHyjSYbHHabU72YiMFPjGfq6RH8fKW7NxKsCep5hqBWpR/zPR4NOhdGKRujKCBPjtkefzBA0zQxs5jbaHONDXLru3Ni5xBL31X1sjwXub6fBcEUDSpfzfS6A1LS9+xXFsgJY8ZjYe2ctVLeW+9gORhSUR+EPZmyxf6b8PdhR6mcbGpmFcFd8bjWm1WR5F1VRpWVnnV/9HX0HgvqqNrH5Er7VKtjeYYJNV3Bf0g7hYQpX59KdnEShjt51ezLWff3xBV5MwZew4yhrxPZgQjKPLN38hYNP3bJJuTzXteA2kZgqMTB9x4K1bd05691pRjSrx280lDRcSsTP2QeA==
-    properties :
-     x : 22
-     y : 512
-     width : 102
-     height : 24
-     visible : 0
-     accelerator_key : 65535
-     tab_order : 16
-    style : {}
-    type : 4
-    code_elements :
-     type_code : 4
-     p_codes :
-      -
-        code : |1-
-         eventId is string = "6809e080ea212be4be400ca6"
-         
-         cMaRequête is httpRequest
-         cMaRequête.URL							= guri + "/calendars/18/events/" + eventId
-         cMaRequête.Method						= httpGet
-         cMaRequête.Header["Authorization"]		= "Basic " + gauthorization // WINLOGIE
-         cMaRequête.ContentType					= "application/json"
-         cMaRequête.Header["Accept-Encoding"]	= "identity"
-         //cMaRequête.ProcédureTrace = ProcTrace
-         cMaRéponse is httpResponse = HTTPSend(cMaRequête)
-         
-         if ErrorOccurred then
-         	Error(ErrorInfo(errFullDetails))
-         else
-         	switch cMaRéponse.StatusCode
-         		case 200
-         			fic_cleunik is int
-         			eventWithPatient	is JSON	= cMaRéponse.Content
-         			REQ_checkIfPatientExists._nom		= Upper(eventWithPatient.patient.lastName)
-         			REQ_checkIfPatientExists._prenom		= Upper(eventWithPatient.patient.firstName)
-         			REQ_checkIfPatientExists._datnais	= StringDelete(eventWithPatient.patient.birthDate,"-")
-         
-         			if HExecuteQuery(REQ_checkIfPatientExists, hCheckIntegrity + hCheckDuplicates) = False then
-         				Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-         				return
-         			else
-         				switch REQ_checkIfPatientExists.FICLEUNIK
-         					case 0:
-         
-         						// --------------------------------------------------- IL N'EXISTE PAS DONC ON INSERT LE PATIENT
-         						REQ_createPatient.nom = Upper(eventWithPatient.patient.lastName)
-         						REQ_createPatient.prenom = Upper(eventWithPatient.patient.firstName)
-         						REQ_createPatient.datnais = StringDelete(eventWithPatient.patient.birthDate, "-")
-         						REQ_createPatient.sexe = eventWithPatient.patient.gender = "male"? "M" else "F"
-         						REQ_createPatient.email = eventWithPatient.patient.email
-         						REQ_createPatient.tel_port = eventWithPatient.patient.mobilePhoneNumber
-         						REQ_createPatient.adresse = eventWithPatient.patient.address.street + " " + eventWithPatient.patient.address.streetNumber
-         						REQ_createPatient.cdpost = eventWithPatient.patient.address.zipCode
-         						REQ_createPatient.ville = eventWithPatient.patient.address.city
-         
-         						if HExecuteQuery(REQ_createPatient, hCheckIntegrity + hCheckDuplicates) = False then
-         							Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-         							return
-         						else
-         							fic_cleunik = SQL.IDAuto
-         						end
-         					case <> 0:
-         						fic_cleunik = REQ_checkIfPatientExists.FICLEUNIK
-         				end
-         			end
-         
-         			// --------------------------------------------------------------- INSERT DU RDV
-         
-         			Prat is int	= 18
-         			HChangeDir("RDV", "Prat" + Prat)
-         
-         			UNIC	is string	= NumToString(Val(fic_cleunik),"010d")+Left(Replace(eventWithPatient.startDateTime,["-","T",":"],""),12)
-         			HDEB	is time		= StringToTime(Right(eventWithPatient.startDateTime,8))
-         			HFIN	is time		= StringToTime(Right(eventWithPatient.endDateTime,8))
-         			CADATE	is Date		= StringDelete(eventWithPatient.startDateTime,"-")
-         
-         			REQ_checkIfAppointmentExists.UNIC = UNIC
-         
-         			if HExecuteQuery(REQ_checkIfAppointmentExists) = False then
-         				Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-         				return
-         			else
-         
-         				switch REQ_checkIfAppointmentExists.RDCLEUNIK
-         					case 0:
-         
-         						// ------------------------------- IL N'EXISTE PAS DONC ON INSERT LE RDV
-         						REQ_insertAppointment.FICLEUNIK		= fic_cleunik
-         						REQ_insertAppointment.NOM			= Upper(eventWithPatient.patient.lastName)
-         						REQ_insertAppointment.PRENOM		= Upper(eventWithPatient.patient.firstName)
-         						REQ_insertAppointment.RAISRDV		= ""
-         						REQ_insertAppointment.CADATE		= CADATE
-         						REQ_insertAppointment.HDEB			= HDEB
-         						REQ_insertAppointment.TYPRDV		= "Médical"
-         						REQ_insertAppointment.HFIN			= HFIN
-         						REQ_insertAppointment.DUREE			= IntegerToTime(Abs(TimeDifference(HDEB, HFIN)))
-         						REQ_insertAppointment.LIEU			= 1
-         						REQ_insertAppointment.ABSENCE		= 2
-         						REQ_insertAppointment.CLEINTERV		= Prat
-         						REQ_insertAppointment.CODEPRAT		= Prat
-         						REQ_insertAppointment.FORMTET		= "ONEDOC"
-         						REQ_insertAppointment.UNIC			= UNIC
-         
-         						if HExecuteQuery(REQ_insertAppointment, hCheckDuplicates) = False then
-         							Error("Erreur d'initialisation de la requête" + CR + HErrorInfo())
-         							return
-         						else
-         							Trace(SQL.IDauto + " " + eventWithPatient.id )
-         							// On met à jour le RDV là-haut
-         							// PATCH???
-         							// ET ON SUPPRIME LE CHANGES????
-         						end
-         					other case
-         						Trace("Le RDV existe déjà")
-         				end
-         			end
-         		other case
-         			Trace(cMaRéponse.StatusCode)
-         	end
-         end
-        type : 18
-      -
-        type : 161
-        enabled : false
-  -
     name : BTN_SansNom4
     identifier : 0x2818911905f9ceec
-    internal_properties : HgAAAB4AAAAEFUW1dzW4Qh42ILUxkoTWQmii7kzaRPIb2oGUZtOCN62jPCP0/a4d1Gnjp9fllPhXpHLyoqH0frGRi0QkSkK0gwYLmhwA9Yo/67rU/lAjf7LuUGMJQIAhqLI6qmpeHmSMNLMDXVc7Cw9K1n3mfWGACXYxpDrlPQgq357A3nWLRKD2+FGMp8QPtPrPCCjnM14m854bbqKzFNWWBZNNG9eLr0eAkQvRoLuWN+gBy0YcnQAcMfGbMJzvHB7796EYH0pJ7eHmGlv5/Jwp+AZBap2g6rwqTl0N9ThzzzLyR7ce+15PfzmJ3M/RYfegh5qNxlU5c3LtMaWY6s5WdykmcxRoa3cJKOS+vzBc+8050sP59AkD0EYPl+7jnZbWGAF8PLkFWm4swGIrTVSQIHi9kBZOp2j3URC16Jl+9NL+xAk5Jrmnog/C3qqoVT0zuyU98bmBusVcs/6HUbZiMxkUL4O/M5YVn686vMa86HnoZoaBj8ZOkdsRxP2gJjaJhOkZ7sp753r0OkiVkAGpjotijfkiaVTDpuVcrBGvraR4gw3TPgU1qQ98lnCs7+cUku5Q1sC/RBcppy19WlfnikE08k0MzDwDPcOl4jokEt5FW45VgG75bGuGESli0tuUdu8uyn1jzgFPQqe64Oa2LfLUEW8hgZCgkMBxk/wje9YeUVrZtXlv0llZhCKBijrJMv+LXmr8qLumUdARTjUjCJUoZ1F5YUXcHmtHUfHZNxJNa4OtSqjefVWGSc1hxJea+/lFjVZTwv66r3FCFK0wCtNaxtgbDrscNI9uoVCRu4zOX5+GS5SMEw+MwFLr1Vas/WT6Ezun0/ghxSihqmly5+iu53t+nMSZAsjFfL7A3/LadXALGE0+kLq3KGKv9f/LmpbN1fewqYfB7PEp1OHgc3s4sh+hi1LdvkumwczZKqURpelT
+    internal_properties : HgAAAB4AAACWh/dPqXuqsOhQ+h8PfOaw5EqM+PYgXvhtzNv2VL10qT8Vtq0uCziDXuNtGT1fdtqJhlwc/H/OZLuLVQZqDIx2zVjN5F52J/gJldwuVDoNWVxAOsXj/jo30hSkJNgoAN6eph0lf7VdqakksDcs1zPSo0Azpjz7P3Y02ZDC3O8l9vqwOgtWQvhZWiUnsMw384qShzrjWvIL6BGSrXNpU0fP44NkiR8pqCfqu1Cxf2Ykqfy45YnPuBxzWIrDB/W4d551Ob1OfutZKEBtcAZNqjW8DhCeVlkN9SxH49Jygx+mZypzA4n1BCeNRfvY937FZuGtj2btZf0IBpri56Fa25x8f2sF+Djm92Rw3z1x9ssZEO2/7EbLL4YHsfruYL1sbO2RNkJ8ZPKr0fhUCDjJQOaqI+yDuYSFGDWiWGLuuAmZsl2btmcONgKEeSFDW7mF2SUdrul059aHbXqmQ1kQl2N5zSyjsXV85tzGFicCeJDzAai8H63vPp8e4GxP9jObuGztVaCumAI3DsOHPK1k18PMA9IB2GP+VoeRm6J6tfedoGeTNyE6ODoyuY26PID6QNJR2r3z1ccfiJml2Ku2fKeGxjoBzynfJMj2uHRnTUgn2ljvkjXEc7OIdAlCAGnQVCcdBA9hCPk0Vmg0q3ymK0G7KzbWula79brV2bR4ixyjp/vlAGsHLtQfFLi3jBE1uMTGjqkoj/Jb5EdBBpcCuZvj+9MSmLmxo7/rDXin9eU39OKUq7cc+nJu3XHksbeHwwjlXAC4rXNAEq8yDNFY+C7tYBXm+rUAP+5z3a7svTF0tX72hZ3yWugBP8AGW7qU+R2JPVJHowqPmBukqS70ocHAXgZbwA6/crTKqcwAU5Jp+q+YekA9otglf0mFIBxXQ2EaE3nfwtsfyuv6HZEW1H0Dbby3VKEIL7rLXFenM3vB
     properties :
      x : 22
      y : 436
@@ -619,7 +491,7 @@ window :
   -
     name : BTN_SansNom5
     identifier : 0x2818ec5a2d874428
-    internal_properties : HgAAAB4AAADWllEkr3DbRxoa8cvGRVdgqLlXmtfjWWmCEWBFKlNiJwsB1U3vXiM6Gd3E6l5efaJGO9mqPjQJDf7gihglkfOJCnUCLiye3aK8Ba28+t+NMYxmbN8VXXQIvbfw+8PVbCwF7XSQUnqub6unQzMi19M3p3ZGyPnra71KCeIWwCbvBc3MFmOZhAe8HYcb6C/Hqy9J4TIrb6odanAjLqeUJeJAi3dtujhxmyr78tWwoJQNJrqDt3yalB2geK6lFRRkJA3baZ05XIDWf++dr/DbrYXkACC2pHQAfw+TeTe/qqdaiQ0D+APUIGk5A6UEXvAwtISysGOjQdOQuwngaUVXHY98mSMlGKsfOaVPb9S04/IBDMSh2KXRo0w8YOZl54uEazXGdfsmSb+iwcNUu1eI36rsbfENHcURUJT3XupAqe+mW5bOlBkHbMdHPi4aDShPsqkpNwhsjFHzFWGjcbRnxoK+7I0wX7VRqT/JRSIkvKk43hPzMtfDadQ5q/sSnoW4U4cqdLP+Knumx2yGJ6c8iOLNZmms4LlZeabs2Fu0tW4cKfqCKrO6+wM9GBzVJHa7B/cAPyatYaoEifICmV3+BUJDueOeT69Cg2OJ+xstZQH6yY1EG6foMCR9xR5DLEdjF8bG+SDryNYLTfchhNjg6Gom6Ek9ZrgGXs2UXAOc1YXEQI7GRft1VetsNbue2As+ZU8vx36+S4EEpyYGb1P8+uiS5GT3NgGCSCa+HDOxTYZYlbkzBrmYaxmd0LJRSSWeKM/2L3cGYWoVYeqzSRf879cs1O/UT4QOkw6PDOlBIwR/iGfslkJBbyjF8Ai30T4hG9018Vo46RGIE5Wbh3l4viT6mD82d4c/YQU811r0EPMGq3/D5G7hLJ6VxV1dh56VuxXzI4CLF2zrDsq1Ib17iuHGbWCeWTCKzQ==
+    internal_properties : HgAAAB4AAAAWVhHk7zAbB9pasQsGhZegaPmX2pcjGanC0aAF6hMi50vBlQ0vHmP62R2EKp6eveIGexnq/nTJTT6gytjlUbNJSjXC7mxeHWJ8RW38Oh/NcUymrB/VnTRI/Xcwu4OVLOxFrTRQkjruL2vnA3NiFxN3Z7aGCLkrK/2KySLWgOFrT/2XmmudnCfkwVszkAtnO8fFnf5jOxo9ilQnvl8YtepA19NpauTJM/IH3rUovHS1xsbX63ym/K3IvIKlNThMRJ1PxQGx8Ijub+OJv+CfZcVkJGTK7KBwVw8vLR+Hzk8quRn3HKP4UFExF6H8zrTwRGSWDD/zDRNAK8VU+cUDBZ/M1ReJ6Ae/wfVLo5x037JxFGDl3H09u0w0BLpF7yf0u50CUafe/SeSsc+4Q5dURyIE2R15BbH5QKRzUgpIHQc+A5K6SMlD3JdPMhJqHQyvMkEli8zk6GmTrSXfSSL51PgUWhe6TQv3P5HvPyySlq8u1GFF7K0JL2oLycUkfI+OAXX4vgUk0On8WeIYSYUW1jiLpEPWNk/vL/iyGgXCj6QCJ/BkZAmIAekfjpZHWkD5Xe0uCRi7L5AC6xDs88uAo8iJP/2QxU2oubXPvV2Tt//gdxt+3WVmfrJP+9D9ygmpdeS862KRtpy5Nx0Lpt7C7mgU/lPH7Cac9F96bh2636saHuR4h7EL63G2U7VQLpUcA+2NCdhcgVdy+fRAKTk+OMbwQvYBvIcwDigsnv0PB1R2m6f9eD+WeN4KEXKRCeXeaI8277dGIapVIarzCVc8r5dslC+UD8TOU07PzCkB40S/SKes1oIBr2iFsEh3EX7h2x31MRr4KdFIU9Vbxzk4/mS62P92t0d/ocX8Fxo0ULPG6z8DpC4h7F7VBR2dR17V+9Uz48DL16wrzor14f27SqEGLaBeGXBKjQ==
     properties :
      x : 22
      y : 365
@@ -666,7 +538,7 @@ window :
   -
     name : BTN_Ecrire
     identifier : 0x282195de03adfd84
-    internal_properties : HgAAAB4AAAD6nuMN56IFNiX9+yUVDo5/B7VgmkZPv6iyU8JxQXuw1oY4IuAB2KUUufKQD8C91Dmtor9dR+Ur9cuc0H39Uc5wL9ifAdOgb+CFQb228V9Xks5oUvosddoGOBJKHwbH8Xoep9tReTQSpza0NESU3OuEeE0dRhVt8ZVKCZGnkqVFLGs+dahaYfhK5Ia/jqW6b51jHmLhnOZNKN3Us83bIHkdCUF+ayFmvgOcgU2v8AraP9NvNuuBJKodGIcPDYUOJAnSj+5caXK9csJuXnyUQBez7RBJ2xKEuwbE64DDtE86IxkYGFXZ5lE3DsjG2321+TPDnAHwWqfgzzLIM8DWwnzMOGurc6WUilrJ4VnNhZPOV+hD0cOkSYX1C3AsM4/EalVBFkWmuOHELPRbk48KnvGYl2qtdxGt4NgzkDDt1ArYBoC3b7P5NATOQFrBDZpdMZk6MZZ5h6BAVgjiluLm/lcMLD/KqXmEPkIhb1L3xO9TDy6YWoa/F5z7EwimFJNoXuAby+LR+7Gxzf0NLL8ClzVParcv+m7aZ6FscDyPGf/cVA07Gs52jbBXQ/HVOGdFu3YTdFh4eRTNLc0pwaFRL2rUZmZCHgF+VLFcJF9lWJMZH5XwAMgIhn2fioeYWsD/xlDy063DzRNv2MR25hqbGIwtq4N/MeSsZ8uDQ9N4BgHoB7XLVbcK+oOpowl1LEppW4OEp6WbVY9rEUGaCmwk+9dez+zeMu3CGQxM/Ub3IGww+01holK2r6yRQ4y3C8+cHc9nDay21piQefVEWgxeEVvZG+0YiUeZqja68zjFVMBJhKgTM7XCbEZGdHfw0/+0Fg3yVGPqVWud8aeKHIgZQ9zekpM4sku5cgp8HgxgD0XUcY9L
+    internal_properties : HgAAAB4AAAA2Si9Zo57R6vnBXzkpMoJ7C6kE/nozw6S+L95tXXecqvKUrnyNVHGILZYks6SR2NXRJiPRyxm/YXcIXPlprUrku1Qr/W8822QZ9REKFUO7DnL8xo4QWX61YgSpx0KjLY7268NBdQCWH1b4zDzQuK+oqIF9FlEJtU2abSk3VrHBQFOyFbi+zfQKpCq39hHO01HLMoLpgOqhsLUg043PJGVx6YUWgx2yyjMspb23BL5Gs0P7/ovV6KY1aJsHvfkCKEW6m3Z8xYZJAhLSprSgfAuPzeQRwx6Anw4MJ1gL6Iv+Z8FcOG21kuWHJjQms7EZtUfjEPlw7jusn+K8sxjqRng4oP+TywFIrvpRncnV2U+am6gPwbPAVUn9M0wsq+OwNvGhqoV27PVwhFTP66emyjVcv44FBwWpxKgrbBiV2P4Eisizp6P9EAh2uDQvX7Anb7OQ03SrXdK+EHZ8VCxUkMX2QuGIa6de9IQPmSAhMkGJSbRaWCgFAfLtASIENtkCRPpxFbCDIUvn/6tnihl4ESuZwAFdvKTshasaqtohT9kCJntNgOhUtwYJUavzErUX8ciB9tZ6fw5Dr0PbV4tf4bjWZHiwsG/ImgOa7v2Hnk3nyTvqLiqeKLu5kJmuTPapnJKAZSNdOy11etp43HSB8ip/GRXl20r+VQWpRYmCrJtWwfvVK3E4TDGT2esbhhDTefXSwetFu9khUx+kCG6KddVwve4UDAP0BzYyH3yxPi5utVNzkPQE2bLCardjp6OoCTvzkSjKwvT03WnI3oDKhe9tj1mMBdsNJrImb6RR2EzFACSXT6neCNra2Otkp4s4ioFGILcGSX+p/bOGGJRtH/j6jpc0tjeVVm6Q4kA024kIJcMH
     properties :
      x : 22
      y : 406
@@ -707,7 +579,7 @@ window :
   -
     name : BTN_Lire
     identifier : 0x2821964703af9877
-    internal_properties : HgAAAB4AAABh0unUWqhZN1hx8+WNKqPubVSwK3C8xUaV58EICXD2iZp8vlRfwzyPVMMPd06T9Gre6/eqzLjlN9HFCXzloifPNfWhBILJPE6c+HxugLkuT2nIuivq0AJ0cUuVzyO/JGgkzkfhkzdte8lN8z0XX6J1IGijp2XwGNRiD4ImkNXXxSHoNpsAIVlKQ7szNcKxjZ9Jxm4jCBL9E86Ke4h65gRtfub5u0xIuapDhVwZT7rBk1roJCynkm6bGrtlER8YPptGGKIrBcpQ5BLeBbu+NtJbaLKrm3QeZvj6qLf0Zzj4/EODk6tepMe/t/Fg3ppRcMbfnfGo9vWHJmivIvzXJHgVaqoBKAABmfAyMYcZfdTYPd0nI2XwGpHHpUiuY88NPLQT27GgSmo8avTQzmIi8BwxvWzRvBKDvUwg4KCF6lw/tONvFpV3wtLJmbo7mt7GQxWPrY2VKPcwS/Le+HjJxmArs7HeSPkWqeWPX5/oefLIkh+M0x/yWw5vE+JqFBMfclq+89IyTutQWO1hb40ouLVTwjG+SUcI8IsIbb+MTIuhgxhrdIJ48Oi6pFuaNIpX+Q3YhPuf/jl8QDLOTocgO37rEa7BHEdU36C+zfoYI0wm3xlzhS6FBC/f9gPLSRdZQPA3rYhefpvPRNanR9JvOZ//WclZtmKBlNtDLT2iUhNMQVQ8w/IBFafm1fTGWx7v7iOMy1pUJKULM8bCIUrICKvfbgO+b0qzL95wauHhH7tTOp82IOsmD4qRtg4MatW1+PcQuD+8F4DLdCQB/vASrA+tj70E0irwfV9xTTGPNHNem4qVILEjgN5cl5ohCDW4nP/uTZ5LpYfU3W9cG/kvfa9C7SGsZCTb2S8ZujwnV4o6R+mRagcPTWiev/lX+fLV
+    internal_properties : HgAAAB4AAADLtJP2qPp/STLbNbP/hO24lw76ZY4Gu9gvCSsGM3roG/QuAM7VbVopNl2J9eg1nsxwHckUahITwQPXGyIHzEGpb58DZqCrmqi+Gl5MYhtogSsKfPUgGnhOG+VfBeX55hJmiI4FYmQxvUE1Odd1Ox4pkPij5wfkQFTS56jkYj3L+SmQEl8moWWyj/8xpyhV5b8NkoLHzgI9ZxJGVfKoqqgxulJB80ogUUIvEaoT3SbVj5IosBB1KqojInN3BwGQdtOm0Brrk2q0PH46VxWksnKjHG5rS/LeyuziCE0SEUhUEBNDX2fE/LOLt+FWOPA1dGrDGUW8NHUTlvR74MpZ9KhtHh6hSKLdOchelTEv1xyA7cET47VeUiG3KQyATa3pDHTPdy1snK7gxsCcfPyITGhdQXBhjJwnESQcLGLfWJD7gJcjwrldIo4h9cZ5aDDmI8bcctrk+SiB4vfTV4HaZ+c8oK5jV45b3phElMaxFgczb2gdnA5jLEfuHPvxvYy4+XNXDHulV4S5g1oeKtJxQQAIB/4DLIjRecr1ar5Nwfh4VEkctcVNBc3ZsQhBbfvY3AI9Ydiy7yqVW5tnaWwBFIV87ks2c9Qp3N/jos2lvN31qHbQOj0KSbSiN/SymqCyj9EUSt2hGwg8M1s8Zpv8vt64lk6mSd8OsfZYAhjHezzbwsXlRD3CrviBmil1/Mcg5SSN3PvrdW60IhOPeCvlHZJQz+w3GjO0AGlBqzy2fDj64zwLLe6HUJ2qLufJsBN3vjnS+vlybWqxWt5LSK7Q7k1v8R/m8AjSW72TLxPtSk0EPSw3Qp8xsgwKQfSL5ssSOhmI5yDJOylye8nmlUd9Dx0s9yumehI1P5WzBPZtnVTw+TtjtE215w7EkQt5n1h/
     properties :
      x : 22
      y : 160
@@ -753,7 +625,7 @@ window :
   -
     name : LIB_Debug
     identifier : 0x2941719d03724625
-    internal_properties : HgAAAB4AAACx4lhSkXl+ettG9l4O620b76ZEhP5LZmaGI+2BqhSrVMnh7V/rycmieDT/kQ+d5kmi4Gj9i6fMJmCchroil9vV+sRpMhpBy88Va/H3R8QLcw9t7i52hVYwCaR+976zsRHc+gfe39Kef/Z2p94DIbMORh9OcaE9qkOwErSMlOkZEEiVOxJBO6Ix1M69EKHADrtkDSNN/z5nEjqO58utY5RDummIHJzTq5KyYEsLMXg3xAuYwLVn1y24Kei0Cwx50HgQn7t59Ed/I4oRM7wzMxhPVYyrW+70eHK+XhfFkslPipCqpM3SEUQpolRCF29xmumCget2rgwrh64mVkt1+3ZNAP49oCENdGcv8Jrw1NpCclRh/nOvMnfFwSRQ9XwOPQj6rXSvrKfWToFwxaSB0haF5c1Nnw3AvzhHM1J9VOdN3rSKZ3htbZY/llgfC9yqvH2SrpK8zxJ4FZRLKnPyusQ=
+    internal_properties : HgAAAB4AAAA1ZizGbZW6pueyArryx0n3CxLw0DKPuqpKZyHFZNh9ts3lgR9PsXFehLBHIQuNhsVmLKRtLw+c4lxo1iJO7/sh7mCF6sYJkxsZf4FP62yLv2MBGk5aZR4MTbj+T5qbCfUItoMOa6pOC5q655Z/udsiimMC4d3F+hfs7uwU2DmBPORpz5L9E8ptiCJtOIXg9p/4eYftQ84nbu6StzORQxyPTs3cFGD7u6ZWZCu7veBfWqEyKqsh/SuahxJeqYrvDt7G0W1nbu09ZcDbfWqZwY6Fm07tSdBCrkxEOGGzWBe9uI5EjjOcR3KbkE6c/T23gC/IW4Uc2NLJaTQISCHLmTRzphjH9vPrenElQgx+cmCIMOLzyHlZKIX3f0YSK6r0yz6AP4ZtFuUMCE+K73rnQPwzsy8X1c/u5eI9bSzT8m3TKn5Qo7wpqcrzWpzTX2g+IOF2ivbYo0a00VC3ht9mNkA=
     properties :
      x : -376
      y : 548
@@ -769,7 +641,7 @@ window :
   -
     name : SAI_changeId
     identifier : 0x294176fa05a4393e
-    internal_properties : HgAAAB4AAAAYvyJRWSX8vRzdcNwT7DBDRCHGvmB2Raie//ovhYa2I3gq+zNKm68YJvg2D4zdeRWcdcFFPwz9n2fbxQf4NHuASnRioNNn2XIp3RepQoJhn0iqhgB30eZaT7+r9y8fuJ1rRuYMWu8JkL5iVQVNQguCmf74+jFswSXbk9JGmrF4p7OM21cAZKVdjeLRIMhCr2rGnAOTHReL3kxxeK6wmMSEO4bd1MSFFkMg2W3QCBlxWQd68L9V+bTjpgDX+4UlquHpHVKgSk7jMt76VulPuMOMFM+P6HeoRBNMPCf2BdBdixiUjq9DyI3wnMAqtkx8t791MrOZnU2u0g2pyJ6CRbnbjRrSTH1PxtqBYn65MZ4gHYs3Xql7GL6lMwxzs0yt8EpR0qRch51d+jb9mszSaeYWl1KblQ1ZWjJuSNZ74fejJvKtxUnfR8FTIrDcbemaS36PRpVeuQ2AneQvJ6n4K1lq0eCqI+W0mPSGaZeYWRmLGbgsY6aw+B66yHzjAaPgXUeQ54Sj1Tq56Hzb1wp5aQhzfrop9K4u7MVFUw56iiqQkv0kd+NDlVvRdWN0yRXfTamBqnpwXBBzgHhxUYQ/j96GIiyAMadHG35Myz6K58hwKxUps9gzEakxKfzghgXHvfxsU2D8+w6Eri8E/pmGxe+oWr+t/91nV6ziH+PTVm0bd3AHkifn/cUGT/YUhW168DvPufZj3YxjtLAIdWt8ufQmjxGbp9e75ZfwFc+yrRSpx5uknia1wJaLG4D8CBathVaWO5LSQ9ApB+ONFPsgyAQ7FBkBfhjRoiiEEDqmE04oWkXKxPC6LBf3YsTGgmfxSamejJj3/Svhq6KHOURF9WB7KR0jCkap2dQsfFHir5XNWq5mxBe7IE9GC6JItfwOQ+ZDFbWtMk0WyN9dKOApAPAyfQKVjfTn9ic7olWjF84wOUAwnT0sqjxDaBMxhvW7OgK81RADAqgYfrJOSwt0JLKgY6B/1xoFdLHJkwBTVODqr7XV+gKoZkcaKJR2v0pERWiO9WFN/lhswZt8Gtsj7pTppF7fwYkRIuLckH+6QDNQZImWdnCJzC8KdIir0mLFTwTRj2mcYKYxtWOHL6htS93RJvRoVaM/irFP06H44UZNQnKnGOYoFhWpPpp0pRK+t9gkDRB2G3HT/wsoKadiXEV8TX+o/q4IFVLDtV9wRerFpExLv/LXU80mPprNsHJ+iIb0k/XgDutLREBxr7a9DdFPKEwsTbGury64wF2t0TLRfPmJuNJ+0Qeyy/I91GjlftmieU/Hk77Cui08G8KCypgf56WTJxEq9n9qyQACUW3YRe7s4ceYQLCd338qgDA/MJU+QmDUJo/KMruarRBZLnNWd1Vvd7M=
+    internal_properties : HgAAAB4AAABE20ZtpeG4+cjZdCAn8KTX6JVCAkRa+fyiI5abcbLCj6RWn692FyuEUoS6gwBRfRmQWT2pI0AhU6tPIbOUYBfsZkC2DL/D5W7rQTURgtJxH1jKpoBX0Va6P1+LB3+/2G0LFjY8Cj/JwB6SBaUNMjviSb5YGhGMUaVrE/KWCjE4FxMca2ewdGWNLdJh4GhSP2r2nONz3TfbHtyRGP6gWGQUm7btRBQVlvPg6f0wKMmBOXe6sP81WQRjViA363WlirGJ7QKQGp4joj6KRokPaJNMRG+vaHeotDM8fEeGNTAd+zgEnl/TeO2AvFD6Nuysx38lcjP5PS2+El3pqG7yRRlLDapifM3/JmrBUg7Zse6QXdsX/sm7GK7FQ+xTI/wtENrxwhRMdw39SvZNCuyyObZ251Ib1S0ZipIeSFbLsRcjVjL99bkvF0HDQgAM7QnKOz7fhnV+mY1wvXTvp5kIi9n6cbCaM5VkeIQGmaeYeYlbeagsY4bQOE6auJxjEZPgvXeQV3RTpWpZuJzLJwqZediz7rrJdI4u3GX1M06K2irQQr305/NTZRtBtZNkKZWPnQkRyppQvDDDwKiRERTv7552Ytww4bfX267Mu04Kh7iA6wWJEzgzcfnxGdzA1pUHHQzsw9BsK56Eng/UDvnmVZ8oiv/tH12HJ2xyn0PDRm2bR7A3Km8fhb0OR+4sLdWiiMOnEW5LtdQ7/MhgzXNEYYxOpymTr8+Dvd8I7Sca9dxhLxMcVi6N6K6T0xi0sN4V3X5O88o6GxiBz/vFrOMo0HwjbHE5ZjD52tB8aPIOu/aAQr1CvDiSdO/fWjweag85QZHWxJDfVVN501ofcYytvdjD4dVb8p5xEfxEtOmqV91FQuaeXJ8z6KcOg/rAPUQWe66b7c2VShVO8PfVoAgxyOgatbrt1cyPrm9zuq0Ln1aogRgI1WXkMtTL4MvJrt2DMur0jaiLGlDQRkqmAzO8zAoI25iXf5KNDDlBC5h7vIhC922NcorgLh9iYKwOJ5JM/bBGrVm1duDkqXN0UmOrVizxXBYXSQGZGsr0yBcCiNsozGFuTlhBVEcSTABjGqqtZwwJx2FkeK6pHZtfZ/CVE1XZPgzgvTvnQtnnaxnASQ7Fago/cC7gvs3RFrIMrXrmj8DcxQgek9nL52MgYW8qRB1EpdcA5gbQTRqbLTc4DTJ9rASDV1pvW+XOlpIF2FomoM7sCw3oBjODDBgphx7FNel3wORk1Wn2hxZQ2HX1eXoJJDHBsPrW+Z/aY4KrDoT5Yj0G5SPzZ+LuZpmo9y42BuTr04mPOw02+gPuTYSG3fFcyRKIBSM85FzJCytGrGTrjHEaptxokhteRo+usRSl8jeaO5ET01c=
     properties :
      x : 147
      y : 160
@@ -800,7 +672,7 @@ window :
   -
     name : BTN_changeIdPath
     identifier : 0x29417be009345bae
-    internal_properties : HgAAAB4AAAAuXx/4rZ/FP/lqrkEVW2yqJjGxkcAJ9EZ50Vr1X/TPKvcEiDTOUJW123NwuI/8exDG7ENH3Jr2Ubt37fqgnD1QkNVM8f2jAe2mODcNyhhO+PwUAe3lxWNX1+IzZVc7Y1wUMpAsbbbRBfI0/ah/qO/xNqSXouOtnOoXgpNYor6p9dfBr8UIjqp2LVrjyacdWCrf2wK/fcRuwMChWCQ98vdknYsuPaQoCdqLS87dZI4camOoyv7DvKaYUjVzEZpQjjfOLleBjF2/mzHG3tkjjFwqtoQuS1Z7pIsuz73fBH262K/yYZRHvzcHO11mVi/EBLfoWdGNt7kQKdgy/7Z3Uj//lNUjGYNASwETdoLub84b26UOqAA9kogxGvUsUz7QRteiRzbPM2JhNvFr0qfj5hB724jJXTVaXpT/8VB4msgdgzs9DwhmOBltma3HHN7b4eWSIHL2tesx8Sr8ShDZ9tjy3CzZ9S/LtEST4pqw3NR2Gx/BoVkurjNLfpgZVytY1a1IXjO49NcAj1wyQODsodGv1mD1KAJquT85VdeGJ/7xdXdh1dmRPfJ6lcV4ecm5kieav6vxQ5ch+XD7qW1nrXv5J5P5zu0KS6fTyKT88aPQgZgeytInwNrq7+TNQgLT5qR6jcmiQtJqPC9D81wA6JuFJznqKArdYM+JjQPxRMBoH/q6iC+HmIdbLqPmdc0zFB9QhGXITIWyOA7f6BbhcxLtQ6fmgDokQyE3EkmIHDbnL1C3Q9WR7UgijoicNV55hArRWTNDncK671/KomBzQWWKqDGTo+0dSddsuhJi3Oj3ADznMDt8srT+QUjFW3Oze7Anw6c3PKJhAib2sspmGanikUk/hvMNu2AipZUSau+GBGf2H6fZFoOTv5N4KV2YbT+0TevVrPwm/kWU0dducyXmQyXDR7YJKiHMJA==
+    internal_properties : HgAAAB4AAAAoXRnGWy2DAY+obA9rGbKYQJ8bf25netDnbwBLhbIFcAlKwuIUltN/MUk+9rWquVYIAm1tKnic+3Elg0jWkkNOktNO9/OhB/9UziUTqH5kpi4Su7vDW4npxfBhy4X5oaJeSOKSs9zPD8gaM8ZNjgXX2JpR6LfoGn7Nah9kKg6v879Bo0WMAhpmL3IHNUf11nhpX7IHnYQakI41+ETdEnF2byfeiaSghcYd+25dZE5ehB2cutb3kEYcWHlfAWpw6Bks1i+pUFH/y3t+JvULtGJIiLBG7zKnPI9IF4FHVAVwBskuQUCP91uTDQ0+tr9Uiu3GSU2Zo1X4fbIit6abHonBGl1T6Q80u4VposouV5ZxoWPG7LCFSrzZYOmkd1bwNCU8m06nI6qdYmP7iitzLvZB5TRRbRlG5rwlhWxwXgQ3fbldr+iiVMF5d5lfwOp/B4sYgD5uZSPFgdTUKvi5Q2U1l1lIRjowibNef2XtY+WXVlbSXF41t7g2EU2kfGIJejzPjwZdC8h9ypNDF8mfFloiIS3cMY2X9oKohkYXomuiYFZawO4IhruVxGanuhSOZxIBGM4ekkBWVJuYNArWVkCU2jAQJwA/+NICsZtFLFg1fOvDCduaReuFRu3Ey+Woy9uN8phTLS9PI9qITqlXwSBsbpL1RdkOJWpsksa2A0GJ4rX/T9BixTCKqVjpGqSM7SZ3rRidC/av1+ncS2swBOMcblRV6R0ZKGRG45h5D+s4hqNk8qZMKgllzWc9VKMMa3tGzJQMRXh0KYWgiHpVb7dYlieZrddrm6ky8NikHrahrkr1xpUW2N6oP3bzdVXRZZ410bU5PqBjBCT0sNRo51sQv3/lYBUj1XoI21tUtLW4Oj3MZeGTXM1dddk+Y5deJ3VK23lHPmKAWOPyvyGwMeckAVuJAQj/JBvKIg==
     properties :
      x : 22
      y : 201
@@ -823,7 +695,7 @@ window :
   -
     name : CELL_Connection
     identifier : 0x2aab812316a35d36
-    internal_properties : HgAAAB4AAAAWyLHAqHRGPIeDsBFZ+089YUmySuwl/oqrZAaOaqFsBO1iZta8ZZmE28wZ9+QjGj2vY0O6KKYlCti5geU7h4wuhwS1ClYT1Jsg98YtncgOOuIhGYsKWIc4bgSV8h06P1rQRN9p4vwbdOkELncQpen7+/B7n1ZqwqrQIT+U7IncccZ2bU5envL9QHQTAba4Yt9F8w12mQSNvvmELaVqiKwcAlA/qidNjGeRsHAJGyTyvzqwnd6Kn4e+m4f4INhM4EMLuroC0sHAnrf9rP72Odj6VBfKUX4CpCMDcZ+bxcGfvsLqEIxs/EuqWXlpYRx+ibDuXa+Wbu8q4LmzTvBlFA+jcwdAOJbaegqbq8p+zFiwtnn0yTX6j2mc4a4MZczbWdLoa/oYa3JwkZX4uIhZMH41/xfgsdXAZA8wmD1EtBNQ/WGexaNELT76smBA5aGPlqQeMfDneb2sQR5V2gh0k4sZT3g9Bz+3oG+8OpVpjQ==
+    internal_properties : HgAAAB4AAABWiHGAaDSG/EdD8NGZuw99IYnyiixlvsrrpMbOKuGsxC0iJpZ8JdlEm4xZF6RjGv3vo0M6qOblilg5wWU7h0wuhwR1ShaTVNtgN0btXQgO+iJhGYuKGMc47oTV8p06f1pQRB+povybtClErrfQZWm7uzB7n9aqgqpQof8UbImccUb2LY4envK9ADSTQfb44h+Fsw32mcRNPnkEbSVqCGwcAlD/6ufNjCfR8PDJW+Ryf3rwHd4KXydeeyfYQHhswKOrGtri8qFgvpedjB6W2ThadPfqsR5ixENjkf87ZWF/nmJKMGyMXGvKuZlJATye6RAOPc/2Dk/KAJlTLpAFNO+DE+dgGLY6Gir7y6oebHiQlhnU6RUabwm8wU5sBez7ubIIS5r4i1IQMXWYGKh50N6Vn3eAkfWghK+QOB1k1LMw3YHehWOE7f468iCApWHP1mRe8TAnOf3sAd6Vmki0U0tZD7j9x393YK/8+tUpTQ==
     properties :
      x : 519
      y : 203
@@ -1179,7 +1051,7 @@ window :
   -
     name : CELL_Database
     identifier : 0x2aabe2490210da13
-    internal_properties : HgAAAB4AAABwa0yPf1V2YS/Wdn00Frre/Bv6KkiNwJV8CT+8bzfJhaMRmk75hd8Jb1dtE2K/4xHuybiJ5LTV0ksNnoo++tPSepXRkT2GEjejSKllYuyNXoOfxdRS5hEX06l96gL1K8K93DDhPAlK/F8sZttzVZNVJvPcCS7YwPuwcgefRsbNxjdl975wIN7sKRWnYqp4qoGNd2HJQ/3aotiFlNfhU/S4XK9P1Gs9yM9c+nsRD32wQqa2U3A9YRBTDPQDdcTX/3dr9RXyM7SGz6GsojIiBOl75eLA2fer6aQ21UPQS6mDQAFYiEQ/pX0pvIysT0krMtSiHQB4ANJVdm/c+lqElm8FKhRCUCQX5fOX1gE84iuUxLx2FnKtlDQNPGRD/Dh0VS0DH9Si/5OhiJGtDMkheg/tEaVJq8qvtTcmjrT76kBkMr2NGxICMO41Kr+OSXrfiubu3HOcIyuMqWSWkeTjkjZ1VQiomdh9eW5EGdE=
+    internal_properties : HgAAAB4AAABAu9wf7yUmEV/mJk3k5srOzKtKuvgdcAXsma8MH4eZtbNhqp4pVc95X6fFMzI/Y8HOiQgZlOQl4quNDvqeymOy6mWR8V2GklezWCnlkowt7sN/tWSi9gGHM2lN2qKFW2ItzFBhvKlq3E88ZrsDVZOFpjOM2T7ocEvw0hevhjb9Ruf1l36QIB7MeYUn4pqYSjFtNzGZc62qUrgFhAdBYwTYTJ9vtKvd6G8MyntxH70Q0ubW4wBNiWirhGzbHbz/l78DDT06+3xeJ5mEunp6zKEDPTpIAd8zYZxujZuYg3F76JkQMAwnzbXhtMQEdwGTivyadchACDrtDud0UgJ8nmdtImzK+Iz/3evvTvlk+hNsLBQufnqVnCyFlDy7JHA8DRVbV5yqJztZQOlFhLHZoqeViR0xk9JXTU8+xgyDwmh8ei19CyLyAL4F+s+eeaqPWjZeTOMsk7scOfTmYdSTwgZFhThYaQgNCf7UaaE=
     properties :
      x : 519
      y : 418
@@ -1491,7 +1363,7 @@ window :
   -
     name : LIB_Label
     identifier : 0x2aacd69b024d39c7
-    internal_properties : HgAAAB4AAAAVUDytmUvM0IGfWTr2h9xXxfs2yOKUjDYkTGdYDqr+OaJiCJCKtxnZ4sOGzPGhOxHiAAjM8iRKTl7ODNYmbJkLVB4sikHfyDLRpcD8fpev57vbEjcTgWEaJnODTUw/oBp8ziuHJ+oQYse+l5XCZaFqBo3nTwRIunWs1nG+5wchFo4Nteb6VzHpEYbQDd9Pon1xV21iUnl8nCJOdB3Cpb7kPwOApJd8q5pWxjmlj21SbGRDtqqKP4RyYm/U/cbv5lk53IhoTHHT30IiDO06EJeZEvwifSSawPdTncobdjc286ezPWYJ+d/NFqXC+BCREDPdOEQ942tjQYDM/3915uISNp41XXM6aqtZZAjXu3fylSnLhY/LKUpq6uxgDQ4/ZT/zelRgzks1f7MTlOZjbsz9m4ZwTL49CX2DxXhAEiZiEYiE+IIeqjjleDuzYonBwIXvfecGhFZqsxrJYJwqg1CJBwY9eO3zoquo4KXFZ5UJvFIHhJsuGZMrMNolZIw=
+    internal_properties : HgAAAB4AAADfbP0/OM2Bu5+cDP6yZ0T1ZSQkeJ8v4rVfF+j/DJDP5e/pvMXG1PzvWBOyo/ij7Majt4wUSLkZ2khJDlurx9FZRGe20mEGOPNUaLf4UFeJHD8znn1flpkRwfLeX85E6z1UzcmO7ZXx+V2jttRxXzgPjkmJvx+6d4CbR6mcZqBitUWgRThddx3xEbgo7yv5bS8oHK2pVDGOyFVFAPLffQUMmfoJsI+88IoZpzmy25XKDcGkZJul4aaPbWLVm8L3TFGigSNOQFtE6XlWRxRuJjZ1LyWVmbBsxQkQ5blqyLsTk7iA4OzTzTgTFfknoYIpZ9mwd9Hb5VXcQ0dIhOSXlnfm+1dQa8H8c93SWn1IFQnfVZpAxIWHK+fs39xxFnSRxlkcdyvCJsEarTDFN3Xf6gcPYhkN8DK1SEFK/7H5qnjZ2e20dk5iYmMNEdFws8XJMbUYqvKWNOSJ4bufxx94bYFvuNuolo8/HX8tKgC8cfMiln+AUD7TvgkNjRycrzRj
     properties :
      x : 342
      y : 3
@@ -2086,7 +1958,38 @@ window :
       												Trace("[TEST DOWN][DB] Erreur HFSQL : " + HErrorInfo())
       												RENVOYER Faux
       											else
-      												fic_cleunik = SQL.IDAuto
+      												//fic_cleunik = SQL.IDAuto
+      
+      												// Relire le patient qui vient d'être inséré.
+      												// Les paramètres NOM, PRÉNOM et DATE DE NAISSANCE sont déjà renseignés.
+      												// L'ancien SQL.IDAuto n'est pas fiable après l'insertion.
+      												// On relit le patient avec ses informations d'identification.
+      
+      												// Réaffectation obligatoire des paramètres avant la seconde exécution
+      												REQ_checkIfPatientExists._nom		= Upper(jsResult.patient.lastName)
+      												REQ_checkIfPatientExists._prenom	= Upper(jsResult.patient.firstName)
+      												REQ_checkIfPatientExists._datnais	= StringDelete(jsResult.patient.birthDate, "-")
+      												
+      												IF HExecuteQuery(REQ_checkIfPatientExists, hQueryDefault) = False THEN
+      													Trace("[TEST DOWN][DB] ECHEC relecture patient : " + HErrorInfo())
+      													RENVOYER Faux
+      												END
+      
+      												HReadFirst(REQ_checkIfPatientExists)
+      
+      												IF HOut(REQ_checkIfPatientExists) THEN
+      													Trace("[TEST DOWN][DB] Patient introuvable après insertion")
+      													RENVOYER Faux
+      												END
+      
+      												fic_cleunik = REQ_checkIfPatientExists.FICLEUNIK
+      
+      												Trace("[TEST DOWN][DB] Patient relu, FICLEUNIK=" + fic_cleunik)
+      
+      												IF fic_cleunik <= 0 THEN
+      													Trace("[TEST DOWN][DB] FICLEUNIK invalide après relecture")
+      													RENVOYER Faux
+      												END
       												Trace("[TEST DOWN][DB] Patient inséré, FICLEUNIK=" + fic_cleunik)
       
       												// La carte d'assurance est enregistrée uniquement lorsqu'un numéro a été
