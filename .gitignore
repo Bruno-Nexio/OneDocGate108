@@ -10,6 +10,7 @@ Lastsave
 Sauvegarde
 .tmp
 *.cache
+*.ctx
 *.cpl
 *.env
 *.rep
